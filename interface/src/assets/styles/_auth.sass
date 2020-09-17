@@ -1,0 +1,99 @@
+// |------------------------------------------------------
+// |------------------------------------------------------
+// | Auth
+// |------------------------------------------------------
+// |------------------------------------------------------
+
+.auth
+	height: 100vh
+	height: calc(var(--vh, 1vh) * 100)
+	overflow: hidden
+
+	.columns
+		margin: 0
+		height: 100%
+
+	&__image
+		display: block
+		height: 100%
+		padding: 0
+		position: relative
+		background: $black
+		.image
+			opacity: 0.45
+			height: 100%
+		video
+			position: absolute
+			right: 0
+			bottom: 0
+			min-width: 100%
+			min-height: 100%
+			object-fit: cover
+			z-index: 1
+			background: $black
+
+		&::after
+			display: none
+			content: ''
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			z-index: 5
+			background: rgba($primary, 0.45)
+
+	&__forgot
+		position: absolute
+		top: 2px
+		right: 0
+		font-size: 14px
+
+	&__content
+		display: flex
+		justify-content: center
+		align-items: center
+		flex-direction: column
+		height: 100%
+
+		> span
+			display: block
+			width: 100%
+
+	&__form
+		display: block
+		max-width: 400px
+		margin: 0 auto
+
+		.icon
+			margin-top: 8px
+			opacity: 0.2
+			&.has-text-success,
+			&.has-text-danger
+				opacity: 1
+
+		.input
+			background: $white-ter
+			// border-color: $white-ter
+			box-shadow: none
+			height: 3em
+			font-size: 16px
+			font-weight: $weight-light
+			padding: 2em 1.5em
+
+		.help
+			display: none
+			position: absolute
+			color: $white
+			background: $danger
+			border-radius: 4px
+			right: 13px
+			bottom: -13px
+			&.is-danger,
+			&.is-success
+				padding: 5px 10px
+			&.is-danger
+				display: block
+				background: $danger
+			&.is-success
+				background: $success

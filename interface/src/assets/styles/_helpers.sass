@@ -1,0 +1,35 @@
+// |------------------------------------------------------
+// |------------------------------------------------------
+// | Helpers
+// |------------------------------------------------------
+// |------------------------------------------------------
+
+// Reset
+// *
+// 	margin: 0
+// 	padding: 0
+// 	box-sizing: border-box
+
+*:focus
+	outline: none
+
+html
+	background: $white-ter
+
+// Positions
+$positions: relative, absolute, fixed
+@each $position in $positions
+	.is-#{$position}
+		position: $position
+
+// Font Weight
+$weights: ('thin': $weight-thin, 'light': $weight-light, 'normal': $weight-normal, 'medium': $weight-medium, 'semibold': $weight-semibold, 'bold': $weight-bold, 'extrabold': $weight-extrabold)
+@each $name, $weight in $weights
+	.is-#{$name}
+		font-weight: $weight
+
+// Align
+$aligns: center, left, right, justify
+@each $align in $aligns
+	.text-#{$align}
+		text-align: $align

@@ -1,0 +1,49 @@
+// |------------------------------------------------------
+// |------------------------------------------------------
+// | Trnasitions
+// |------------------------------------------------------
+// |------------------------------------------------------
+
+// Slide with Fade
+.slide-fade-enter-active,
+.slide-fade-enter
+	form
+		opacity: 0
+		transform: translateX(100px)
+	video
+		opacity: 0
+
+.slide-fade-enter-to
+	transition: 0.5s $transition-base
+	form
+		transition: 0.5s $transition-base
+		opacity: 1
+		transform: translateX(0px)
+	video
+		transition: 0.5s $transition-base
+		opacity: 1
+
+.slide-fade-leave,
+.slide-fade-leave-active,
+.slide-fade-leave-to
+	transition: $transition-base
+	form
+		transition: $transition-base
+		opacity: 0
+		transform: translateX(-100px)
+
+// Errors
+.errors-enter-active,
+.errors-enter
+	transition: $transition-base
+	.error__wrapper
+		h1, p, a
+			transition: $transition-base
+			opacity: 0
+
+.errors-enter-to
+	transition: $transition-base
+	.error__wrapper
+		h1, p, a
+			transition: $transition-base
+			opacity: 1

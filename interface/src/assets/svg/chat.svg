@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+	<g id="chat" transform="translate(-0.263)">
+		<rect width="26" height="26" transform="translate(0.263)" fill="none" />
+		<path d="M5.186,15,3,22.105l7.105-2.186Z" transform="translate(0.307 1.397)" fill-rule="evenodd"
+			opacity="0.3" />
+		<path
+			d="M14.385,22.77A10.385,10.385,0,1,1,24.77,12.385,10.385,10.385,0,0,1,14.385,22.77ZM8.919,14.025a1.64,1.64,0,1,0-1.64-1.64A1.64,1.64,0,0,0,8.919,14.025Zm5.466,0a1.64,1.64,0,1,0-1.64-1.64A1.64,1.64,0,0,0,14.385,14.025Zm5.466,0a1.64,1.64,0,1,0-1.64-1.64A1.64,1.64,0,0,0,19.851,14.025Z"
+			transform="translate(0.4 0.186)" fill-rule="evenodd" />
+	</g>
+</svg>

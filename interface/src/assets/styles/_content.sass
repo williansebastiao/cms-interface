@@ -1,0 +1,133 @@
+// |------------------------------------------------------
+// |------------------------------------------------------
+// | Content
+// |------------------------------------------------------
+// |------------------------------------------------------
+
+.page
+	padding: $block-spacing
+	width: 100%
+	@include desktop
+		padding-left: $block-spacing * 2
+		width: calc(100% - #{$sidebar-width})
+
+	&__actions
+		display: flex
+		align-items: center
+		justify-content: flex-end
+		.button
+			.icon
+				position: relative
+				top: 2px
+			> span
+				position: relative
+				top: -1px
+		.is-success
+			min-width: 100px
+			margin: 2px $block-spacing 0 0
+		.is-primary
+			min-width: 145px
+			min-height: 45px
+
+.title
+	font-size: 2.2rem
+
+.block
+	display: flex
+	align-items: flex-start
+	position: relative
+	padding: $block-spacing / 1.5
+	background: $white
+	border-radius: 3px
+	box-shadow: 0 0 15px rgba($black, 0.05)
+	border-left: 5px solid $grey-lighter
+	transition: $transition-base
+	&:hover
+		margin-top: -3px
+		border-left-color: $primary
+
+	&__content
+		padding: 0 $block-spacing / 1.5
+		display: flex
+		flex-direction: column
+		line-height: 1.2
+		width: 65%
+
+	&__role
+		display: block
+		text-indent: -9999px
+		width: 8px
+		height: 8px
+		background: $grey-light
+		position: absolute
+		top: 0
+		right: 5px
+		border-radius: 100%
+		border: 1px solid $white
+		z-index: 5
+
+	&__avatar
+		display: flex
+		color: $white
+		align-items: center
+		justify-content: center
+		background: $grey-lighter
+		border-radius: 100%
+		font-size: 1.2rem
+		font-weight: $weight-semibold
+		.image
+			width: 100%
+
+	&__name
+		color: $grey
+		padding-top: 0.45rem
+		font-weight: $weight-semibold
+		.b-skeleton
+			margin-top: 0
+
+	&__email
+		color: $grey-light
+		text-transform: lowercase
+		font-weight: $weight-light
+		font-size: 0.8em
+
+	&__state
+		text-transform: uppercase
+		font-size: 14px
+		font-weight: $weight-semibold
+		color: $grey-lighter
+		user-select: none
+		letter-spacing: 0
+		padding: $block-spacing / 1.5 $block-spacing / 1.5 0 0
+
+	&__dropdown
+		position: absolute
+		top: 50%
+		right: 15px
+		margin: -13px 0 0 0
+
+		.dropdown-content
+			width: 100%
+			.svg
+				position: relative
+				top: -1px
+				margin-right: 5px
+				svg
+					height: auto
+					width: 13px
+					margin-right: 3px
+			.trash
+				top: -2px
+				svg
+					width: 16px
+					margin-right: 0
+
+		.dropdown-item
+			font-weight: $weight-medium
+
+		.dots
+			opacity: 0.3
+			border: none
+			cursor: pointer
+			&:hover
+				opacity: 0.5

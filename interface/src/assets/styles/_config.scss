@@ -1,0 +1,96 @@
+// Import Bulma's core
+@import '~bulma/sass/utilities/_all';
+
+// Fonts
+$family-primary: 'Montserrat', 'Arial';
+$weight-thin: 200;
+// $weight-light:       300;
+// $weight-regular:     400;
+// $weight-medium:      500;
+// $weight-semibold:    600;
+// $weight-bold:        700;
+$weight-extrabold: 800;
+
+// Colors
+$primary: rgb(30, 30, 65);
+$secondary: rgb(238, 176, 49);
+$secondary-invert: findColorInvert($secondary);
+$titles: hsl(224, 19, 56, 100%);
+$label-color: $grey-light;
+$body-color: $grey-light;
+$title-color: $primary;
+
+// Links
+$link: $primary;
+$link-hover: darken($primary, 25%);
+$link-focus: $link;
+$link-focus-border: $link;
+
+// Forms
+$label-weight: $weight-semibold;
+$label-color: $grey-light;
+
+// Elements
+$sidebar-width: 90px;
+$tooltip-arrow-margin: 10px;
+
+// Transition
+$transition-base: all 0.2s ease-out;
+
+// Map
+$colors: (
+	'white': (
+		$white,
+		$black
+	),
+	'black': (
+		$black,
+		$white
+	),
+	'gray': (
+		$grey-light,
+		$white
+	),
+	'light': (
+		$light,
+		$light-invert
+	),
+	'dark': (
+		$dark,
+		$dark-invert
+	),
+	'primary': (
+		$primary,
+		$primary-invert
+	),
+	'secondary': (
+		$secondary,
+		$secondary-invert
+	),
+	'info': (
+		$info,
+		$info-invert
+	),
+	'success': (
+		$success,
+		$success-invert
+	),
+	'warning': (
+		$warning,
+		$warning-invert
+	),
+	'danger': (
+		$danger,
+		$danger-invert
+	)
+);
+
+// Import Bulma and Buefy
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+
+// Import MD Icons
+@import '~@mdi/font/css/materialdesignicons.css';
+
+// Import MD Icons
+@import '~vue-tour/dist/vue-tour.css';

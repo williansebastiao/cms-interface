@@ -1,0 +1,8 @@
+<svg id="download" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+	<path d="M0,0H24V24H0Z" fill="none" fill-rule="evenodd" />
+	<rect width="2" height="14" rx="1" transform="translate(11 3)" opacity="0.3" />
+	<path
+		d="M6.707-16.707a1,1,0,0,0-1.414,0,1,1,0,0,0,0,1.414l6,6a1,1,0,0,0,1.383.03l6-5.5a1,1,0,0,0,.062-1.413,1,1,0,0,0-1.413-.062L12.03-11.384Z"
+		transform="translate(0 26)" />
+	<rect width="18" height="2" rx="1" transform="translate(3 19)" opacity="0.3" />
+</svg>

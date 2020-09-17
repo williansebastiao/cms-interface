@@ -1,0 +1,37 @@
+// |------------------------------------------------------
+// |------------------------------------------------------
+// | Sidebar
+// |------------------------------------------------------
+// |------------------------------------------------------
+
+.sidebar
+	display: flex
+	flex-direction: column
+	justify-content: space-around
+	align-items: center
+	width: $sidebar-width
+	height: 100vh
+	position: sticky
+	top: 0
+	z-index: 10
+	background: white
+	box-shadow: 0 0 10px $grey-lightest
+	transition: $transition-base
+
+	&__top
+		position: fixed
+		top: $block-spacing / 2
+
+	&__bottom
+		position: fixed
+		bottom: $block-spacing / 2
+		overflow: hidden
+		// padding: $block-spacing / 3
+		img
+			display: block
+			margin: auto
+			width: 35px
+			border-radius: 100%
+			// border: 2px solid $white
+			transition: $transition-base
+			// box-shadow: 0 0 3px $grey-light

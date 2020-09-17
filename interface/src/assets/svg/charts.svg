@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g id="chat">
+    <rect width="28" height="28" fill="none"/>
+    <rect width="4" height="19" rx="1.5" transform="translate(15 5)" opacity="0.3"/>
+    <rect width="4" height="14" rx="1.5" transform="translate(9 10)"/>
+    <rect width="4" height="11" rx="1.5" transform="translate(21 13)"/>
+    <rect width="4" height="9" rx="1.5" transform="translate(3 15)"/>
+  </g>
+</svg>

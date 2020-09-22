@@ -3,11 +3,11 @@
 		<div class="columns is-mobile">
 			<Title :title="route" />
 			<div class="column page__actions">
-				<b-button type="is-success" size="is-small" rounded outlined @click="generate($event)">
+				<b-button type="is-secondary export" size="is-small" rounded outlined @click="generate($event)">
 					<span>Export</span>
 					<svg-icon class="icon is-small" icon="export"></svg-icon>
 				</b-button>
-				<b-button type="is-primary" rounded @click="create($event)">
+				<b-button type="is-primary create" rounded @click="create($event)">
 					<svg-icon icon="add-user" class="icon is-small"></svg-icon>
 					<span>Create</span>
 				</b-button>
@@ -53,17 +53,7 @@
 		<section v-else>
 			<div v-if="loading" class="columns is-multiline">
 				<div v-for="n in size" :key="n" class="column is-12-mobile is-6-tablet is-4-desktop">
-					<article class="block">
-						<div class="block__avatar image is-48x48">
-							<b-skeleton circle width="50px" height="50px"></b-skeleton>
-						</div>
-						<div class="block__content">
-							<span class="block__name">
-								<b-skeleton height="15"></b-skeleton>
-								<b-skeleton height="10"></b-skeleton>
-							</span>
-						</div>
-					</article>
+					<Placeholder />
 				</div>
 			</div>
 			<div class="columns is-multiline">
@@ -101,12 +91,14 @@ import axios from 'axios'
 import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
-import Modal from '@/components/modals/User'
+import Placeholder from '@/components/placeholders/Users.vue'
+// import Modal from '@/components/modals/User'
 
 export default {
 	components: {
 		Layout,
 		Title,
+		Placeholder,
 		'svg-icon': Icon
 	},
 	data() {
@@ -127,7 +119,7 @@ export default {
 
 		axios
 			.get(api)
-			.then((response) => {
+			.then(response => {
 				this.$nextTick(() => {
 					this.current = page
 				})
@@ -137,7 +129,7 @@ export default {
 					this.loading = false
 				}, 1000)
 			})
-			.catch((error) => {
+			.catch(error => {
 				console.log('error', error)
 				this.errored = true
 			}) // .finally(() => (console.log(this.loading)))
@@ -185,7 +177,7 @@ export default {
 			console.log(e)
 			this.$buefy.modal.open({
 				parent: this,
-				component: Modal,
+				// component: Modal,
 				width: 640,
 				scroll: 'keep',
 				customClass: 'modal-delete',
@@ -195,10 +187,13 @@ export default {
 		remove(user) {
 			console.log(user)
 			this.$buefy.dialog.alert({
-				type: 'is-outlined is-rounded is-danger',
+				size: 'is-delete',
+				type: 'is-outlined is-primary',
 				title: 'Atenção',
-				animation: 'teste',
-				message: 'Deseja realmente excluir esse registro?  <small>Esse processo não poderá ser desfeito.</small>',
+				message: '<span>Deseja realmente <br><strong>excluir</strong> esse registro?</span> <small>Esse processo não poderá ser desfeito.</small>',
+				canCancel: true,
+				cancelText: 'Não',
+				confirmText: 'Sim',
 				onConfirm: () =>
 					this.$buefy.toast.open({
 						type: 'is-success',

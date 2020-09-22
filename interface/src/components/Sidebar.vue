@@ -1,8 +1,8 @@
 <template>
 	<aside class="sidebar">
-		<span class="sidebar__top">
+		<router-link class="sidebar__top" tag="a" :to="{ name: 'Dashboard' }">
 			<Logo width="70px" />
-		</span>
+		</router-link>
 		<nav class="navigation">
 			<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right">
 				<router-link class="navigation__link" tag="a" :to="r">

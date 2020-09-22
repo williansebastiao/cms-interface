@@ -10,14 +10,14 @@ export default [
 		path: '/users',
 		name: 'Users',
 		icon: 'users',
-		component: () => import('@/pages/Users'),
-		children: [
-			{
-				path: 'create',
-				component: () => import('@/components/modals/User'),
-				props: true
-			}
-		]
+		component: () => import('@/pages/Users')
+		// children: [
+		// 	{
+		// 		path: 'create',
+		// 		component: () => import('@/components/modals/User'),
+		// 		props: true
+		// 	}
+		// ]
 	},
 	{
 		path: '/chat',

@@ -30,26 +30,24 @@ yarn run lint   // to lint and fixes files
 
 > A list with all installed plugins, check it before add new plugins.
 
-- [Axios](https://github.com/axios/axios)
-- [Buefy](https://buefy.org/documentation)
-- [Content Placeholder](https://github.com/michalsnik/vue-content-placeholders)
-- [Material Design Icons](https://materialdesignicons.com/)
-- [Password Meter](https://miladd3.github.io/vue-simple-password-meter/)
-- [Tour](https://github.com/pulsardev/vue-tour)
-- [Vee Validade](https://logaretm.github.io/vee-validate/)
-
+-   [Axios](https://github.com/axios/axios)
+-   [Buefy](https://buefy.org/documentation)
+-   [Material Design Icons](https://materialdesignicons.com/)
+-   [Password Meter](https://miladd3.github.io/vue-simple-password-meter/)
+-   [Tour](https://github.com/pulsardev/vue-tour)
+-   [Vee Validade](https://logaretm.github.io/vee-validate/)
 
 ## Editor
 
-> Required extensions and settings for your Editor, we always recommend [Visual Studio Code](https://code.visualstudio.com/).
+> Required extensions and settings for your editor, we always recommend [Visual Studio Code](https://code.visualstudio.com/).
 
 ### Extensions
 
 > Install extensions below.
 
-- [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
+-   [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+-   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+-   [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
 
 ### Settings
 
@@ -78,4 +76,4 @@ yarn run lint   // to lint and fixes files
 
 > Vue.js documentation help.
 
-- [Transitions](https://vuejs.org/v2/guide/transitions.html#Transitions-on-Initial-Render)
+-   [Transitions](https://vuejs.org/v2/guide/transitions.html#Transitions-on-Initial-Render)

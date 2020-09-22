@@ -3,18 +3,18 @@ import { required, confirmed, length, email, digits, min, max } from 'vee-valida
 import { extend } from 'vee-validate'
 
 extend('required', {
-  ...required,
-  message: 'This field is required'
+	...required,
+	message: 'This field is required'
 })
 
 extend('email', {
-  ...email,
-  message: 'This field must be a valid email'
+	...email,
+	message: 'This field must be a valid email'
 })
 
 extend('confirmed', {
-  ...confirmed,
-  message: 'This field confirmation does not match'
+	...confirmed,
+	message: 'This field confirmation does not match'
 })
 
 // extend('name', {
@@ -23,21 +23,21 @@ extend('confirmed', {
 // })
 
 extend('length', {
-  ...length,
-  message: 'This field must have 2 options'
+	...length,
+	message: 'This field must have 2 options'
 })
 
 extend('min', {
-  ...min,
-  message: '{_field_} must have at a least of {length} characters'
+	...min,
+	message: '{_field_} must have at a least of {length} characters'
 })
 
 extend('max', {
-  ...max,
-  message: 'bbbb'
+	...max,
+	message: 'bbbb'
 })
 
 extend('digits', {
-  ...digits,
-  message: 'sss'
+	...digits,
+	message: 'sss'
 })

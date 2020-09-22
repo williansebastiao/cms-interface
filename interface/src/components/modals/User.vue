@@ -7,9 +7,22 @@
 					<strong>Usuário</strong>
 				</h4>
 			</header>
+			<div class="dsds">
+				<InputWithValidation rules="required|min:5" class="mb-5" type="text" label="Name" size="is-medium" v-model="name" />
+
+				<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="email" />
+
+				<SelectWithValidation>
+					<option value="1">sdsdsd</option>
+				</SelectWithValidation>
+
+				<InputWithValidation rules="required|min:6" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="password" />
+
+				<password-meter class="mb-5" :password="password" @score="Score" />
+			</div>
 			<footer class="modal-card-foot">
 				<button class="button" type="button" @click="$emit('close')">Close</button>
-				<button class="button is-primary">Create</button>
+				<b-button native-type="submit" class="button is-button is-primary" @click="handleSubmit(Create($event))">Create</b-button>
 			</footer>
 		</div>
 	</form>
@@ -19,21 +32,25 @@
 import InputWithValidation from '@/components/inputs/InputWithValidation'
 import SelectWithValidation from '@/components/inputs/SelectWithValidation'
 import { ValidationObserver } from 'vee-validate'
+import PasswordMeter from 'vue-simple-password-meter'
 
 export default {
 	components: {
 		InputWithValidation,
 		SelectWithValidation,
-		ValidationObserver
+		ValidationObserver,
+		PasswordMeter
 	},
 	data() {
 		return {
+			name: '',
 			email: '',
-			password: ''
+			password: '',
+			score: null
 		}
 	},
 	methods: {
-		SignIn(e) {
+		Create(e) {
 			e.preventDefault()
 			console.log('Form submitted yay!')
 		}

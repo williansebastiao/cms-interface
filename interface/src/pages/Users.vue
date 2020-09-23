@@ -92,7 +92,7 @@ import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/Users.vue'
-// import Modal from '@/components/modals/User'
+import Modal from '@/components/modals/User'
 
 export default {
 	components: {
@@ -177,10 +177,10 @@ export default {
 			console.log(e)
 			this.$buefy.modal.open({
 				parent: this,
-				// component: Modal,
-				width: 640,
+				component: Modal,
+				width: 450,
 				scroll: 'keep',
-				customClass: 'modal-delete',
+				customClass: 'is-user',
 				trapFocus: true
 			})
 		},
@@ -190,8 +190,9 @@ export default {
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
 				title: 'Atenção',
-				message: '<span>Deseja realmente <br><strong>excluir</strong> esse registro?</span> <small>Esse processo não poderá ser desfeito.</small>',
+				message: '<span>Deseja realmente <br><strong>excluir</strong> esse registro?</span> <small>Essa ação não poderá ser revertida.</small>',
 				canCancel: true,
+				focusOn: 'cancel',
 				cancelText: 'Não',
 				confirmText: 'Sim',
 				onConfirm: () =>

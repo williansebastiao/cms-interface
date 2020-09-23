@@ -1,0 +1,44 @@
+// |------------------------------------------------------
+// |------------------------------------------------------
+// | Forms
+// |------------------------------------------------------
+// |------------------------------------------------------
+
+.title
+	font-size: 2.2rem
+	letter-spacing: -0.04em
+
+.label
+	color: $primary
+
+.field
+	.input
+		box-shadow: none
+		font-size: 16px
+		font-weight: $weight-light
+		padding: 1.5em
+	.select
+		display: block
+		&:not(.is-multiple)
+			height: 3em
+		&:after
+			margin-top: -2px
+		select
+			width: 100%
+			height: 100%
+	.help
+		display: none
+		position: absolute
+		color: $white
+		background: $danger
+		border-radius: 4px
+		right: 15px
+		bottom: -15px
+		&.is-danger,
+		&.is-success
+			padding: 5px 10px
+		&.is-danger
+			display: block
+			background: $danger
+		&.is-success
+			background: $success

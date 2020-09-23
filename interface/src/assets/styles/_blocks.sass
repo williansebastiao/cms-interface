@@ -1,36 +1,8 @@
 // |------------------------------------------------------
 // |------------------------------------------------------
-// | Content
+// | Blocks
 // |------------------------------------------------------
 // |------------------------------------------------------
-
-.page
-	padding: $block-spacing
-	width: 100%
-	@include desktop
-		padding-left: $block-spacing * 2
-		width: calc(100% - #{$sidebar-width})
-
-	&__actions
-		display: flex
-		align-items: center
-		justify-content: flex-end
-		.button
-			.icon
-				position: relative
-				top: 2px
-			> span
-				position: relative
-				top: -1px
-			&.export
-				min-width: 100px
-				margin: 2px $block-spacing 0 0
-			&.create
-				min-width: 145px
-				min-height: 45px
-
-.title
-	font-size: 2.2rem
 
 .block
 	display: flex
@@ -43,7 +15,7 @@
 	border-left: 5px solid $grey-lighter
 	transition: $transition-base
 	&:hover
-		margin-top: -3px
+		// margin-top: -3px
 		border-left-color: $primary
 
 	&__content
@@ -131,37 +103,3 @@
 			cursor: pointer
 			&:hover
 				opacity: 0.5
-
-.modal
-	&.is-delete
-		.modal-card
-			min-width: 460px
-		.modal-card-head
-			background: $danger
-			text-align: center
-			padding: 1.3em
-		.modal-card-title
-			color: white
-		.media-content
-			padding: 1em
-			text-align: center
-			span
-				font-size: 1.4rem
-				font-weight: $weight-medium
-				color: $grey-dark
-				line-height: 1
-				strong
-					color: inherit
-			small
-				display: block
-				margin-top: 10px
-		.modal-card-foot
-			justify-content: center
-			.button
-				width: 150px
-				height: 45px
-				margin: 0 15px
-				border-radius: 2em
-			.button:not(.is-primary)
-				border-color: $danger
-				color: $danger

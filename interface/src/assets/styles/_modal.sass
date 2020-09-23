@@ -5,4 +5,59 @@
 // |------------------------------------------------------
 
 .modal
-	display: block
+	.modal-card-head
+		padding: 30px 20px
+	.modal-card-title
+		color: $primary
+	.modal-card
+		max-width: 100%
+	.modal-card-foot
+		justify-content: space-between
+		.button
+			padding: 20px 45px
+
+	&.is-user
+
+	&.is-delete
+		.modal-card
+			min-width: 460px
+
+		.modal-card-head
+			background: $danger
+			text-align: center
+			padding: 1.3em
+
+		.modal-card-title
+			color: white
+
+		.modal-card-foot
+			justify-content: center
+			.button
+				width: 150px
+				height: 45px
+				margin: 0 15px
+				border-radius: 2em
+				&:focus
+					outline: none
+					box-shadow: none
+				&:not(.is-primary)
+					border-color: $danger
+					color: $danger
+					background: transparent
+					&:hover
+						background: $danger
+						color: $white
+
+		.media-content
+			padding: 1em
+			text-align: center
+			span
+				font-size: 1.4rem
+				font-weight: $weight-medium
+				color: $grey-dark
+				line-height: 1
+				strong
+					color: inherit
+			small
+				display: block
+				margin-top: 10px

@@ -48,8 +48,7 @@ export default {
 		return {
 			name: '',
 			email: '',
-			password: '',
-			score: null
+			password: ''
 		}
 	},
 	methods: {

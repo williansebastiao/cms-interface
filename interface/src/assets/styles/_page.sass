@@ -1,0 +1,29 @@
+// |------------------------------------------------------
+// |------------------------------------------------------
+// | Page
+// |------------------------------------------------------
+// |------------------------------------------------------
+
+.page
+	padding: $block-spacing
+	width: 100%
+	@include desktop
+		padding-left: $block-spacing * 2
+		width: calc(100% - #{$sidebar-width})
+
+	&__actions
+		display: flex
+		align-items: center
+		justify-content: flex-end
+		.button
+			.icon
+				position: relative
+				top: 2px
+			> span
+				position: relative
+				top: -1px
+			&.export
+				min-width: 100px
+				margin: 2px $block-spacing 0 0
+			&.create
+				padding: 20px 30px

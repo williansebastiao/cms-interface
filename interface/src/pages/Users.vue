@@ -7,7 +7,7 @@
 					<span>Export</span>
 					<svg-icon class="icon is-small" icon="export"></svg-icon>
 				</b-button>
-				<b-button type="is-primary create" rounded @click="create($event)">
+				<b-button type="is-primary create" rounded @click="user($event)">
 					<svg-icon icon="add-user" class="icon is-small"></svg-icon>
 					<span>Create</span>
 				</b-button>
@@ -67,10 +67,10 @@
 							<h3 class="block__name">{{ u.name }}</h3>
 							<p class="block__email">{{ u.email }}</p>
 						</div>
-						<span class="block__state">Ativo</span>
+						<span class="block__state">Active</span>
 						<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left">
 							<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
-							<b-dropdown-item class="has-text-grey-light">
+							<b-dropdown-item class="has-text-grey-light" @click="user(u.id)">
 								<svg-icon icon="edit"></svg-icon>
 								<span>Edit</span>
 							</b-dropdown-item>
@@ -167,20 +167,19 @@ export default {
 		generate() {
 			this.$buefy.toast.open({
 				type: 'is-success',
-				message: 'Usuários exportados com sucesso',
+				message: 'The file was generated successfully',
 				position: 'is-bottom',
 				closable: false,
 				duration: 3000
 			})
 		},
-		create(e) {
-			console.log(e)
+		user(user) {
+			console.log(user)
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
-				width: 450,
 				scroll: 'keep',
-				customClass: 'is-user',
+				customClass: 'is-user is-sm',
 				trapFocus: true
 			})
 		},
@@ -189,16 +188,16 @@ export default {
 			this.$buefy.dialog.alert({
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
-				title: 'Atenção',
-				message: '<span>Deseja realmente <br><strong>excluir</strong> esse registro?</span> <small>Essa ação não poderá ser revertida.</small>',
+				title: 'Attention',
+				message: "<span>Do you really want <br>to <strong>delete</strong> this entry?</span> <small>This action can't be reversed.</small>",
 				canCancel: true,
 				focusOn: 'cancel',
-				cancelText: 'Não',
-				confirmText: 'Sim',
+				cancelText: 'No',
+				confirmText: 'Yes',
 				onConfirm: () =>
 					this.$buefy.toast.open({
 						type: 'is-success',
-						message: 'Usuário removido com sucesso',
+						message: 'This user was removed successfully',
 						position: 'is-bottom',
 						closable: true,
 						duration: 5000

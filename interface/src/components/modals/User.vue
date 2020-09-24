@@ -2,8 +2,8 @@
 	<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
 		<header class="modal-card-head">
 			<h4 class="modal-card-title">
-				Novo
-				<strong>Usuário</strong>
+				New
+				<strong>User</strong>
 			</h4>
 		</header>
 		<div class="modal-card-body">
@@ -12,12 +12,7 @@
 
 				<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="email" />
 
-				<b-select v-model="role" placeholder="Select a subject">
-					<option v-for="r in roles" :value="r.id" :key="r.id">{{ r.name }}</option>
-				</b-select>
-
-				<SelectWithValidation class="mb-5" rules="required" label="Perfil" size="is-medium" v-model="role">
-					<option selected disabled value="aa">sasasas</option>
+				<SelectWithValidation class="mb-5" rules="required" label="Role" v-model="role">
 					<option v-for="r in roles" :value="r.id" :key="r.id">{{ r.name }}</option>
 				</SelectWithValidation>
 
@@ -26,8 +21,8 @@
 			</form>
 		</div>
 		<footer class="modal-card-foot">
-			<b-button class="is-rounded is-outlined is-danger" @click="$emit('close')">Fechar</b-button>
-			<b-button native-type="submit" class="is-rounded is-primary" @click="handleSubmit(Create($event))">Salvar</b-button>
+			<b-button class="is-rounded is-outlined is-danger" @click="$emit('close')">Close</b-button>
+			<b-button native-type="submit" class="is-rounded is-primary" @click="handleSubmit(save($event))">Save</b-button>
 		</footer>
 	</ValidationObserver>
 </template>
@@ -50,26 +45,25 @@ export default {
 			name: '',
 			email: '',
 			password: '',
-			role: 'sss',
+			role: 1,
 			roles: [
 				{
 					id: 1,
-					name: 'Usuário'
+					name: 'User'
 				},
 				{
 					id: 2,
-					name: 'Moderador'
+					name: 'Moderator'
 				},
 				{
 					id: 3,
-					name: 'Administrador'
+					name: 'Administrator'
 				}
 			]
 		}
 	},
 	methods: {
-		Create(e) {
-			e.preventDefault()
+		save() {
 			console.log('Form submitted yay!')
 		}
 	}

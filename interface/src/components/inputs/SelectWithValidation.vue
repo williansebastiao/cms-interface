@@ -44,6 +44,7 @@ export default {
 	created() {
 		if (this.value) {
 			this.innerValue = this.value
+			console.log(this.innerValue0)
 		}
 	}
 }

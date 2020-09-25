@@ -8,7 +8,7 @@ function recursivelyRemoveFill(el) {
 		return
 	}
 	el.removeAttribute('fill')
-	;[].forEach.call(el.children, (child) => {
+	;[].forEach.call(el.children, child => {
 		recursivelyRemoveFill(child)
 	})
 }
@@ -35,7 +35,7 @@ export default {
 			const viewBox = svgElement
 				.getAttribute('viewBox')
 				.split(' ')
-				.map((n) => Number(n))
+				.map(n => Number(n))
 			const widthToHeight = (viewBox[2] / viewBox[3]).toFixed(2)
 			if (this.hasFill) {
 				// recursively remove all fill attribute of element and its nested children

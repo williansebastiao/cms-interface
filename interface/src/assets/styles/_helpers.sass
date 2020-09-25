@@ -16,6 +16,27 @@
 html
 	background: $white-ter
 
+html,
+body,
+.scroll,
+.modal-card-body
+
+	&::-webkit-scrollbar-track
+		background: $white-bis
+		// background: linear-gradient(to right, var(--scroll-track-color) 0%, var(--scroll-track-color) 30%, var(--scroll-color) 60%, var(--body-bg-color) 61%, var(--body-bg-color) 100%)
+
+	&::-webkit-scrollbar
+		width: 7px
+
+	&::-webkit-scrollbar-thumb
+		background-color: $grey-lighter
+		// border: 1px solid white
+		// border-radius: 10px
+
+::selection
+	background-color: $primary
+	color: $white
+
 // Positions
 $positions: relative, absolute, fixed
 @each $position in $positions

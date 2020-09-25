@@ -3,7 +3,7 @@
 		<section class="columns is-mobile">
 			<Title :title="route" />
 			<div class="column page__actions">
-				<b-button type="is-secondary export" size="is-small" rounded outlined @click="generate($event)">
+				<b-button type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="generate($event)">
 					<span>Export</span>
 					<svg-icon class="icon is-small" icon="export"></svg-icon>
 				</b-button>
@@ -14,69 +14,61 @@
 			</div>
 		</section>
 		<section class="columns">
-			<div class="column">
-				<div class="filter is-flex">
-					<b-field label="Order" v-model="order" :label-position="label">
-						<b-select size="is-small" placeholder="A-Z">
-							<option selected value="1">A-Z</option>
-							<option value="2">Z-A</option>
-							<option value="3">E-mail</option>
-						</b-select>
-					</b-field>
-					<b-field label="Role" v-model="role" :label-position="label">
-						<b-select size="is-small" placeholder="All Roles">
-							<option value="2">User</option>
-							<option value="3">Moderator</option>
-							<option value="4">Administrator</option>
-						</b-select>
-					</b-field>
-					<b-field label="Status" v-model="status" :label-position="label">
-						<b-select size="is-small" placeholder="Active">
-							<option selected value="1">Active</option>
-							<option value="2">Inactive</option>
-						</b-select>
-					</b-field>
-					<b-field>
-						<b-input size="is-small"></b-input>
-					</b-field>
-				</div>
+			<div class="column filter">
+				<b-field label="Order" v-model="order" :label-position="label">
+					<b-select placeholder="Name">
+						<option selected value="1">Name</option>
+						<option value="2">E-mail</option>
+						<option value="3">Role</option>
+						<option value="4">Status</option>
+					</b-select>
+				</b-field>
+				<b-field label="Role" v-model="role" :label-position="label">
+					<b-select placeholder="All Roles">
+						<option value="1">User</option>
+						<option value="2">Moderator</option>
+						<option value="3">Administrator</option>
+					</b-select>
+				</b-field>
+				<b-field label="Status" v-model="status" :label-position="label">
+					<b-select placeholder="Active">
+						<option selected value="1">Active</option>
+						<option value="2">Inactive</option>
+					</b-select>
+				</b-field>
+				<b-field>
+					<b-input placeholder="Search..." type="search" icon="magnify"></b-input>
+				</b-field>
 			</div>
 			<div v-if="users.length > 0" class="column is-flex text-right">
-				<p>Showing {{ size * page + 1 }} to {{ size * page + size }} of {{ users.length }} entries</p>
-				<!-- <b-button type="is-outline-primary" v-on:click="previous()" :disabled="page == 0">&laquo;</b-button> -->
-				<!-- <b-button type="is-outline-primary" v-on:click="next()" :disabled="page >= pageCount - 1">&raquo;</b-button> -->
-
 				<b-pagination v-model="page" :total="total" :simple="true" :per-page="pagination">
-					<b-pagination-button slot-scope="props" :page="props.page" :id="`page${props.page.number}`" tag="router-link" :to="`/users#${props.page.number}`"></b-pagination-button>
+					<!-- <b-pagination-button slot-scope="props" :page="props.page" :id="`page${props.page.number}`" tag="router-link" :to="`/users#${props.page.number}`"></b-pagination-button> -->
 
 					<b-pagination-button slot="previous" slot-scope="props" :page="props.page" tag="router-link" :to="`/users#${props.page.number}`">Previous</b-pagination-button>
 
 					<b-pagination-button slot="next" slot-scope="props" :page="props.page" tag="router-link" :to="`/users#${props.page.number}`">Next</b-pagination-button>
 				</b-pagination>
 
-				<!--
 				<b-pagination
 					:total="total"
-					v-model="current"
-					:size="size"
 					:per-page="pagination"
-					order="is-right"
 					:simple="true"
 					:rounded="true"
+					v-model="page"
+					order="is-right"
 					icon-prev="chevron-left"
 					icon-next="chevron-right"
 					aria-next-label="Next"
 					aria-previous-label="Previous"
 					aria-page-label="Page"
-					aria-current-label="Current">
-				</b-pagination>
-				-->
+					aria-current-label="Current"
+				></b-pagination>
 			</div>
 		</section>
 		<p v-if="errored">Ocorreu um erro ao carregar os usuários.</p>
 		<section v-else>
 			<div v-if="loading" class="columns is-multiline">
-				<div v-for="n in size" :key="n" class="column is-12-mobile is-6-tablet is-4-desktop">
+				<div v-for="n in pagination" :key="n" class="column is-12-mobile is-6-tablet is-4-desktop">
 					<Placeholder />
 				</div>
 			</div>
@@ -116,7 +108,7 @@ import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/Users.vue'
-import Modal from '@/components/modals/User'
+import Modal from '@/components/modals/NewUser'
 
 export default {
 	components: {
@@ -127,18 +119,21 @@ export default {
 	},
 	data() {
 		return {
+			// Pagination
 			total: 0,
-			size: 15,
-			page: 0,
-			current: 0,
-			pagination: 12,
+			page: 1,
+			current: 1,
+			pagination: 15,
 			data: [],
 			loading: true,
 			errored: false,
-			order: 1,
+			// Filter
+			order: 3,
 			role: 1,
 			status: 1,
-			label: 'on-border'
+			label: 'on-border',
+			// Export
+			exporting: false
 		}
 	},
 	mounted() {
@@ -160,7 +155,8 @@ export default {
 			.catch(error => {
 				console.log('error', error)
 				this.errored = true
-			}) // .finally(() => (console.log(this.loading)))
+			})
+		// .finally(() => (console.log(this.loading)))
 	},
 	watch: {
 		$route: {
@@ -175,15 +171,15 @@ export default {
 		}
 	},
 	computed: {
-		pageCount() {
-			let l = this.total,
-				p = this.size
+		// pageCount() {
+		// 	let l = this.total,
+		// 		p = this.pagination
 
-			return Math.ceil(l / p)
-		},
+		// 	return Math.ceil(l / p)
+		// },
 		users() {
-			let start = this.page * this.size,
-				end = start + this.size
+			let start = this.page * this.pagination,
+				end = start + this.pagination
 
 			return this.data.slice(start, end)
 		},
@@ -193,13 +189,17 @@ export default {
 	},
 	methods: {
 		generate() {
-			this.$buefy.toast.open({
-				type: 'is-success',
-				message: 'The file was generated successfully',
-				position: 'is-bottom',
-				closable: false,
-				duration: 3000
-			})
+			this.exporting = true
+			setTimeout(() => {
+				this.exporting = false
+				this.$buefy.toast.open({
+					type: 'is-success',
+					message: 'The file was generated successfully',
+					position: 'is-bottom',
+					closable: false,
+					duration: 4000
+				})
+			}, 2000)
 		},
 		user(user) {
 			console.log(user)

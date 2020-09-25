@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<div class="columns is-mobile">
+		<section class="columns is-mobile">
 			<Title :title="route" />
 			<div class="column page__actions">
 				<b-button type="is-secondary export" size="is-small" rounded outlined @click="generate($event)">
@@ -12,10 +12,34 @@
 					<span>Create</span>
 				</b-button>
 			</div>
-		</div>
-		<div class="columns">
+		</section>
+		<section class="columns">
 			<div class="column">
-				<p>sdsdsdsdsd</p>
+				<div class="filter is-flex">
+					<b-field label="Order" v-model="order" :label-position="label">
+						<b-select size="is-small" placeholder="A-Z">
+							<option selected value="1">A-Z</option>
+							<option value="2">Z-A</option>
+							<option value="3">E-mail</option>
+						</b-select>
+					</b-field>
+					<b-field label="Role" v-model="role" :label-position="label">
+						<b-select size="is-small" placeholder="All Roles">
+							<option value="2">User</option>
+							<option value="3">Moderator</option>
+							<option value="4">Administrator</option>
+						</b-select>
+					</b-field>
+					<b-field label="Status" v-model="status" :label-position="label">
+						<b-select size="is-small" placeholder="Active">
+							<option selected value="1">Active</option>
+							<option value="2">Inactive</option>
+						</b-select>
+					</b-field>
+					<b-field>
+						<b-input size="is-small"></b-input>
+					</b-field>
+				</div>
 			</div>
 			<div v-if="users.length > 0" class="column is-flex text-right">
 				<p>Showing {{ size * page + 1 }} to {{ size * page + size }} of {{ users.length }} entries</p>
@@ -48,7 +72,7 @@
 				</b-pagination>
 				-->
 			</div>
-		</div>
+		</section>
 		<p v-if="errored">Ocorreu um erro ao carregar os usuários.</p>
 		<section v-else>
 			<div v-if="loading" class="columns is-multiline">
@@ -110,7 +134,11 @@ export default {
 			pagination: 12,
 			data: [],
 			loading: true,
-			errored: false
+			errored: false,
+			order: 1,
+			role: 1,
+			status: 1,
+			label: 'on-border'
 		}
 	},
 	mounted() {

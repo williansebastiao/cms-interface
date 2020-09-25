@@ -1,57 +1,63 @@
 # Interface
 
-> This project use [Buefy](https://buefy.org/documentation) components based on [Bulma](https://bulma.io/documentation/), see both documentations before create components or write new CSS files.
+> Esse projeto utiliza os componentes do [Buefy](https://buefy.org/documentation), framework para Vue.js baseado no [Bulma](https://bulma.io/documentation/), verifique a documentação de ambos antes de criar novos componentes ou escrever CSS.
 
-## Development
+## Desenvolvimento
 
-> We choose [yarn](https://yarnpkg.com/) as default package manager.
+> Utilize o [yarn](https://yarnpkg.com/) como package manager padrão.
 
 ```js
-yarn install    // to install project dependencies
+yarn install
+// to install project dependencies
 ```
 
 ```js
-yarn run serve  // to start development with compiles and hot-reloads
+yarn run serve
+// to start development with compiles and hot-reloads
 ```
 
 ```js
-yarn run build  // to compiles and minifies for production
+yarn run build
+// to compiles and minifies for production
 ```
 
 ```js
-yarn run test   // to run end-to-end tests
+yarn run test
+// to run end-to-end tests
 ```
 
 ```js
-yarn run lint   // to lint and fixes files
+yarn run lint
+// to lint and fixes files
 ```
 
 ## Plugins
 
-> A list with all installed plugins, check it before add new plugins.
+> Lista com todos os plugins e dependências externas instaladas no projeto.
+> Antes de instalar novas dependências, verifique se é necessário.
 
 -   [Axios](https://github.com/axios/axios)
 -   [Buefy](https://buefy.org/documentation)
--   [Material Design Icons](https://materialdesignicons.com/)
+-   [MD Icons](https://materialdesignicons.com/)
 -   [Password Meter](https://miladd3.github.io/vue-simple-password-meter/)
--   [Tour](https://github.com/pulsardev/vue-tour)
+-   [Vue Tour](https://github.com/pulsardev/vue-tour)
 -   [Vee Validade](https://logaretm.github.io/vee-validate/)
 
 ## Editor
 
-> Required extensions and settings for your editor, we always recommend [Visual Studio Code](https://code.visualstudio.com/).
+> Extensões e configurações necessárias para inserir em seu editor e manter a qualidade do código. Nós usamos e recomendamos sempre o [Visual Studio Code](https://code.visualstudio.com/).
 
-### Extensions
+### Extensões
 
-> Install extensions below.
+> Instale as extensões abaixo.
 
 -   [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 -   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 -   [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
 
-### Settings
+### Configurações
 
-> Edit your `settings.json` on `File > Preferences > Settings` or press `ctrl + ,` to open.
+> Edite o seu `settings.json` onem `File > Preferences > Settings` ou pressione `ctrl + ,` para abrir e atualize o arquivo com essas configurações.
 
 ```js
 // Javascript
@@ -74,6 +80,7 @@ yarn run lint   // to lint and fixes files
 
 ## Help
 
-> Vue.js documentation help.
+> Documentações do Vue.js e outros módulos úteis.
 
+-   [Vue.js](https://v3.vuejs.org/guide/introduction.html#what-is-vue-js)
 -   [Transitions](https://vuejs.org/v2/guide/transitions.html#Transitions-on-Initial-Render)

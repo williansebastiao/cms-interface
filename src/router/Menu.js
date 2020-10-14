@@ -1,15 +1,18 @@
+import auth from '@/middleware/auth'
+
 export default [
 	{
 		path: '/dashboard',
 		name: 'Dashboard',
 		icon: 'dashboard',
-		// beforeEnter: yourGuard,
+		beforeEnter: auth,
 		component: () => import('@/pages/Dashboard')
 	},
 	{
 		path: '/users',
 		name: 'Users',
 		icon: 'users',
+		//beforeEnter: guest,
 		component: () => import('@/pages/Users')
 		// children: [
 		// 	{
@@ -23,18 +26,21 @@ export default [
 		path: '/chat',
 		name: 'Chat',
 		icon: 'chat',
+		//beforeEnter: guest,
 		component: () => import('@/pages/Privacy')
 	},
 	{
 		path: '/charts',
 		name: 'Charts',
 		icon: 'charts',
+		//beforeEnter: guest,
 		component: () => import('@/pages/Terms')
 	},
 	{
 		path: '/settings',
 		name: 'Settings',
 		icon: 'settings',
+		//beforeEnter: guest,
 		component: () => import('@/pages/Contact')
 	}
 ]

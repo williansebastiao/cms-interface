@@ -14,7 +14,8 @@
 					</InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" @click="handleSubmit(reset($event))">Send</b-button>
+						<b-button v-show="!loading" native-type="submit" class="button is-button is-primary" @click="handleSubmit(reset($event))">Send</b-button>
+						<b-button v-show="loading" native-type="button" class="button is-button is-primary">Loading...</b-button>
 					</span>
 				</form>
 			</ValidationObserver>
@@ -39,6 +40,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: false,
 			auth: {
 				email: ''
 			}
@@ -48,6 +50,7 @@ export default {
 		async reset(e) {
 			e.preventDefault()
 			try {
+				this.loading = true
 				const response = await Api.post('administrator/email', this.auth)
 				const {status} = response
 				if(status === 200) {
@@ -60,6 +63,8 @@ export default {
 					const {message} = e.data
 					Toast.open({message, type: 'is-danger', position: 'is-bottom-right'})
 				}
+			} finally {
+				this.loading = true
 			}
 		}
 	}

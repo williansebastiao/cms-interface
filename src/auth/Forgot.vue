@@ -51,7 +51,7 @@ export default {
 			e.preventDefault()
 			try {
 				this.loading = true
-				const response = await Api.post('administrator/email', this.auth)
+				const response = await Api.post('client/email', this.auth)
 				const {status} = response
 				if(status === 200) {
 					const {message} = response.data

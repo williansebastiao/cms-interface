@@ -57,7 +57,7 @@ export default {
 			e.preventDefault()
 			try {
 				this.loading = true
-				const response = await Api.post('administrator/authenticate', this.auth)
+				const response = await Api.post('client/authenticate', this.auth)
 				const {status} = response
 				if(status === 200) {
 					const {token} = response.data

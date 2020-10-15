@@ -40,7 +40,7 @@ export default {
 		Layout,
 		Logo,
 		InputWithValidation,
-		ValidationObserver,
+		ValidationObserver
 	},
 	data() {
 		return {
@@ -55,17 +55,21 @@ export default {
 			e.preventDefault()
 			try {
 				const response = await Api.post('administrator/authenticate', this.auth)
-				const {status} = response
-				if(status === 200) {
-					const {token} = response.data
-					localStorage.setItem('@stup:token', token);
+				const { status } = response
+				if (status === 200) {
+					const { token } = response.data
+					localStorage.setItem('@stup:token', token)
 					await this.$router.push('dashboard')
 				}
 			} catch (e) {
-				const {status} = e
-				if(status === 422) {
-					const {message} = e.data
-					Toast.open({message, type: 'is-danger', position: 'is-bottom-right'})
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom-right'
+					})
 				}
 			}
 		}

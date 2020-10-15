@@ -52,16 +52,24 @@ export default {
 			try {
 				this.loading = true
 				const response = await Api.post('administrator/email', this.auth)
-				const {status} = response
-				if(status === 200) {
-					const {message} = response.data
-					Toast.open({message, type: 'is-success', position: 'is-bottom-right'})
+				const { status } = response
+				if (status === 200) {
+					const { message } = response.data
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom-right'
+					})
 				}
 			} catch (e) {
-				const {status} = e
-				if(status === 422) {
-					const {message} = e.data
-					Toast.open({message, type: 'is-danger', position: 'is-bottom-right'})
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom-right'
+					})
 				}
 			} finally {
 				this.loading = true

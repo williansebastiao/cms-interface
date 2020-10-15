@@ -41,7 +41,7 @@ export default {
 		Layout,
 		Logo,
 		InputWithValidation,
-		ValidationObserver,
+		ValidationObserver
 	},
 	data() {
 		return {
@@ -65,10 +65,14 @@ export default {
 					await this.$router.push('dashboard')
 				}
 			} catch (e) {
-				const {status} = e
-				if(status === 422) {
-					const {message} = e.data
-					Toast.open({message, type: 'is-danger', position: 'is-bottom-right'})
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom-right'
+					})
 				}
 			} finally {
 				this.loading = false

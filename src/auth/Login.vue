@@ -19,7 +19,8 @@
 					</InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" @click="handleSubmit(SignIn($event))">Sign In</b-button>
+						<b-button v-show="!loading" native-type="submit" class="button is-button is-primary" @click="handleSubmit(SignIn($event))">Sign In</b-button>
+						<b-button v-show="loading" native-type="button" class="button is-button is-primary">Loading...</b-button>
 					</span>
 				</form>
 			</ValidationObserver>
@@ -44,6 +45,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: false,
 			auth: {
 				email: '',
 				password: ''
@@ -54,6 +56,7 @@ export default {
 		async SignIn(e) {
 			e.preventDefault()
 			try {
+				this.loading = true
 				const response = await Api.post('administrator/authenticate', this.auth)
 				const { status } = response
 				if (status === 200) {
@@ -71,6 +74,8 @@ export default {
 						position: 'is-bottom-right'
 					})
 				}
+			} finally {
+				this.loading = false
 			}
 		}
 	}

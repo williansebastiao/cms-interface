@@ -70,7 +70,7 @@ export default {
 					Toast.open({
 						message,
 						type: 'is-danger',
-						position: 'is-bottom-right'
+						position: 'is-bottom'
 					})
 				}
 			} finally {

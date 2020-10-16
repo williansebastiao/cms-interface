@@ -54,7 +54,6 @@ export default {
 	},
 	methods: {
 		async SignIn() {
-			alert('Form has been submitted!')
 			try {
 				this.loading = true
 				const response = await Api.post('client/authenticate', this.auth)

@@ -2,7 +2,7 @@
 	<transition name="slide-fade" mode="out-in">
 		<Layout>
 			<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-				<form class="auth__form" action="#">
+				<form class="auth__form" @submit.prevent="handleSubmit(SignIn)">
 					<Logo />
 					<div class="mb-5 text-center">
 						<h1 class="has-text-primary is-size-3 is-bold">Sign In</h1>
@@ -19,8 +19,7 @@
 					</InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button v-show="!loading" native-type="submit" class="button is-button is-primary" @click="handleSubmit(SignIn($event))">Sign In</b-button>
-						<b-button v-show="loading" native-type="button" class="button is-button is-primary">Loading...</b-button>
+						<b-button native-type="submit" class="button is-button is-primary" :disabled="invalid" :loading="loading">Sign In</b-button>
 					</span>
 				</form>
 			</ValidationObserver>
@@ -45,6 +44,7 @@ export default {
 	},
 	data() {
 		return {
+			invalid: false,
 			loading: false,
 			auth: {
 				email: '',
@@ -53,15 +53,15 @@ export default {
 		}
 	},
 	methods: {
-		async SignIn(e) {
-			e.preventDefault()
+		async SignIn() {
+			alert('Form has been submitted!')
 			try {
 				this.loading = true
 				const response = await Api.post('client/authenticate', this.auth)
-				const {status} = response
-				if(status === 200) {
-					const {token} = response.data
-					localStorage.setItem('@stup:token', token);
+				const { status } = response
+				if (status === 200) {
+					const { token } = response.data
+					localStorage.setItem('@stup:token', token)
 					await this.$router.push('dashboard')
 				}
 			} catch (e) {

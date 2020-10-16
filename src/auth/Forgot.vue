@@ -14,8 +14,7 @@
 					</InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button v-show="!loading" native-type="submit" class="button is-button is-primary" @click="handleSubmit(reset($event))">Send</b-button>
-						<b-button v-show="loading" native-type="button" class="button is-button is-primary">Loading...</b-button>
+						<b-button native-type="submit" class="button is-button is-primary" :loading="loading" @click="handleSubmit(reset($event))">Send</b-button>
 					</span>
 				</form>
 			</ValidationObserver>
@@ -53,10 +52,14 @@ export default {
 				this.loading = true
 
 				const response = await Api.post('client/email', this.auth)
-				const {status} = response
-				if(status === 200) {
-					const {message} = response.data
-					Toast.open({message, type: 'is-success', position: 'is-bottom-right'})
+				const { status } = response
+				if (status === 200) {
+					const { message } = response.data
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom-right'
+					})
 				}
 			} catch (e) {
 				const { status } = e

@@ -1,4 +1,4 @@
-import guest from  '@/middleware/guest'
+import guest from '@/middleware/guest'
 
 export default [
 	{
@@ -19,5 +19,11 @@ export default [
 		name: 'Register',
 		beforeEnter: guest,
 		component: () => import('@/auth/Register')
+	},
+	{
+		path: '/password',
+		name: 'Password',
+		beforeEnter: guest,
+		component: () => import('@/auth/Password')
 	}
 ]

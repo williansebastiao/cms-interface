@@ -2,7 +2,7 @@
 	<transition name="slide-fade" mode="out-in">
 		<Layout>
 			<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-				<form class="auth__form" action="#">
+				<form class="auth__form" @submit.prevent="handleSubmit(resetPassword)">
 					<Logo />
 					<div class="mb-5 text-center">
 						<h1 class="has-text-primary is-size-4 is-bold">Forgotten your password?</h1>
@@ -14,7 +14,7 @@
 					</InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" :loading="loading" @click="handleSubmit(reset($event))">Send</b-button>
+						<b-button native-type="submit" class="button is-button is-primary" :loading="loading">Send</b-button>
 					</span>
 				</form>
 			</ValidationObserver>
@@ -46,11 +46,9 @@ export default {
 		}
 	},
 	methods: {
-		async reset(e) {
-			e.preventDefault()
+		async resetPassword() {
 			try {
 				this.loading = true
-
 				const response = await Api.post('client/email', this.auth)
 				const { status } = response
 				if (status === 200) {
@@ -68,11 +66,11 @@ export default {
 					Toast.open({
 						message,
 						type: 'is-danger',
-						position: 'is-bottom-right'
+						position: 'is-bottom'
 					})
 				}
 			} finally {
-				this.loading = true
+				this.loading = false
 			}
 		}
 	}

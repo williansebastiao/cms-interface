@@ -2,7 +2,7 @@
 	<transition name="slide-fade" mode="out-in">
 		<Layout>
 			<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-				<form class="auth__form" @submit.prevent="handleSubmit(SignIn)">
+				<form class="auth__form" @submit.prevent="handleSubmit(signIn)">
 					<Logo />
 					<div class="mb-5 text-center">
 						<h1 class="has-text-primary is-size-3 is-bold">Sign In</h1>
@@ -14,12 +14,12 @@
 
 					<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
 
-					<InputWithValidation class="mb-5" rules="required|min:6" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password">
+					<InputWithValidation class="mb-5" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password">
 						<router-link :to="{ name: 'Forgot' }" class="auth__forgot is-primary is-semibold">Forgot your password?</router-link>
 					</InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" :disabled="invalid" :loading="loading">Sign In</b-button>
+						<b-button native-type="submit" class="button is-button is-primary" :loading="loading">Sign In</b-button>
 					</span>
 				</form>
 			</ValidationObserver>
@@ -44,7 +44,6 @@ export default {
 	},
 	data() {
 		return {
-			invalid: false,
 			loading: false,
 			auth: {
 				email: '',
@@ -53,7 +52,7 @@ export default {
 		}
 	},
 	methods: {
-		async SignIn() {
+		async signIn() {
 			try {
 				this.loading = true
 				const response = await Api.post('client/authenticate', this.auth)

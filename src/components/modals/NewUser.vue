@@ -8,7 +8,7 @@
 		</header>
 		<div class="modal-card-body">
 			<form class="modal-card" action="#">
-				<InputWithValidation rules="required|min:5" class="mb-5" type="text" label="Name" size="is-medium" v-model="name" />
+				<InputWithValidation rules="required|min:3" class="mb-5" type="text" label="Name" size="is-medium" v-model="name" />
 
 				<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="email" />
 
@@ -16,7 +16,7 @@
 					<option v-for="r in roles" :value="r.id" :key="r.id">{{ r.name }}</option>
 				</SelectWithValidation>
 
-				<InputWithValidation rules="required|min:6" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="password" />
+				<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="password" />
 				<password-meter class="mb-5" :password="password" />
 			</form>
 		</div>

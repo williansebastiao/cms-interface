@@ -12,7 +12,7 @@ export default [
 		path: '/users',
 		name: 'Users',
 		icon: 'users',
-		//beforeEnter: guest,
+		// beforeEnter: auth,
 		component: () => import('@/pages/Users')
 		// children: [
 		// 	{
@@ -22,20 +22,20 @@ export default [
 		// 	}
 		// ]
 	},
-	{
-		path: '/chat',
-		name: 'Chat',
-		icon: 'chat',
-		//beforeEnter: guest,
-		component: () => import('@/pages/Privacy')
-	},
-	{
-		path: '/charts',
-		name: 'Charts',
-		icon: 'charts',
-		//beforeEnter: guest,
-		component: () => import('@/pages/Terms')
-	},
+	// {
+	// 	path: '/chat',
+	// 	name: 'Chat',
+	// 	icon: 'chat',
+	// 	//beforeEnter: guest,
+	// 	component: () => import('@/pages/Privacy')
+	// },
+	// {
+	// 	path: '/charts',
+	// 	name: 'Charts',
+	// 	icon: 'charts',
+	// 	//beforeEnter: guest,
+	// 	component: () => import('@/pages/Terms')
+	// },
 	{
 		path: '/settings',
 		name: 'Settings',

@@ -1,7 +1,7 @@
 function guest(to, from, next) {
 	const token = localStorage.getItem('@stup:token')
-	if(token) {
-		next('Dashboard')
+	if (token) {
+		next('dashboard')
 	}
 	return next()
 }

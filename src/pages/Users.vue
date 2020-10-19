@@ -83,18 +83,8 @@
 							<h3 class="block__name">{{ u.name }}</h3>
 							<p class="block__email">{{ u.email }}</p>
 						</div>
-						<span class="block__state">Active</span>
-						<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left">
-							<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
-							<b-dropdown-item class="has-text-grey-light" @click="user(u.id)">
-								<svg-icon icon="edit"></svg-icon>
-								<span>Edit</span>
-							</b-dropdown-item>
-							<b-dropdown-item class="has-text-danger" @click="remove(u.id)">
-								<svg-icon icon="trash"></svg-icon>
-								<span>Delete</span>
-							</b-dropdown-item>
-						</b-dropdown>
+						<!-- <span class="block__state">Active</span> -->
+						<Trigger :id="u.id" :items="actions" />
 					</article>
 				</div>
 			</div>
@@ -108,6 +98,7 @@ import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/Users.vue'
+import Trigger from '@/components/Trigger'
 import Modal from '@/components/modals/NewUser'
 
 export default {
@@ -115,6 +106,7 @@ export default {
 		Layout,
 		Title,
 		Placeholder,
+		Trigger,
 		'svg-icon': Icon
 	},
 	data() {
@@ -133,7 +125,18 @@ export default {
 			status: 1,
 			label: 'on-border',
 			// Export
-			exporting: false
+			exporting: false,
+			actions: [
+				{
+					name: 'Edit',
+					icon: 'edit'
+				},
+				{
+					name: 'Delete',
+					icon: 'trash',
+					color: 'has-text-danger'
+				}
+			]
 		}
 	},
 	mounted() {

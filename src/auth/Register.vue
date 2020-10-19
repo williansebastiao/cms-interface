@@ -2,7 +2,7 @@
 	<transition name="slide-fade" mode="out-in">
 		<Layout>
 			<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-				<form class="auth__form" action="#">
+				<form class="auth__form" @submit.prevent="handleSubmit(createUser)">
 					<Logo />
 					<div class="mb-5 text-center">
 						<h1 class="has-text-primary is-size-4 is-bold">Create Account</h1>
@@ -12,16 +12,16 @@
 						</p>
 					</div>
 
-					<InputWithValidation rules="required|min:5" class="mb-5" type="text" label="Name" size="is-medium" v-model="auth.name" />
+					<InputWithValidation rules="required|min:3" class="mb-5" type="text" label="Name" size="is-medium" v-model="auth.name" />
 
 					<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
 
-					<InputWithValidation rules="required|min:6" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password" />
+					<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password" />
 
 					<password-meter class="mb-5" :password="auth.password" @score="Score" />
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" :loading="loading" @click="handleSubmit(register($event))">Register</b-button>
+						<b-button native-type="submit" class="button is-button is-primary" :loading="loading">Register</b-button>
 					</span>
 				</form>
 			</ValidationObserver>
@@ -57,8 +57,7 @@ export default {
 		}
 	},
 	methods: {
-		async register(e) {
-			e.preventDefault()
+		async createUser() {
 			try {
 				this.loading = true
 				const response = await Api.post('client/register', this.auth)
@@ -72,15 +71,18 @@ export default {
 				const { status } = e
 				if (status === 422) {
 					const { message } = e.data
-					Toast.open({ message, type: 'is-danger', position: 'is-bottom-right' })
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
 				}
 			} finally {
 				this.loading = false
 			}
 		},
 		Score({ score, strength }) {
-			console.log(score) // from 0 to 4
-			console.log(strength) // one of : 'risky', 'guessable', 'weak', 'safe' , 'secure'
+			console.log(score, strength) // score: from 0 to 4 - strength: 'risky', 'guessable', 'weak', 'safe' , 'secure'
 			this.score = score
 		}
 	}

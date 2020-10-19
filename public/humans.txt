@@ -1,0 +1,23 @@
+/* PROJETCT */
+Last update: 2020/10/16
+Language: English, Portuguese
+IDE: VS Code
+Technologies: Vue, Laravel
+
+/* TEAM */
+Front-end Developer: Wallace Erick
+Contact: wallace.erick@orbital.company
+From: Caieiras/SP, BR
+
+Back-end Developer: Willians Pereira
+Contact: willians.pereira@orbital.company
+From: Guarulhos/SP, BR
+
+Project Owner: Vinicius Luis
+Contact: vinicius.luis@orbital.company
+From: Barra Mansa/RJ, BR
+
+/* COMPANY */
+Name: Orbital
+Contacts: +55 (11) 98928-0211
+Location: Rua Gomes de Carvalho, 1629 - 04547-006 - Vila Olímpia, SP

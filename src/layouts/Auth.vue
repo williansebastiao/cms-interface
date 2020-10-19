@@ -1,7 +1,7 @@
 <template>
 	<section class="auth">
 		<div class="columns">
-			<div class="auth__image column is-two-fifths is-hidden-mobile">
+			<div v-if="!isMobile" class="auth__image column is-two-fifths is-hidden-mobile">
 				<b-image :src="image" :placeholder="image" loading="lazy" ratio="2by3"></b-image>
 				<!--
 				<video autoplay muted>
@@ -20,13 +20,11 @@
 
 <script>
 import image from '../assets/images/background/1.jpg'
+import { responsive } from '@/mixins/responsive'
+
 export default {
 	name: 'Layout',
-	props: {
-		video: {
-			type: String
-		}
-	},
+	mixins: [responsive],
 	data() {
 		return {
 			image: image

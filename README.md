@@ -7,9 +7,10 @@
 > Utilize o [yarn](https://yarnpkg.com/) como package manager padrão.
 
 ```js
-yarn install
-// to install project dependencies
+yarn install // to install project dependencies
 ```
+
+cp .env.example .env
 
 ```js
 yarn run serve
@@ -21,14 +22,16 @@ yarn run build
 // to compiles and minifies for production
 ```
 
+## Testes
+
+> Executar os testes da aplicação
+
 ```js
-yarn run test
-// to run end-to-end tests
+yarn run test // Executar os testes
 ```
 
 ```js
-yarn run lint
-// to lint and fixes files
+yarn run lint // Testar e corrigir os arquivos
 ```
 
 ## Plugins

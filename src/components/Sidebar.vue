@@ -11,10 +11,10 @@
 			</b-tooltip>
 		</nav>
 		<nav class="navigation navigation--primary">
-			<b-tooltip v-for="(r, i) in secondary" :label="r.name" :key="i" type="is-primary" position="is-right">
-				<router-link class="navigation__link" tag="a" :to="r">
-					<svg-icon :icon="r.icon"></svg-icon>
-				</router-link>
+			<b-tooltip label="Logout" type="is-primary" position="is-right">
+				<a @click="logout" class="navigation__link" href="#">
+					<svg-icon icon="logout"></svg-icon>
+				</a>
 			</b-tooltip>
 		</nav>
 	</aside>
@@ -25,6 +25,7 @@ import Menu from '@/router/Menu.js'
 import User from '@/router/User.js'
 import Icon from '@/components/Icon'
 import Logo from '@/components/Logo'
+import Api from '@/services/api'
 
 export default {
 	name: 'Sidebar',
@@ -40,6 +41,21 @@ export default {
 			open: true,
 			overlay: false,
 			fullheight: true
+		}
+	},
+	methods: {
+		async logout(event) {
+			try {
+				event.preventDefault()
+				const response = await Api.post('client/logout')
+				const { status } = response
+				if (status === 200) {
+					localStorage.removeItem('@stup:token')
+					await this.$router.push('/')
+				}
+			} catch (e) {
+				console.log(e)
+			}
 		}
 	},
 	computed: {

@@ -6,14 +6,18 @@
 
 .block
 	display: flex
-	align-items: flex-start
+	align-items: center
+	justify-content: flex-start
 	position: relative
 	padding: $block-spacing / 1.5
 	background: $white
+	min-height: 80px
 	border-radius: 3px
 	box-shadow: 0 0 15px rgba($black, 0.05)
 	border-left: 5px solid $grey-lighter
 	transition: $transition-base
+	&.placeholder
+		pointer-events: none
 	&:hover
 		// margin-top: -3px
 		border-left-color: $primary
@@ -52,8 +56,9 @@
 
 	&__name
 		color: $grey
-		padding-top: 0.45rem
 		font-weight: $weight-semibold
+		&--user
+			padding-top: 0.45rem
 		.b-skeleton
 			margin-top: 0
 

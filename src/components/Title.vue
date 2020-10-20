@@ -1,5 +1,5 @@
 <template>
-	<header class="column">
+	<header class="column is-flex is-justify-content-flex-start is-align-items-center">
 		<h1 class="title mb-0">{{ title }}</h1>
 		<Breadcrumb />
 	</header>

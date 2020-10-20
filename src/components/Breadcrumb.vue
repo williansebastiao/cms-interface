@@ -1,5 +1,5 @@
 <template>
-	<nav class="breadcrumb is-small has-arrow -separator" aria-label="breadcrumbs">
+	<nav class="breadcrumb is-small has -arrow  has-dot-separator" aria-label="breadcrumbs">
 		<ul>
 			<li>
 				<router-link tag="a" :to="{ name: 'Dashboard' }">Dashboard</router-link>

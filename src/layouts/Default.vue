@@ -1,5 +1,6 @@
 <template>
 	<div class="is-flex">
+		<!-- <b-loading :is-full-page="true" v-model="isLoading"></b-loading> -->
 		<Sidebar />
 		<main class="page">
 			<slot></slot>
@@ -14,6 +15,16 @@ export default {
 	name: 'Layout',
 	components: {
 		Sidebar
+	},
+	data() {
+		return {
+			isLoading: true
+		}
+	},
+	methods: {
+		openLoading() {
+			this.isLoading = false
+		}
 	}
 }
 </script>

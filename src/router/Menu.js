@@ -22,6 +22,13 @@ export default [
 		// 	}
 		// ]
 	},
+	{
+		path: '/roles',
+		name: 'Roles',
+		icon: 'roles',
+		// beforeEnter: auth,
+		component: () => import('@/pages/Roles')
+	},
 	// {
 	// 	path: '/chat',
 	// 	name: 'Chat',

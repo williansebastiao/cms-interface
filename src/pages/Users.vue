@@ -1,7 +1,7 @@
 <template>
 	<Layout>
 		<section class="columns is-mobile">
-			<Title :title="route" />
+			<Title />
 			<div class="column page__actions">
 				<b-button type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="generate($event)">
 					<span>Export</span>
@@ -12,6 +12,7 @@
 					<span>Create</span>
 				</b-button>
 			</div>
+			<Weather />
 		</section>
 		<section class="columns filter">
 			<div class="column filter__wrapper">
@@ -100,6 +101,7 @@ import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/User'
 import Trigger from '@/components/Trigger'
 import Modal from '@/components/modals/User'
+import Weather from '@/components/Weather'
 
 export default {
 	components: {
@@ -107,6 +109,7 @@ export default {
 		Title,
 		Placeholder,
 		Trigger,
+		Weather,
 		'svg-icon': Icon
 	},
 	data() {

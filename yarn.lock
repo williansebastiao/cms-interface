@@ -10961,6 +10961,11 @@ wcwidth@^1.0.1:
   dependencies:
     defaults "^1.0.3"
 
+weather.js@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/weather.js/-/weather.js-0.1.0.tgz#ed78e2e5968c5b607ffa1b67ca59ffd14e5127b9"
+  integrity sha1-7Xji5ZaMW2B/+htnyln/0U5RJ7k=
+
 webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"

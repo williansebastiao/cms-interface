@@ -55,7 +55,6 @@
 import InputWithValidation from '@/components/inputs/InputWithValidation'
 import VSwatches from 'vue-swatches'
 import { ValidationObserver } from 'vee-validate'
-import 'vue-swatches/dist/vue-swatches.css'
 import '@/mixins/date'
 
 export default {

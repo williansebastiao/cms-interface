@@ -12,6 +12,7 @@
 					<span>Create</span>
 				</b-button>
 			</div>
+			<Weather />
 		</section>
 		<section class="columns filter">
 			<div class="column filter__wrapper" v-if="!errored">
@@ -57,6 +58,7 @@ import Placeholder from '@/components/placeholders/Role'
 import Trigger from '@/components/Trigger'
 import Error from '@/components/Error'
 import Modal from '@/components/modals/Role'
+import Weather from '@/components/Weather'
 
 export default {
 	components: {
@@ -65,6 +67,7 @@ export default {
 		Placeholder,
 		Trigger,
 		Error,
+		Weather,
 		'svg-icon': Icon
 	},
 	data() {

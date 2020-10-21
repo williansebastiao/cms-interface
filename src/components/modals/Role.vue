@@ -56,6 +56,7 @@ import InputWithValidation from '@/components/inputs/InputWithValidation'
 import VSwatches from 'vue-swatches'
 import { ValidationObserver } from 'vee-validate'
 import 'vue-swatches/dist/vue-swatches.css'
+import '@/mixins/date'
 
 export default {
 	components: {
@@ -68,8 +69,8 @@ export default {
 			loading: false,
 			name: '',
 			description: '',
-			color: '#1e1e41',
-			swatches: ['#f368e0', '#b53471', '#feca57', '#ff9f43', '#ee5253', '#0abde3', '#10ac84', '#01a3a4', '#2e86de', '#341f97', '#8395a7', '#222f3e'],
+			color: '#dbdbdb',
+			swatches: ['#f368e0', '#b53471', '#7202f8', '#feca57', '#ff9f43', '#ee5253', '#0abde3', '#10ac84', '#01a3a4', '#2e86de', '#341f97', '#8395a7'],
 			crud: ['Read', 'Create', 'Edit', 'Delete'],
 			roles: ['Dashboard', 'Users', 'Roles', 'Chat']
 		}

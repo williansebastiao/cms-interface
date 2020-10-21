@@ -38,7 +38,7 @@
 					<article class="block" :style="{ 'border-left-color': r.color }">
 						<div class="block__content">
 							<h3 class="block__name">{{ r.name }}</h3>
-							<p class="block__email">{{ r.createdAt }} • 5 months ago</p>
+							<p class="block__email">{{ format(r.createdAt) }} • {{ timeTo(r.createdAt) }}</p>
 						</div>
 						<Trigger :id="r.id" :items="actions" />
 					</article>

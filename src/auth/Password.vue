@@ -12,7 +12,9 @@
 						</p>
 					</div>
 
+					<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
 					<InputWithValidation class="mb-5" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password"></InputWithValidation>
+					<InputWithValidation class="mb-5" rules="required|min:8" type="password" label="Confirm password" vid="confirmPassword" size="is-medium" password-reveal v-model="auth.password_confirmation"></InputWithValidation>
 
 					<span class="is-block text-center">
 						<b-button native-type="submit" class="button is-button is-primary" :loading="loading">Sign In</b-button>
@@ -43,7 +45,9 @@ export default {
 			loading: false,
 			auth: {
 				email: '',
-				password: ''
+				password: '',
+				password_confirmation: '',
+				token: this.$route.params.token
 			}
 		}
 	},
@@ -51,7 +55,7 @@ export default {
 		async setPassword() {
 			try {
 				this.loading = true
-				const response = await Api.post('client/email', this.auth)
+				const response = await Api.post('client/reset', this.auth)
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data

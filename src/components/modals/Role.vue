@@ -14,7 +14,7 @@
 							<InputWithValidation rules="required|min:3" type="text" label="Name" size="is-medium" v-model="name" />
 						</div>
 						<div class="column is-8-mobile is-7-tablet">
-							<InputWithValidation type="text" label="Description" size="is-medium" v-model="description" />
+							<InputWithValidation rules="required|min:3" type="text" label="Description" size="is-medium" v-model="description" />
 						</div>
 						<div class="column is-4-mobile is-1-tablet">
 							<b-field label="Color" class="mb-2">

@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import Menu from '@/router/Menu.js'
-import User from '@/router/User.js'
+import Menu from '@/router/menu'
 import Icon from '@/components/Icon'
 import Logo from '@/components/Logo'
 import Api from '@/services/api'
@@ -61,18 +60,7 @@ export default {
 	computed: {
 		primary() {
 			return Menu
-		},
-		secondary() {
-			return User
 		}
 	}
 }
 </script>
-
-<style lang="sass" scoped>
-.smile-icon
-	font-size: 24px
-	fill: #aaa
-	&:hover
-		fill: #666
-</style>

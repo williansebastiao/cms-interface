@@ -97,7 +97,7 @@ import axios from 'axios'
 import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
-import Placeholder from '@/components/placeholders/Users.vue'
+import Placeholder from '@/components/placeholders/User'
 import Trigger from '@/components/Trigger'
 import Modal from '@/components/modals/User'
 

@@ -1,10 +1,9 @@
 <template>
 	<Layout>
 		<div class="columns">
-			<Title dashboard-step="1" title="Welcome" subtitle="This is our Vue.js App" />
+			<Title dashboard-step="1" />
 		</div>
-		<b-table dashboard-step="1" :bordered="bordered" :data="users" :columns="columns"></b-table>
-		<div dashboard-step="2">The enf of our tour...</div>
+		<b-table dashboard-step="2" :bordered="bordered" :data="users" :columns="columns"></b-table>
 		<v-tour name="dashboard" :steps="steps"></v-tour>
 	</Layout>
 </template>
@@ -53,14 +52,14 @@ export default {
 					},
 					content: `You started our tour!`,
 					params: {
-						placement: 'top'
+						placement: 'left'
 					}
 				},
 				{
 					target: '[dashboard-step="2"]',
 					content: 'Try it, you will love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.',
 					params: {
-						placement: 'top'
+						placement: 'bottom'
 					}
 				}
 			]

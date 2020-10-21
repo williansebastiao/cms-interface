@@ -54,3 +54,9 @@ $aligns: center, left, right, justify
 @each $align in $aligns
 	.text-#{$align}
 		text-align: $align
+
+// Text Transform
+$transforms: capitalize, uppercase, lowercase, none
+@each $transform in $transforms
+	.text-#{$transform}
+		text-transform: $transform

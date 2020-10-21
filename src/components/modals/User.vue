@@ -7,12 +7,12 @@
 			</h4>
 		</header>
 		<div class="modal-card-body">
-			<form class="modal-card" action="#">
-				<InputWithValidation rules="required|min:3" class="mb-5" type="text" label="Name" size="is-medium" v-model="name" />
+			<form class="modal-card mb-3" action="#">
+				<InputWithValidation class="mb-4" rules="required|min:3" type="text" label="Name" size="is-medium" v-model="name" />
 
-				<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="email" />
+				<InputWithValidation class="mb-4" rules="required|email" type="email" label="Email" size="is-medium" v-model="email" />
 
-				<SelectWithValidation class="mb-5" rules="required" label="Role" v-model="role">
+				<SelectWithValidation class="mb-4" rules="required" label="Role" size="is-medium" v-model="role">
 					<option v-for="r in roles" :value="r.id" :key="r.id">{{ r.name }}</option>
 				</SelectWithValidation>
 

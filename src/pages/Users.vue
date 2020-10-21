@@ -13,8 +13,8 @@
 				</b-button>
 			</div>
 		</section>
-		<section class="columns">
-			<div class="column filter">
+		<section class="columns filter">
+			<div class="column filter__wrapper">
 				<b-field label="Order" v-model="order" :label-position="label">
 					<b-select placeholder="Name">
 						<option selected value="1">Name</option>
@@ -99,7 +99,7 @@ import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/Users.vue'
 import Trigger from '@/components/Trigger'
-import Modal from '@/components/modals/NewUser'
+import Modal from '@/components/modals/User'
 
 export default {
 	components: {

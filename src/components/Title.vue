@@ -1,7 +1,7 @@
 <template>
 	<header class="column is-flex is-justify-content-flex-start is-align-items-center">
-		<h1 class="title mb-0">{{ title }}</h1>
-		<Breadcrumb />
+		<h1 class="title mb-0">{{ name }}</h1>
+		<Breadcrumb v-if="name != 'Dashboard'" />
 	</header>
 </template>
 
@@ -12,12 +12,10 @@ export default {
 	components: {
 		Breadcrumb
 	},
-	props: {
-		title: {
-			type: String,
-			required: true
-		},
-		subtitle: String
+	computed: {
+		name() {
+			return this.$route.name
+		}
 	}
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
 	<Layout>
 		<section class="columns is-mobile">
-			<Title :title="route" />
+			<Title />
 			<div class="column page__actions">
-				<b-button type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="exportRoles($event)">
+				<b-button type="is-secondary export" :loading="exporting" v-if="!errored" size="is-small" rounded outlined @click="exportRoles($event)">
 					<span>Export</span>
 					<svg-icon class="icon is-small" icon="export"></svg-icon>
 				</b-button>
@@ -13,9 +13,9 @@
 				</b-button>
 			</div>
 		</section>
-		<section class="columns">
-			<div class="column filter">
-				<b-field label="Order" v-model="order" :label-position="label">
+		<section class="columns filter">
+			<div class="column filter__wrapper" v-if="!errored">
+				<b-field label="Order by" v-model="order" :label-position="label">
 					<b-select placeholder="Name">
 						<option selected value="1">Name</option>
 						<option value="2">Date</option>
@@ -26,26 +26,21 @@
 				</b-field>
 			</div>
 		</section>
-		<p v-if="errored">Ocorreu um erro ao carregar os usuários.</p>
+		<Error v-if="errored" :icon="true" :back="true" />
 		<section v-else>
 			<div v-if="loading" class="columns is-multiline">
-				<div v-for="n in pagination" :key="n" class="column is-12-mobile is-6-tablet is-4-desktop">
+				<div v-for="r in placeholder" :key="r" class="column is-12-mobile is-6-tablet is-4-desktop">
 					<Placeholder />
 				</div>
 			</div>
 			<div class="columns is-multiline">
-				<div v-for="u in users" :key="u.id" class="column is-12-mobile is-6-tablet is-4-desktop">
-					<article class="block">
-						<div class="block__avatar image is-48x48">
-							<span class="block__role">Administrator</span>
-							<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
-						</div>
+				<div v-for="r in roles" :key="r.id" class="column is-12-mobile is-6-tablet is-4-desktop">
+					<article class="block" :style="{ 'border-left-color': r.color }">
 						<div class="block__content">
-							<h3 class="block__name">{{ u.name }}</h3>
-							<p class="block__email">{{ u.email }}</p>
+							<h3 class="block__name">{{ r.name }}</h3>
+							<p class="block__email">{{ r.createdAt }} • 5 months ago</p>
 						</div>
-						<!-- <span class="block__state">Active</span> -->
-						<Trigger :id="u.id" :items="actions" />
+						<Trigger :id="r.id" :items="actions" />
 					</article>
 				</div>
 			</div>
@@ -60,7 +55,8 @@ import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/Roles.vue'
 import Trigger from '@/components/Trigger'
-import Modal from '@/components/modals/NewUser'
+import Error from '@/components/Error'
+import Modal from '@/components/modals/Role'
 
 export default {
 	components: {
@@ -68,22 +64,17 @@ export default {
 		Title,
 		Placeholder,
 		Trigger,
+		Error,
 		'svg-icon': Icon
 	},
 	data() {
 		return {
-			// Pagination
-			total: 0,
-			page: 1,
-			current: 1,
-			pagination: 15,
-			data: [],
+			placeholder: 5,
+			roles: [],
 			loading: true,
 			errored: false,
 			// Filter
-			order: 3,
-			role: 1,
-			status: 1,
+			order: 1,
 			label: 'on-border',
 			// Export
 			exporting: false,
@@ -107,16 +98,14 @@ export default {
 			.get(api)
 			.then(response => {
 				setTimeout(() => {
-					this.data = response.data
-					this.total = response.data.length
-					// this.loading = false
+					this.roles = response.data
+					this.loading = false
 				}, 1000)
 			})
 			.catch(error => {
 				console.log('error', error)
 				this.errored = true
 			})
-		// .finally(() => (console.log(this.loading)))
 	},
 	methods: {
 		exportRoles() {
@@ -137,8 +126,8 @@ export default {
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
-				scroll: 'keep',
-				customClass: 'is-user is-sm',
+				scroll: 'clip',
+				customClass: 'is-role is-lg',
 				trapFocus: true
 			})
 		},

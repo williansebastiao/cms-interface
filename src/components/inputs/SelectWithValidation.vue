@@ -1,7 +1,7 @@
 <template>
 	<ValidationProvider class="is-block is-relative" :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors, valid }">
 		<b-field v-bind="$attrs" :type="{ 'is-danger': errors[0], 'is-success': valid }" :message="errors">
-			<b-select v-model="innerValue" placeholder="Select a subject">
+			<b-select v-model="innerValue" v-bind="$attrs" placeholder="Select a subject">
 				<slot />
 			</b-select>
 		</b-field>

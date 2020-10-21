@@ -10850,13 +10850,6 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-nprogress@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/vue-nprogress/-/vue-nprogress-0.2.0.tgz#92a99f605dd152bdd4fc940ab0ca535723a5b394"
-  integrity sha512-lTJvEQEt7Pxdc6jwUZf3m4t8emrrBecXxzSLT1G9eIjRQE4kOh7Y+ECjc5R1qrNyyuDqHCTKZMaH5bXy17IS5g==
-  dependencies:
-    nprogress "0.2.0"
-
 vue-router@^3.2.0:
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.4.7.tgz#bf189bafd16f4e4ef783c4a6250a3090f2c1fa1b"
@@ -10874,6 +10867,11 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-swatches@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vue-swatches/-/vue-swatches-2.1.0.tgz#65221b4589ebb1ecd04a93bf82bfc569220e2724"
+  integrity sha512-JbSomg1penZvgHL24blA3PDgji7LPVGGSFlMo7F+jYVcxooemadI3gkMwFJVIPMikG5g160Mq+Lbph/lqFjzzw==
 
 vue-template-compiler@^2.6.11:
   version "2.6.12"

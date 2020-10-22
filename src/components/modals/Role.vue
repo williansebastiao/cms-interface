@@ -1,6 +1,6 @@
 <template>
 	<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-		<form @submit.prevent="handleSubmit(saveRole)">
+		<form @submit.prevent="handleSubmit(saveRole($event))">
 			<header class="modal-card-head">
 				<h4 class="modal-card-title">
 					New
@@ -36,7 +36,7 @@
 								<h4 class="is-size-6 is-semibold has-text-primary">{{ r.name }}</h4>
 							</div>
 							<div class="column is-12-mobile is-2-tablet text-center" v-for="(value, key, i) in r.role" :key="i">
-								<b-checkbox type="is-primary" :name="r.name.toLowerCase() + '_' + key" class="ml-4" :value="value"></b-checkbox>
+								<b-checkbox type="is-primary" v-model="r.role[key]" :name="r.name.toLowerCase() + '_' + key" class="ml-4" :value="value"></b-checkbox>
 							</div>
 						</div>
 						<hr class="mt-0 mb-4" />
@@ -109,7 +109,8 @@ export default {
 		}
 	},
 	methods: {
-		saveRole() {
+		saveRole(e) {
+			console.log(e.target)
 			this.loading = true
 			setTimeout(() => {
 				this.loading = false

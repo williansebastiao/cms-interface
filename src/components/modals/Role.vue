@@ -1,6 +1,6 @@
 <template>
 	<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-		<form @submit.prevent="handleSubmit(saveRole($event))">
+		<form @submit.prevent="handleSubmit(saveRole)">
 			<header class="modal-card-head">
 				<h4 class="modal-card-title">
 					New
@@ -18,7 +18,7 @@
 						</div>
 						<div class="column is-4-mobile is-1-tablet">
 							<b-field label="Color" class="mb-2">
-								<v-swatches v-model="permission.color" :swatches="swatches" row-length="5" shapes="circles" popover-x="left"></v-swatches>
+								<v-swatches  v-model="permission.color" :swatches="swatches" row-length="5" shapes="circles" popover-x="left"></v-swatches>
 							</b-field>
 						</div>
 					</div>
@@ -108,23 +108,19 @@ export default {
 		}
 	},
 	methods: {
-		async saveRole(e) {
-			e.preventDefault()
+		async saveRole() {
 			try {
 				this.loading = true
 				const response = await Api.post('permission/store', this.permission)
 				const { status } = response
 				if (status === 201) {
 					const { message } = response.data
+					this.$emit('close')
 					Toast.open({
 						message,
 						type: 'is-success',
 						position: 'is-bottom'
 					})
-					setTimeout(() => {
-						this.$emit('close')
-					}, 2000)
-
 					console.log(message)
 				}
 			} catch (e) {

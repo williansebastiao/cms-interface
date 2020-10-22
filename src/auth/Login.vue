@@ -32,8 +32,8 @@ import Layout from '@/layouts/Auth'
 import Logo from '@/components/Logo'
 import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
-import { ToastProgrammatic as Toast } from 'buefy'
 import Api from '@/services/api'
+import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
 	components: {

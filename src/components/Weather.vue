@@ -1,5 +1,5 @@
 <template>
-	<div class="weather" v-if="!errored">
+	<div class="weather" v-if="show">
 		<!-- <img :src="image" :alt="city"> -->
 		<Placeholder v-if="loading" />
 		<div class="weather__temperature" v-else>
@@ -20,8 +20,8 @@ export default {
 	},
 	data() {
 		return {
+			show: true,
 			loading: true,
-			errored: false,
 			temperature: 0,
 			city: 'São Paulo',
 			image: ''
@@ -29,6 +29,7 @@ export default {
 	},
 	mounted() {
 		if (window.navigator.geolocation) {
+			// Get user city based on his geolocation
 			const getUserCity = position => {
 				const { latitude, longitude } = position.coords
 				axios
@@ -40,9 +41,10 @@ export default {
 					})
 					.catch(error => {
 						console.log('error', error)
-						this.errored = true
 					})
 			}
+
+			// Get the temperature based on user city
 			const getTemperature = city => {
 				axios
 					.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1e6f8463d6167f6260033ee062b48507`)
@@ -54,10 +56,19 @@ export default {
 					})
 					.catch(error => {
 						console.log('error', error)
-						this.errored = true
 					})
 			}
-			window.navigator.geolocation.getCurrentPosition(getUserCity)
+
+			// Hide component if user disallow your gelocation
+			const notAllowed = error => {
+				if (error.code == error.PERMISSION_DENIED) {
+					this.show = false
+					console.log('error', error)
+				}
+			}
+
+			// Get user geolocation
+			window.navigator.geolocation.getCurrentPosition(getUserCity, notAllowed)
 		}
 	}
 }

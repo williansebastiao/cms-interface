@@ -18,7 +18,7 @@
 						</div>
 						<div class="column is-4-mobile is-1-tablet">
 							<b-field label="Color" class="mb-2">
-								<v-swatches v-model="permission.color" :swatches="swatches" :row-length="swatches.length / 2" shapes="circles" popover-x="left"></v-swatches>
+								<v-swatches v-model="permission.color" :swatches="swatches" row-length="5" shapes="circles" popover-x="left"></v-swatches>
 							</b-field>
 						</div>
 					</div>
@@ -66,10 +66,7 @@ export default {
 	data() {
 		return {
 			loading: false,
-			name: '',
-			description: '',
-			color: '#dbdbdb',
-			swatches: ['#f368e0', '#b53471', '#7202f8', '#feca57', '#ff9f43', '#ee5253', '#0abde3', '#10ac84', '#01a3a4', '#2e86de', '#341f97', '#8395a7'],
+			swatches: ['#feca57', '#ff9f43', '#ee5253', '#f368e0', '#b53471', '#7202f8', '#10ac84', '#01a3a4', '#0abde3', '#2e86de', '#341f97', '#dbdbdb', '#8395a7', '#576574', '#222f3e'],
 			crud: ['Read', 'Create', 'Edit', 'Delete'],
 			permission: {
 				name: '',

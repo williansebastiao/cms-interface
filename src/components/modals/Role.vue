@@ -79,7 +79,7 @@ export default {
 					{
 						name: 'Dashboard',
 						role: {
-							read: false,
+							read: true,
 							create: false,
 							edit: false,
 							delete: false
@@ -88,7 +88,7 @@ export default {
 					{
 						name: 'Users',
 						role: {
-							read: false,
+							read: true,
 							create: false,
 							edit: false,
 							delete: false
@@ -97,7 +97,7 @@ export default {
 					{
 						name: 'Roles',
 						role: {
-							read: false,
+							read: true,
 							create: false,
 							edit: false,
 							delete: false

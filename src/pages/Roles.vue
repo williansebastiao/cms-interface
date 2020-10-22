@@ -35,11 +35,11 @@
 				</div>
 			</div>
 			<div class="columns is-multiline">
-				<div v-for="r in roles" :key="r.id" class="column is-12-mobile is-6-tablet is-4-desktop">
+				<div v-for="r in permission" :key="r.id" class="column is-12-mobile is-6-tablet is-4-desktop">
 					<article class="block" :style="{ 'border-left-color': r.color }">
 						<div class="block__content">
 							<h3 class="block__name">{{ r.name }}</h3>
-							<p class="block__email">{{ format(r.createdAt) }} • {{ timeTo(r.createdAt) }}</p>
+							<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
 						</div>
 						<Trigger :id="r.id" :items="actions" />
 					</article>
@@ -59,6 +59,7 @@ import Trigger from '@/components/Trigger'
 import Error from '@/components/Error'
 import Modal from '@/components/modals/Role'
 import Weather from '@/components/Weather'
+import Api from '@/services/api'
 
 export default {
 	components: {
@@ -91,26 +92,38 @@ export default {
 					icon: 'trash',
 					color: 'has-text-danger'
 				}
-			]
+			],
+			permission: []
 		}
 	},
-	mounted() {
-		let api = 'https://5f3b4721fff8550016ae51c9.mockapi.io/api/roles'
-
-		axios
-			.get(api)
-			.then(response => {
-				setTimeout(() => {
-					this.roles = response.data
-					this.loading = false
-				}, 1000)
-			})
-			.catch(error => {
-				console.log('error', error)
-				this.errored = true
-			})
-	},
 	methods: {
+		async getAllRoles() {
+			try {
+				const response = await Api.get('permission/findAll')
+				const { status } = response
+				if(status === 200) {
+					const { data } = response
+					this.permission = data;
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		weather() {
+			let api = 'https://5f3b4721fff8550016ae51c9.mockapi.io/api/roles'
+			axios
+				.get(api)
+				.then(response => {
+					setTimeout(() => {
+						this.roles = response.data
+						this.loading = false
+					}, 1000)
+				})
+				.catch(error => {
+					console.log('error', error)
+					this.errored = true
+				})
+		},
 		exportRoles() {
 			this.exporting = true
 			setTimeout(() => {
@@ -155,6 +168,10 @@ export default {
 					})
 			})
 		}
-	}
+	},
+	mounted() {
+		this.getAllRoles()
+		this.weather()
+	},
 }
 </script>

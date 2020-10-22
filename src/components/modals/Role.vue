@@ -121,7 +121,9 @@ export default {
 						type: 'is-success',
 						position: 'is-bottom'
 					})
-					console.log(message)
+					setTimeout(() => {
+						document.location.reload(true);
+					})
 				}
 			} catch (e) {
 				const { status } = e

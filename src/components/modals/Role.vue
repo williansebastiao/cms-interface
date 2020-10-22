@@ -78,7 +78,7 @@ export default {
 				color: '',
 				route: [
 					{
-						name: '',
+						name: 'Dashboard',
 						role: {
 							read: false,
 							create: false,
@@ -86,6 +86,33 @@ export default {
 							delete: false
 						}
 					},
+					{
+						name: 'Users',
+						role: {
+							read: false,
+							create: false,
+							edit: false,
+							delete: false
+						}
+					},
+					{
+						name: 'Roles',
+						role: {
+							read: false,
+							create: false,
+							edit: false,
+							delete: false
+						}
+					},
+					{
+						name: 'Chat',
+						role: {
+							read: false,
+							create: false,
+							edit: false,
+							delete: false
+						}
+					}
 				],
 				active: true
 			}
@@ -101,7 +128,7 @@ export default {
 		}
 	},
 	mounted() {
-		
+
 	}
 }
 </script>

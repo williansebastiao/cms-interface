@@ -56,6 +56,8 @@ import InputWithValidation from '@/components/inputs/InputWithValidation'
 import VSwatches from 'vue-swatches'
 import { ValidationObserver } from 'vee-validate'
 import '@/mixins/date'
+import Api from '@/services/api'
+import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
 	components: {
@@ -71,13 +73,13 @@ export default {
 			permission: {
 				name: '',
 				description: '',
-				color: '',
+				color: '#dbdbdb',
 				active: true,
 				route: [
 					{
 						name: 'Dashboard',
 						role: {
-							read: true,
+							read: false,
 							create: false,
 							edit: false,
 							delete: false
@@ -86,18 +88,18 @@ export default {
 					{
 						name: 'Users',
 						role: {
-							read: true,
-							create: true,
-							edit: true,
+							read: false,
+							create: false,
+							edit: false,
 							delete: false
 						}
 					},
 					{
 						name: 'Roles',
 						role: {
-							read: true,
-							create: true,
-							edit: true,
+							read: false,
+							create: false,
+							edit: false,
 							delete: false
 						}
 					}
@@ -106,13 +108,30 @@ export default {
 		}
 	},
 	methods: {
-		saveRole(e) {
-			console.log(e.target)
-			this.loading = true
-			setTimeout(() => {
+		async saveRole(e) {
+			e.preventDefault()
+			try {
+				this.loading = true
+				const response = await Api.post('permission/store', this.permission)
+				const { status } = response
+				if (status === 200) {
+					const { message } = response.data
+					this.$emit('close')
+					console.log(message)
+				}
+			} catch (e) {
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
+				}
+			} finally {
 				this.loading = false
-				console.log(this.permission)
-			}, 1000)
+			}
 		}
 	}
 }

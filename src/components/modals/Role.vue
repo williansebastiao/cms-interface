@@ -11,14 +11,14 @@
 				<div class="modal-card">
 					<div class="columns mb-2">
 						<div class="column is-12-mobile is-4-tablet">
-							<InputWithValidation rules="required|min:3" type="text" label="Name" size="is-medium" v-model="name" />
+							<InputWithValidation rules="required|min:3" type="text" label="Name" size="is-medium" v-model="permission.name" />
 						</div>
 						<div class="column is-8-mobile is-7-tablet">
-							<InputWithValidation rules="required|min:3" type="text" label="Description" size="is-medium" v-model="description" />
+							<InputWithValidation rules="required|min:3" type="text" label="Description" size="is-medium" v-model="permission.description" />
 						</div>
 						<div class="column is-4-mobile is-1-tablet">
 							<b-field label="Color" class="mb-2">
-								<v-swatches v-model="color" :swatches="swatches" :row-length="swatches.length / 2" shapes="circles" popover-x="left"></v-swatches>
+								<v-swatches v-model="permission.color" :swatches="swatches" :row-length="swatches.length / 2" shapes="circles" popover-x="left"></v-swatches>
 							</b-field>
 						</div>
 					</div>
@@ -71,7 +71,24 @@ export default {
 			color: '#dbdbdb',
 			swatches: ['#f368e0', '#b53471', '#7202f8', '#feca57', '#ff9f43', '#ee5253', '#0abde3', '#10ac84', '#01a3a4', '#2e86de', '#341f97', '#8395a7'],
 			crud: ['Read', 'Create', 'Edit', 'Delete'],
-			roles: ['Dashboard', 'Users', 'Roles', 'Chat']
+			roles: ['Dashboard', 'Users', 'Roles', 'Chat'],
+			permission: {
+				name: '',
+				description: '',
+				color: '',
+				route: [
+					{
+						name: '',
+						role: {
+							read: false,
+							create: false,
+							edit: false,
+							delete: false
+						}
+					},
+				],
+				active: true
+			}
 		}
 	},
 	methods: {
@@ -79,9 +96,12 @@ export default {
 			this.loading = true
 			setTimeout(() => {
 				this.loading = false
-				console.log('Form submitted yay!')
+				console.log(this.permission)
 			}, 1000)
 		}
+	},
+	mounted() {
+		
 	}
 }
 </script>

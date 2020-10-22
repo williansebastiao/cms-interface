@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import Placeholder from '@/components/placeholders/Weather'
 
 export default {
@@ -28,7 +28,7 @@ export default {
 		}
 	},
 	mounted() {
-		if (window.navigator.geolocation) {
+		/*if (window.navigator.geolocation) {
 			// Get user city based on his geolocation
 			const getUserCity = position => {
 				const { latitude, longitude } = position.coords
@@ -69,7 +69,7 @@ export default {
 
 			// Get user geolocation
 			window.navigator.geolocation.getCurrentPosition(getUserCity, notAllowed)
-		}
+		}*/
 	}
 }
 </script>

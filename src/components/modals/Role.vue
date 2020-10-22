@@ -30,13 +30,13 @@
 							<span class="is-size-7 text-uppercase is-semibold">{{ type }}</span>
 						</div>
 					</div>
-					<span v-for="(role, i) in roles" :key="i">
+					<span class="item" v-for="(r, i) in permission.route" :key="i">
 						<div class="columns mb-0">
 							<div class="column is-12-mobile is-4-tablet">
-								<h4 class="is-size-6 is-semibold has-text-primary">{{ role }}</h4>
+								<h4 class="is-size-6 is-semibold has-text-primary">{{ r.name }}</h4>
 							</div>
-							<div class="column is-12-mobile is-2-tablet text-center" v-for="(type, i) in crud" :key="i">
-								<b-checkbox type="is-primary" :name="role.toLowerCase() + '_' + type.toLowerCase()" class="ml-4"></b-checkbox>
+							<div class="column is-12-mobile is-2-tablet text-center" v-for="(value, key, i) in r.role" :key="i">
+								<b-checkbox type="is-primary" :name="r.name.toLowerCase() + '_' + key" class="ml-4" :value="value"></b-checkbox>
 							</div>
 						</div>
 						<hr class="mt-0 mb-4" />
@@ -71,16 +71,16 @@ export default {
 			color: '#dbdbdb',
 			swatches: ['#f368e0', '#b53471', '#7202f8', '#feca57', '#ff9f43', '#ee5253', '#0abde3', '#10ac84', '#01a3a4', '#2e86de', '#341f97', '#8395a7'],
 			crud: ['Read', 'Create', 'Edit', 'Delete'],
-			roles: ['Dashboard', 'Users', 'Roles', 'Chat'],
 			permission: {
 				name: '',
 				description: '',
 				color: '',
+				active: true,
 				route: [
 					{
 						name: 'Dashboard',
 						role: {
-							read: false,
+							read: true,
 							create: false,
 							edit: false,
 							delete: false
@@ -89,32 +89,22 @@ export default {
 					{
 						name: 'Users',
 						role: {
-							read: false,
-							create: false,
-							edit: false,
+							read: true,
+							create: true,
+							edit: true,
 							delete: false
 						}
 					},
 					{
 						name: 'Roles',
 						role: {
-							read: false,
-							create: false,
-							edit: false,
-							delete: false
-						}
-					},
-					{
-						name: 'Chat',
-						role: {
-							read: false,
-							create: false,
-							edit: false,
+							read: true,
+							create: true,
+							edit: true,
 							delete: false
 						}
 					}
-				],
-				active: true
+				]
 			}
 		}
 	},
@@ -126,9 +116,6 @@ export default {
 				console.log(this.permission)
 			}, 1000)
 		}
-	},
-	mounted() {
-
 	}
 }
 </script>

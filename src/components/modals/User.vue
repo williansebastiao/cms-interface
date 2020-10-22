@@ -1,29 +1,31 @@
 <template>
 	<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-		<header class="modal-card-head">
-			<h4 class="modal-card-title">
-				New
-				<strong>User</strong>
-			</h4>
-		</header>
-		<div class="modal-card-body">
-			<form class="modal-card mb-3" action="#">
-				<InputWithValidation class="mb-4" rules="required|min:3" type="text" label="Name" size="is-medium" v-model="name" />
+		<form @submit.prevent="handleSubmit(saveUser)">
+			<header class="modal-card-head">
+				<h4 class="modal-card-title">
+					New
+					<strong>User</strong>
+				</h4>
+			</header>
+			<div class="modal-card-body">
+				<div class="modal-card mb-3">
+					<InputWithValidation class="mb-4" rules="required|min:3" type="text" label="Name" size="is-medium" v-model="name" />
 
-				<InputWithValidation class="mb-4" rules="required|email" type="email" label="Email" size="is-medium" v-model="email" />
+					<InputWithValidation class="mb-4" rules="required|email" type="email" label="Email" size="is-medium" v-model="email" />
 
-				<SelectWithValidation class="mb-4" rules="required" label="Role" size="is-medium" v-model="role">
-					<option v-for="r in roles" :value="r.id" :key="r.id">{{ r.name }}</option>
-				</SelectWithValidation>
+					<SelectWithValidation class="mb-4" rules="required" label="Role" size="is-medium" v-model="role">
+						<option v-for="r in roles" :value="r.id" :key="r.id">{{ r.name }}</option>
+					</SelectWithValidation>
 
-				<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="password" />
-				<password-meter class="mb-5" :password="password" />
-			</form>
-		</div>
-		<footer class="modal-card-foot">
-			<b-button class="is-rounded is-outlined is-danger" @click="$emit('close')">Close</b-button>
-			<b-button native-type="submit" class="is-rounded is-primary" @click="handleSubmit(save($event))">Save</b-button>
-		</footer>
+					<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="password" />
+					<password-meter class="mb-5" :password="password" />
+				</div>
+			</div>
+			<footer class="modal-card-foot">
+				<b-button class="is-rounded is-outlined is-danger" @click="$emit('close')">Close</b-button>
+				<b-button native-type="submit" class="is-rounded is-primary" :loading="loading">Save</b-button>
+			</footer>
+		</form>
 	</ValidationObserver>
 </template>
 
@@ -42,6 +44,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: false,
 			name: '',
 			email: '',
 			password: '',
@@ -63,8 +66,12 @@ export default {
 		}
 	},
 	methods: {
-		save() {
-			console.log('Form submitted yay!')
+		saveUser() {
+			this.loading = true
+			setTimeout(() => {
+				this.loading = false
+				console.log('Form submitted yay!')
+			}, 1000)
 		}
 	}
 }

@@ -3,18 +3,18 @@
 		<section class="columns is-mobile">
 			<Title />
 			<div class="column page__actions">
-				<b-button type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="generate($event)">
+				<b-button v-if="!errored" type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="exportUsers($event)">
 					<span>Export</span>
 					<svg-icon class="icon is-small" icon="export"></svg-icon>
 				</b-button>
-				<b-button type="is-primary create" rounded @click="user($event)">
+				<b-button type="is-primary create" rounded @click="createUser($event)">
 					<svg-icon icon="add-user" class="icon is-small"></svg-icon>
 					<span>Create</span>
 				</b-button>
 			</div>
 			<Weather />
 		</section>
-		<section class="columns filter">
+		<section v-if="!errored" class="columns filter">
 			<div class="column filter__wrapper">
 				<b-field label="Order" v-model="order" :label-position="label">
 					<b-select placeholder="Name">
@@ -41,32 +41,20 @@
 					<b-input placeholder="Search..." type="search" icon="magnify"></b-input>
 				</b-field>
 			</div>
-			<div v-if="users.length > 0" class="column is-flex text-right">
-				<b-pagination v-model="page" :total="total" :simple="true" :per-page="pagination">
-					<!-- <b-pagination-button slot-scope="props" :page="props.page" :id="`page${props.page.number}`" tag="router-link" :to="`/users#${props.page.number}`"></b-pagination-button> -->
-
-					<b-pagination-button slot="previous" slot-scope="props" :page="props.page" tag="router-link" :to="`/users#${props.page.number}`">Previous</b-pagination-button>
-
-					<b-pagination-button slot="next" slot-scope="props" :page="props.page" tag="router-link" :to="`/users#${props.page.number}`">Next</b-pagination-button>
-				</b-pagination>
-
+			<div v-if="users.length > 0" class="column is-flex is-justify-content-flex-end">
 				<b-pagination
 					:total="total"
+					:page="page"
 					:per-page="pagination"
 					:simple="true"
 					:rounded="true"
-					v-model="page"
 					order="is-right"
 					icon-prev="chevron-left"
 					icon-next="chevron-right"
-					aria-next-label="Next"
-					aria-previous-label="Previous"
-					aria-page-label="Page"
-					aria-current-label="Current"
 				></b-pagination>
 			</div>
 		</section>
-		<p v-if="errored">Ocorreu um erro ao carregar os usuários.</p>
+		<Error v-if="errored" :icon="true" :back="true" />
 		<section v-else>
 			<div v-if="loading" class="columns is-multiline">
 				<div v-for="n in pagination" :key="n" class="column is-12-mobile is-6-tablet is-4-desktop">
@@ -76,15 +64,16 @@
 			<div class="columns is-multiline">
 				<div v-for="u in users" :key="u.id" class="column is-12-mobile is-6-tablet is-4-desktop">
 					<article class="block">
-						<div class="block__avatar image is-48x48">
-							<span class="block__role">Administrator</span>
-							<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
-						</div>
+						<!-- <b-tooltip label="Administrator" type="is-primary" position="is-right"> -->
+							<div class="block__avatar image is-48x48">
+								<span class="block__role">Administrator</span>
+								<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
+							</div>
+						<!-- </b-tooltip> -->
 						<div class="block__content">
 							<h3 class="block__name">{{ u.name }}</h3>
 							<p class="block__email">{{ u.email }}</p>
 						</div>
-						<!-- <span class="block__state">Active</span> -->
 						<Trigger :id="u.id" :items="actions" />
 					</article>
 				</div>
@@ -100,6 +89,7 @@ import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/User'
 import Trigger from '@/components/Trigger'
+import Error from '@/components/Error'
 import Modal from '@/components/modals/User'
 import Weather from '@/components/Weather'
 
@@ -109,6 +99,7 @@ export default {
 		Title,
 		Placeholder,
 		Trigger,
+		Error,
 		Weather,
 		'svg-icon': Icon
 	},
@@ -117,7 +108,6 @@ export default {
 			// Pagination
 			total: 0,
 			page: 1,
-			current: 1,
 			pagination: 15,
 			data: [],
 			loading: true,
@@ -143,15 +133,11 @@ export default {
 		}
 	},
 	mounted() {
-		let api = 'https://5f3b4721fff8550016ae51c9.mockapi.io/api/users',
-			page = this.$route.query.page || 0
+		let api = 'https://5f3b4721fff8550016ae51c9.mockapi.io/api/users'
 
 		axios
 			.get(api)
 			.then(response => {
-				this.$nextTick(() => {
-					this.current = page
-				})
 				setTimeout(() => {
 					this.data = response.data
 					this.total = response.data.length
@@ -164,37 +150,16 @@ export default {
 			})
 		// .finally(() => (console.log(this.loading)))
 	},
-	watch: {
-		$route: {
-			immediate: true,
-			handler(newVal, oldVal) {
-				console.log('new', newVal)
-				console.log('old', oldVal)
-				if (newVal.hash) {
-					this.page = parseInt(newVal.hash.replace('#', ''))
-				}
-			}
-		}
-	},
 	computed: {
-		// pageCount() {
-		// 	let l = this.total,
-		// 		p = this.pagination
-
-		// 	return Math.ceil(l / p)
-		// },
 		users() {
 			let start = this.page * this.pagination,
 				end = start + this.pagination
 
 			return this.data.slice(start, end)
-		},
-		route() {
-			return this.$route.name
 		}
 	},
 	methods: {
-		generate() {
+		exportUsers() {
 			this.exporting = true
 			setTimeout(() => {
 				this.exporting = false
@@ -207,7 +172,7 @@ export default {
 				})
 			}, 2000)
 		},
-		user(user) {
+		createUser(user) {
 			console.log(user)
 			this.$buefy.modal.open({
 				parent: this,
@@ -217,7 +182,7 @@ export default {
 				trapFocus: true
 			})
 		},
-		remove(user) {
+		deleteUser(user) {
 			console.log(user)
 			this.$buefy.dialog.alert({
 				size: 'is-delete',
@@ -241,14 +206,3 @@ export default {
 	}
 }
 </script>
-
-<style lang="sass">
-.users-enter-active,
-.users-leave-active
-	transition: all 1s
-
-.users-enter,
-.users-leave-to
-	opacity: 0
-	// transform: translateY(30px)
-</style>

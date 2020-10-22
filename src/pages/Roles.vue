@@ -3,7 +3,7 @@
 		<section class="columns is-mobile">
 			<Title />
 			<div class="column page__actions">
-				<b-button type="is-secondary export" :loading="exporting" v-if="!errored" size="is-small" rounded outlined @click="exportRoles($event)">
+				<b-button v-if="!errored" type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="exportRoles($event)">
 					<span>Export</span>
 					<svg-icon class="icon is-small" icon="export"></svg-icon>
 				</b-button>
@@ -14,7 +14,7 @@
 			</div>
 			<Weather />
 		</section>
-		<section class="columns filter">
+		<section v-if="!errored" class="columns filter">
 			<div class="column filter__wrapper" v-if="!errored">
 				<b-field label="Order by" v-model="order" :label-position="label">
 					<b-select placeholder="Name">
@@ -140,7 +140,7 @@ export default {
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
 				title: 'Attention',
-				message: "<span>Do you really want <br>to <strong>delete</strong> this entry?</span> <small>This action can't be reversed.</small>",
+				message: "<span>Do you really want <br>to <strong>delete</strong> this role?</span> <small>All users with this role will will lose access.</small>",
 				canCancel: true,
 				focusOn: 'cancel',
 				cancelText: 'No',
@@ -148,7 +148,7 @@ export default {
 				onConfirm: () =>
 					this.$buefy.toast.open({
 						type: 'is-success',
-						message: 'This user was removed successfully',
+						message: 'This role was removed successfully',
 						position: 'is-bottom',
 						closable: true,
 						duration: 5000
@@ -158,14 +158,3 @@ export default {
 	}
 }
 </script>
-
-<style lang="sass">
-.users-enter-active,
-.users-leave-active
-	transition: all 1s
-
-.users-enter,
-.users-leave-to
-	opacity: 0
-	// transform: translateY(30px)
-</style>

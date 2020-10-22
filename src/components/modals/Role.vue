@@ -114,9 +114,17 @@ export default {
 				this.loading = true
 				const response = await Api.post('permission/store', this.permission)
 				const { status } = response
-				if (status === 200) {
+				if (status === 201) {
 					const { message } = response.data
-					this.$emit('close')
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom'
+					})
+					setTimeout(() => {
+						this.$emit('close')
+					}, 2000)
+
 					console.log(message)
 				}
 			} catch (e) {

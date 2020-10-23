@@ -15,12 +15,6 @@ export default {
 	components: {
 		'svg-icon': Icon
 	},
-	data() {
-
-	},
-	methods: {
-
-	},
 	props: {
 		id: {
 			type: String,

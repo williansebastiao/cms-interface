@@ -1,9 +1,9 @@
 <template>
 	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left">
 		<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
-		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" @click="l.action">
+		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" :data-id="id" @click="handleClick(l, id)">
 			<svg-icon :icon="l.icon"></svg-icon>
-			<a href="javascript:;" :data-id="id" @click="handleClick(l, id)">{{ l.name }}</a>
+			<span>{{ l.name }}</span>
 		</b-dropdown-item>
 	</b-dropdown>
 </template>

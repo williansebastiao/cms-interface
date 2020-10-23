@@ -139,6 +139,9 @@ export default {
 				this.loading = false
 			}
 		}
+	},
+	mounted() {
+		this.onEnlargeText()
 	}
 }
 </script>

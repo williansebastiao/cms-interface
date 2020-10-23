@@ -35,13 +35,17 @@
 				</div>
 			</div>
 			<div class="columns is-multiline">
+				<div class="column is-12-mobile is-6-tablet is-4-desktop">
+					<p><button @click="emitChangeName">Trocar nome</button></p>
+				</div>
+				<my-componet  />
 				<div v-for="r in permission" :key="r.id" class="column is-12-mobile is-6-tablet is-4-desktop">
 					<article class="block" :style="{ 'border-left-color': r.color }">
 						<div class="block__content">
 							<h3 class="block__name">{{ r.name }}</h3>
 							<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
 						</div>
-						<Trigger :id="r.id" :items="actions" />
+						<Trigger :id="r._id" :items="actions" />
 					</article>
 				</div>
 			</div>
@@ -50,7 +54,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
@@ -60,9 +63,12 @@ import Error from '@/components/Error'
 import Modal from '@/components/modals/Role'
 import Weather from '@/components/Weather'
 import Api from '@/services/api'
+import eventHub from "@/services/eventHub"
+import MyComponet from "@/components/my-componet"
 
 export default {
 	components: {
+		MyComponet,
 		Layout,
 		Title,
 		Placeholder,
@@ -103,26 +109,18 @@ export default {
 				const { status } = response
 				if(status === 200) {
 					const { data } = response
-					this.permission = data;
+					this.permission = data
 				}
 			} catch (e) {
 				console.log(e)
+			} finally {
+				this.loading = false
 			}
 		},
-		weather() {
-			let api = 'https://5f3b4721fff8550016ae51c9.mockapi.io/api/roles'
-			axios
-				.get(api)
-				.then(response => {
-					setTimeout(() => {
-						this.roles = response.data
-						this.loading = false
-					}, 1000)
-				})
-				.catch(error => {
-					console.log('error', error)
-					this.errored = true
-				})
+		emitChangeName() {
+			eventHub.$emit("change-name", {
+				name: 'wallace'
+			})
 		},
 		exportRoles() {
 			this.exporting = true
@@ -171,7 +169,6 @@ export default {
 	},
 	mounted() {
 		this.getAllRoles()
-		this.weather()
 	},
 }
 </script>

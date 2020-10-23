@@ -23,7 +23,7 @@
 					</b-select>
 				</b-field>
 				<b-field>
-					<b-input placeholder="Search..." type="search" icon="magnify"></b-input>
+					<b-input placeholder="Search..." type="search" icon="magnify" @input="findByName" v-model="role.name"></b-input>
 				</b-field>
 			</div>
 		</section>
@@ -93,7 +93,10 @@ export default {
 					color: 'has-text-danger'
 				}
 			],
-			permission: []
+			permission: [],
+			role: {
+				name: ''
+			}
 		}
 	},
 	methods: {
@@ -122,6 +125,27 @@ export default {
 				if (status === 200) {
 					const { data } = response
 					this.permission = data
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.loading = false
+			}
+		},
+		async findByName() {
+			try {
+				const empty = /^\s*$/
+				if (!empty.test(this.role.name)) {
+					const response = await Api.post('permission/findByName', {
+						name: this.role.name
+					})
+					const { status } = response
+					if (status === 200) {
+						const { data } = response
+						this.permission = data
+					}
+				} else {
+					await this.getAllRoles()
 				}
 			} catch (e) {
 				console.log(e)

@@ -203,6 +203,16 @@ export default {
 		eventHub.$on('reload-roles', () => {
 			this.getAllRoles()
 		})
+		eventHub.$on('open-modal-role', obj => {
+			this.id = obj.id
+			this.$buefy.modal.open({
+				parent: this,
+				component: Modal,
+				scroll: 'clip',
+				customClass: 'is-role is-lg',
+				trapFocus: true
+			})
+		})
 	}
 }
 </script>

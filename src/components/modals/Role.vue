@@ -69,6 +69,7 @@ export default {
 	data() {
 		return {
 			loading: false,
+			id: '',
 			swatches: ['#feca57', '#ff9f43', '#ee5253', '#f368e0', '#b53471', '#7202f8', '#10ac84', '#01a3a4', '#0abde3', '#2e86de', '#341f97', '#dbdbdb', '#8395a7', '#576574', '#222f3e'],
 			crud: ['Read', 'Create', 'Edit', 'Delete'],
 			permission: {
@@ -138,9 +139,6 @@ export default {
 				this.loading = false
 			}
 		}
-	},
-	mounted() {
-		this.onEnlargeText()
 	}
 }
 </script>

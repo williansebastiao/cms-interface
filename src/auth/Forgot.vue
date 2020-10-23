@@ -9,12 +9,12 @@
 						<p>Enter your email to reset your password.</p>
 					</div>
 
-					<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email">
+					<InputWithValidation tab="1" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email">
 						<router-link :to="{ name: 'Login' }" class="auth__forgot is-primary is-semibold">Remember your password?</router-link>
 					</InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" :loading="loading">Send</b-button>
+						<b-button tabindex="2" native-type="submit" class="button is-button is-primary" :loading="loading">Send</b-button>
 					</span>
 				</form>
 			</ValidationObserver>

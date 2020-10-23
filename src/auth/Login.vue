@@ -12,14 +12,14 @@
 						</p>
 					</div>
 
-					<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
+					<InputWithValidation tab="1" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
 
-					<InputWithValidation class="mb-5" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password">
-						<router-link :to="{ name: 'Forgot' }" class="auth__forgot is-primary is-semibold">Forgot your password?</router-link>
+					<InputWithValidation tab="2" class="mb-5" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password">
+						<router-link :to="{ name: 'Forgot' }" class="auth__forgot is-primary is-semibold" tabindex="4">Forgot your password?</router-link>
 					</InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" :loading="loading">Sign In</b-button>
+						<b-button tabindex="3" native-type="submit" class="button is-button is-primary" :loading="loading">Sign In</b-button>
 					</span>
 				</form>
 			</ValidationObserver>

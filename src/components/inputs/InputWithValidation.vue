@@ -2,7 +2,7 @@
 	<ValidationProvider class="is-block is-relative" :vid="vid" :name="$attrs.name || $attrs.label" :rules="rules" v-slot="{ errors, valid }">
 		<slot></slot>
 		<b-field v-bind="$attrs" :type="{ 'is-danger': errors[0], 'is-success': valid }" :message="errors">
-			<b-input v-model="innerValue" v-bind="$attrs"></b-input>
+			<b-input v-model="innerValue" :tabindex="tab" v-bind="$attrs"></b-input>
 		</b-field>
 	</ValidationProvider>
 </template>
@@ -15,6 +15,10 @@ export default {
 		ValidationProvider
 	},
 	props: {
+		tab: {
+			type: [String, Number],
+			default: 1
+		},
 		vid: {
 			type: String
 		},

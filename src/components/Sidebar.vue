@@ -12,7 +12,7 @@
 		</nav>
 		<nav class="navigation navigation--primary">
 			<b-tooltip label="Logout" type="is-primary" position="is-right">
-				<a @click="logout" class="navigation__link" href="#">
+				<a @click="logout" class="navigation__link navigation__link--logout" href="#">
 					<svg-icon icon="logout"></svg-icon>
 				</a>
 			</b-tooltip>

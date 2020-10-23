@@ -28,7 +28,7 @@
 			</div>
 		</section>
 		<Error v-if="errored" :back="true" />
-		<Results v-if="permission == 0" />
+		<Results v-if="permission == 0 && !loading" />
 		<section v-else>
 			<div v-if="loading" class="columns is-multiline">
 				<div v-for="r in placeholder" :key="r" class="column is-12-mobile is-6-tablet is-4-desktop">

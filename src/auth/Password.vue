@@ -12,12 +12,12 @@
 						</p>
 					</div>
 
-					<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
-					<InputWithValidation class="mb-5" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password"></InputWithValidation>
-					<InputWithValidation class="mb-5" rules="required|min:8" type="password" label="Confirm password" vid="confirmPassword" size="is-medium" password-reveal v-model="auth.password_confirmation"></InputWithValidation>
+					<InputWithValidation tab="1" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
+					<InputWithValidation tab="2" class="mb-5" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password"></InputWithValidation>
+					<InputWithValidation tab="3" class="mb-5" rules="required|min:8" type="password" label="Confirm password" vid="confirmPassword" size="is-medium" password-reveal v-model="auth.password_confirmation"></InputWithValidation>
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" :loading="loading">Sign In</b-button>
+						<b-button tabindex="4" native-type="submit" class="button is-button is-primary" :loading="loading">Sign In</b-button>
 					</span>
 				</form>
 			</ValidationObserver>

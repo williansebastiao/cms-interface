@@ -12,16 +12,16 @@
 						</p>
 					</div>
 
-					<InputWithValidation rules="required|min:3" class="mb-5" type="text" label="Name" size="is-medium" v-model="auth.name" />
+					<InputWithValidation tab="1" rules="required|min:3" class="mb-5" type="text" label="Name" size="is-medium" v-model="auth.name" />
 
-					<InputWithValidation class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
+					<InputWithValidation tab="2" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
 
-					<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password" />
+					<InputWithValidation tab="3" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password" />
 
 					<password-meter class="mb-5" :password="auth.password" @score="Score" />
 
 					<span class="is-block text-center">
-						<b-button native-type="submit" class="button is-button is-primary" :loading="loading">Register</b-button>
+						<b-button tabindex="4" native-type="submit" class="button is-button is-primary" :loading="loading">Register</b-button>
 					</span>
 				</form>
 			</ValidationObserver>

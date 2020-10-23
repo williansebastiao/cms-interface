@@ -21,7 +21,7 @@ export default [
 		component: () => import('@/auth/Register')
 	},
 	{
-		path: '/password/:token',
+		path: '/password',
 		name: 'Password',
 		beforeEnter: guest,
 		component: () => import('@/auth/Password')

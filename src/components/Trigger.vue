@@ -35,7 +35,9 @@ export default {
 					id
 				})
 			} else {
-				console.log('Delete')
+				eventHub.$emit('delete-role', {
+					id
+				})
 			}
 		}
 	}

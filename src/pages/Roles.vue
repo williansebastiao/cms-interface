@@ -57,6 +57,7 @@ import Placeholder from '@/components/placeholders/Role'
 import Trigger from '@/components/Trigger'
 import Error from '@/components/Error'
 import Modal from '@/components/modals/Role'
+//import Delete from '@/components/modals/Delete'
 import Weather from '@/components/Weather'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
@@ -176,8 +177,8 @@ export default {
 				trapFocus: true
 			})
 		},
-		deleteRole(user) {
-			console.log(user)
+		deleteRole(id) {
+			console.log(id)
 			this.$buefy.dialog.alert({
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
@@ -205,12 +206,35 @@ export default {
 		})
 		eventHub.$on('open-modal-role', obj => {
 			this.id = obj.id
+			console.log(this.id)
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
 				scroll: 'clip',
 				customClass: 'is-role is-lg',
 				trapFocus: true
+			})
+		})
+		eventHub.$on('delete-role', obj => {
+			this.id = obj.id
+			console.log(this.id)
+			this.$buefy.dialog.alert({
+				size: 'is-delete',
+				type: 'is-outlined is-primary',
+				title: 'Attention',
+				message: '<span>Do you really want <br>to <strong>delete</strong> this role?</span> <small>All users with this role will will lose access.</small>',
+				canCancel: true,
+				focusOn: 'cancel',
+				cancelText: 'No',
+				confirmText: 'Yes',
+				onConfirm: () =>
+					this.$buefy.toast.open({
+						type: 'is-success',
+						message: 'This role was removed successfully',
+						position: 'is-bottom',
+						closable: true,
+						duration: 5000
+					})
 			})
 		})
 	}

@@ -17,7 +17,7 @@
 		<section v-if="!errored" class="columns filter">
 			<div class="column filter__wrapper" v-if="!errored">
 				<b-field label="Order by" v-model="order" :label-position="label">
-					<b-select placeholder="Name">
+					<b-select placeholder="Name" @input="filterBy">
 						<option selected value="1">Name</option>
 						<option value="2">Date</option>
 					</b-select>
@@ -100,6 +100,24 @@ export default {
 		async getAllRoles() {
 			try {
 				const response = await Api.get('permission/findAll')
+				const { status } = response
+				if (status === 200) {
+					const { data } = response
+					this.permission = data
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.loading = false
+			}
+		},
+		filterBy(e) {
+			const type = parseInt(e)
+			type === 1 ? this.getAllRoles() : this.findByDate()
+		},
+		async findByDate() {
+			try {
+				const response = await Api.get('permission/findAllOrderByDate')
 				const { status } = response
 				if (status === 200) {
 					const { data } = response

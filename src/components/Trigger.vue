@@ -3,7 +3,7 @@
 		<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
 		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" @click="l.action">
 			<svg-icon :icon="l.icon"></svg-icon>
-			<span>{{ l.name }} 1</span>
+			<span>{{ l.name }}</span>
 		</b-dropdown-item>
 	</b-dropdown>
 </template>

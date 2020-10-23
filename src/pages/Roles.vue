@@ -35,10 +35,6 @@
 				</div>
 			</div>
 			<div class="columns is-multiline">
-				<div class="column is-12-mobile is-6-tablet is-4-desktop">
-					<p><button @click="emitChangeName">Trocar nome</button></p>
-				</div>
-				<my-componet  />
 				<div v-for="r in permission" :key="r.id" class="column is-12-mobile is-6-tablet is-4-desktop">
 					<article class="block" :style="{ 'border-left-color': r.color }">
 						<div class="block__content">
@@ -63,12 +59,10 @@ import Error from '@/components/Error'
 import Modal from '@/components/modals/Role'
 import Weather from '@/components/Weather'
 import Api from '@/services/api'
-import eventHub from "@/services/eventHub"
-import MyComponet from "@/components/my-componet"
+import eventHub from '@/services/eventHub'
 
 export default {
 	components: {
-		MyComponet,
 		Layout,
 		Title,
 		Placeholder,
@@ -107,7 +101,7 @@ export default {
 			try {
 				const response = await Api.get('permission/findAll')
 				const { status } = response
-				if(status === 200) {
+				if (status === 200) {
 					const { data } = response
 					this.permission = data
 				}
@@ -116,11 +110,6 @@ export default {
 			} finally {
 				this.loading = false
 			}
-		},
-		emitChangeName() {
-			eventHub.$emit("change-name", {
-				name: 'wallace'
-			})
 		},
 		exportRoles() {
 			this.exporting = true
@@ -151,7 +140,7 @@ export default {
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
 				title: 'Attention',
-				message: "<span>Do you really want <br>to <strong>delete</strong> this role?</span> <small>All users with this role will will lose access.</small>",
+				message: '<span>Do you really want <br>to <strong>delete</strong> this role?</span> <small>All users with this role will will lose access.</small>',
 				canCancel: true,
 				focusOn: 'cancel',
 				cancelText: 'No',
@@ -169,6 +158,9 @@ export default {
 	},
 	mounted() {
 		this.getAllRoles()
-	},
+		eventHub.$on('reload-roles', () => {
+			this.getAllRoles()
+		})
+	}
 }
 </script>

@@ -18,7 +18,7 @@
 						</div>
 						<div class="column is-4-mobile is-1-tablet">
 							<b-field label="Color" class="mb-2">
-								<v-swatches  v-model="permission.color" :swatches="swatches" row-length="5" shapes="circles" popover-x="left"></v-swatches>
+								<v-swatches v-model="permission.color" :swatches="swatches" row-length="5" shapes="circles" popover-x="left"></v-swatches>
 							</b-field>
 						</div>
 					</div>
@@ -57,6 +57,7 @@ import VSwatches from 'vue-swatches'
 import { ValidationObserver } from 'vee-validate'
 import '@/mixins/date'
 import Api from '@/services/api'
+import eventHub from '@/services/eventHub'
 import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
@@ -121,9 +122,7 @@ export default {
 						type: 'is-success',
 						position: 'is-bottom'
 					})
-					setTimeout(() => {
-						document.location.reload(true);
-					})
+					eventHub.$emit('reload-roles')
 				}
 			} catch (e) {
 				const { status } = e

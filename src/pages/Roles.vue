@@ -27,24 +27,25 @@
 				</b-field>
 			</div>
 		</section>
-		<Error v-if="errored" :icon="true" :back="true" />
+		<Error v-if="errored" :back="true" />
+		<Results v-if="permission == 0" />
 		<section v-else>
 			<div v-if="loading" class="columns is-multiline">
 				<div v-for="r in placeholder" :key="r" class="column is-12-mobile is-6-tablet is-4-desktop">
 					<Placeholder />
 				</div>
 			</div>
-			<div class="columns is-multiline">
-				<div v-for="r in permission" :key="r.id" class="column is-12-mobile is-6-tablet is-4-desktop">
+			<transition-group name="filtering" class="filtering columns is-multiline" tag="div">
+				<div v-for="r in permission" :key="r._id" class="list-item column is-12-mobile is-6-tablet is-4-desktop">
 					<article class="block" :style="{ 'border-left-color': r.color }">
 						<div class="block__content">
 							<h3 class="block__name">{{ r.name }}</h3>
 							<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
 						</div>
-						<Trigger :id="r._id" :items="actions" />
+						<Trigger :id="r._id" />
 					</article>
 				</div>
-			</div>
+			</transition-group>
 		</section>
 	</Layout>
 </template>
@@ -56,6 +57,7 @@ import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/Role'
 import Trigger from '@/components/Trigger'
 import Error from '@/components/Error'
+import Results from '@/components/Results'
 import Modal from '@/components/modals/Role'
 //import Delete from '@/components/modals/Delete'
 import Weather from '@/components/Weather'
@@ -69,13 +71,13 @@ export default {
 		Placeholder,
 		Trigger,
 		Error,
+		Results,
 		Weather,
 		'svg-icon': Icon
 	},
 	data() {
 		return {
 			placeholder: 5,
-			roles: [],
 			loading: true,
 			errored: false,
 			// Filter
@@ -83,17 +85,6 @@ export default {
 			label: 'on-border',
 			// Export
 			exporting: false,
-			actions: [
-				{
-					name: 'Edit',
-					icon: 'edit'
-				},
-				{
-					name: 'Delete',
-					icon: 'trash',
-					color: 'has-text-danger'
-				}
-			],
 			permission: [],
 			role: {
 				name: ''

@@ -24,7 +24,20 @@ export default {
 		},
 		items: {
 			type: Array,
-			required: true
+			required: false,
+			default: () => {
+				return [
+					{
+						name: 'Edit',
+						icon: 'edit'
+					},
+					{
+						name: 'Delete',
+						icon: 'trash',
+						color: 'has-text-danger'
+					}
+				]
+			}
 		}
 	},
 	methods: {

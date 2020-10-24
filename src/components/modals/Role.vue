@@ -67,6 +67,10 @@ export default {
 		VSwatches
 	},
 	props: {
+		id: {
+			type: String,
+			required: false
+		},
 		name: {
 			type: String,
 			required: true
@@ -116,6 +120,9 @@ export default {
 	},
 	methods: {
 		async saveRole() {
+			this.name === 'New' ? await this.store() : await this.update()
+		},
+		async store() {
 			try {
 				this.loading = true
 				const response = await Api.post('permission/store', this.permission)
@@ -143,7 +150,54 @@ export default {
 			} finally {
 				this.loading = false
 			}
+		},
+		async update() {
+			try {
+				this.loading = true
+				const response = await Api.put(`permission/update/${this.id}`, this.permission)
+				const { status } = response
+				if (status === 200) {
+					const { message } = response.data
+					this.$emit('close')
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom'
+					})
+					eventHub.$emit('reload-roles')
+				}
+			} catch (e) {
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
+				}
+			} finally {
+				this.loading = false
+			}
+		},
+		async findById() {
+			if (this.name === 'Edit') {
+				try {
+					const response = await Api.get(`permission/findById/${this.id}`)
+					const { status } = response
+					if (status === 200) {
+						const { data } = response
+						this.permission = data
+					}
+					console.log(response)
+				} catch (e) {
+					console.log(e)
+				}
+			}
 		}
+	},
+	mounted() {
+		this.findById()
 	}
 }
 </script>

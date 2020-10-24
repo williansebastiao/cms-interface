@@ -197,7 +197,6 @@ export default {
 			this.getAllRoles()
 		})
 		eventHub.$on('open-modal-role', obj => {
-			console.log(obj)
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
@@ -205,6 +204,7 @@ export default {
 				customClass: 'is-role is-lg',
 				trapFocus: true,
 				props: {
+					id: obj.id,
 					name: 'Edit'
 				}
 			})

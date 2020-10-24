@@ -59,7 +59,6 @@ import Trigger from '@/components/Trigger'
 import Error from '@/components/Error'
 import Results from '@/components/Results'
 import Modal from '@/components/modals/Role'
-//import Delete from '@/components/modals/Delete'
 import Weather from '@/components/Weather'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
@@ -158,14 +157,16 @@ export default {
 				})
 			}, 2000)
 		},
-		createRole(user) {
-			console.log(user)
+		createRole() {
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
 				scroll: 'clip',
 				customClass: 'is-role is-lg',
-				trapFocus: true
+				trapFocus: true,
+				props: {
+					name: 'New'
+				}
 			})
 		},
 		deleteRole(id) {
@@ -196,19 +197,19 @@ export default {
 			this.getAllRoles()
 		})
 		eventHub.$on('open-modal-role', obj => {
-			this.id = obj.id
-			console.log(this.id)
+			console.log(obj)
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
 				scroll: 'clip',
 				customClass: 'is-role is-lg',
-				trapFocus: true
+				trapFocus: true,
+				props: {
+					name: 'Edit'
+				}
 			})
 		})
 		eventHub.$on('delete-role', obj => {
-			this.id = obj.id
-			console.log(this.id)
 			this.$buefy.dialog.alert({
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
@@ -218,14 +219,25 @@ export default {
 				focusOn: 'cancel',
 				cancelText: 'No',
 				confirmText: 'Yes',
-				onConfirm: () =>
-					this.$buefy.toast.open({
-						type: 'is-success',
-						message: 'This role was removed successfully',
-						position: 'is-bottom',
-						closable: true,
-						duration: 5000
-					})
+				onConfirm: async () => {
+					try {
+						const response = await Api.delete(`permission/destroy/${obj.id}`)
+						const { status } = response
+						if (status === 200) {
+							const { message } = response.data
+							this.$buefy.toast.open({
+								type: 'is-success',
+								message: message,
+								position: 'is-bottom',
+								closable: true,
+								duration: 5000
+							})
+							await this.getAllRoles()
+						}
+					} catch (e) {
+						console.log(e)
+					}
+				}
 			})
 		})
 	}

@@ -8,6 +8,7 @@
 				</h4>
 			</header>
 			<div class="modal-card-body">
+				<b-loading :is-full-page="false" v-model="isOpening"></b-loading>
 				<div class="modal-card">
 					<div class="columns mb-2">
 						<div class="column is-12-mobile is-4-tablet">
@@ -78,6 +79,7 @@ export default {
 	},
 	data() {
 		return {
+			isOpening: false,
 			loading: false,
 			swatches: ['#feca57', '#ff9f43', '#ee5253', '#f368e0', '#b53471', '#7202f8', '#10ac84', '#01a3a4', '#0abde3', '#2e86de', '#341f97', '#dbdbdb', '#8395a7', '#576574', '#222f3e'],
 			crud: ['Read', 'Create', 'Edit', 'Delete'],
@@ -90,7 +92,7 @@ export default {
 					{
 						name: 'Dashboard',
 						role: {
-							read: true,
+							read: false,
 							create: false,
 							edit: false,
 							delete: false
@@ -99,7 +101,7 @@ export default {
 					{
 						name: 'Users',
 						role: {
-							read: true,
+							read: false,
 							create: false,
 							edit: false,
 							delete: false
@@ -108,7 +110,7 @@ export default {
 					{
 						name: 'Roles',
 						role: {
-							read: true,
+							read: false,
 							create: false,
 							edit: false,
 							delete: false
@@ -182,12 +184,15 @@ export default {
 		},
 		async findById() {
 			if (this.name === 'Edit') {
+				this.isOpening = true
 				try {
 					const response = await Api.get(`permission/findById/${this.id}`)
 					const { status } = response
 					if (status === 200) {
 						const { data } = response
 						this.permission = data
+						this.isOpening = false
+						console.log(data)
 					}
 					console.log(response)
 				} catch (e) {

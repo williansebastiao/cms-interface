@@ -7,7 +7,6 @@
 		</b-dropdown-item>
 	</b-dropdown>
 </template>
-
 <script>
 import Icon from '@/components/Icon'
 import eventHub from '@/services/eventHub'

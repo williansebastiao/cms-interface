@@ -42,16 +42,7 @@
 				</b-field>
 			</div>
 			<div v-if="users.length > 0" class="column is-flex is-justify-content-flex-end">
-				<b-pagination
-					:total="total"
-					:page="page"
-					:per-page="pagination"
-					:simple="true"
-					:rounded="true"
-					order="is-right"
-					icon-prev="chevron-left"
-					icon-next="chevron-right"
-				></b-pagination>
+				<b-pagination :total="total" :page="page" :per-page="pagination" :simple="true" :rounded="true" order="is-right" icon-prev="chevron-left" icon-next="chevron-right"></b-pagination>
 			</div>
 		</section>
 		<Error v-if="errored" :icon="true" :back="true" />
@@ -65,10 +56,10 @@
 				<div v-for="u in users" :key="u.id" class="column is-12-mobile is-6-tablet is-4-desktop">
 					<article class="block">
 						<!-- <b-tooltip label="Administrator" type="is-primary" position="is-right"> -->
-							<div class="block__avatar image is-48x48">
-								<span class="block__role">Administrator</span>
-								<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
-							</div>
+						<div class="block__avatar image is-48x48">
+							<span class="block__role">Administrator</span>
+							<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
+						</div>
 						<!-- </b-tooltip> -->
 						<div class="block__content">
 							<h3 class="block__name">{{ u.name }}</h3>

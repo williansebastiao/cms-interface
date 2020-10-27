@@ -42,7 +42,6 @@
 							<h3 class="block__name">{{ r.name }}</h3>
 							<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
 						</div>
-						<a href="#" @click="deleteRole">Abre modal</a>
 						<Trigger :id="r._id" />
 					</article>
 				</div>
@@ -193,9 +192,7 @@ export default {
 	},
 	mounted() {
 		this.getAllRoles()
-
-	},
-	created() {
+		eventHub.$off()
 		eventHub.$on('reload-roles', () => {
 			this.getAllRoles()
 		})
@@ -212,9 +209,7 @@ export default {
 				}
 			})
 		})
-		eventHub.$on('delete-role', () => {
-			console.log('delete-role')
-			/*
+		eventHub.$on('delete-role', obj => {
 			this.$buefy.dialog.alert({
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
@@ -244,7 +239,6 @@ export default {
 					}
 				}
 			})
-			*/
 		})
 	}
 }

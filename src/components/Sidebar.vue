@@ -10,9 +10,14 @@
 				</router-link>
 			</b-tooltip>
 		</nav>
-		<nav class="navigation navigation--primary">
+		<nav class="navigation navigation--secondary">
+			<b-tooltip label="Profile" type="is-primary" position="is-right">
+				<router-link class="navigation__link mb-0" tag="a" :to="{ name: 'Profile' }">
+					<svg-icon icon="profile"></svg-icon>
+				</router-link>
+			</b-tooltip>
 			<b-tooltip label="Logout" type="is-primary" position="is-right">
-				<a @click="logout" class="navigation__link navigation__link--logout" href="#">
+				<a href="#" class="navigation__link navigation__link--logout" @click="logout">
 					<svg-icon icon="logout"></svg-icon>
 				</a>
 			</b-tooltip>

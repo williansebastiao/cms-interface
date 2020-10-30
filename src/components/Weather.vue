@@ -1,5 +1,5 @@
 <template>
-	<div class="weather" v-if="show">
+	<div :class="{ 'weather': show, 'no-border': !bordered }" v-if="show">
 		<!-- <img :src="image" :alt="city"> -->
 		<Placeholder v-if="loading" />
 		<div class="weather__temperature" v-else>
@@ -17,6 +17,12 @@ export default {
 	name: 'Weather',
 	components: {
 		Placeholder
+	},
+	props: {
+		bordered: {
+			type: Boolean,
+			default: true
+		}
 	},
 	data() {
 		return {
@@ -70,6 +76,38 @@ export default {
 			// Get user geolocation
 			window.navigator.geolocation.getCurrentPosition(getUserCity, notAllowed)
 		}*/
+		/*
+		cloudy
+		cloudy-alert
+		cloudy-arrow-right
+		fog
+		hail
+		hazy
+		hurricane
+		lightning
+		lightning-rainy
+		night
+		night-partly-cloudy
+		partly-cloudy
+		partly-lightning
+		partly-rainy
+		partly-snowy
+		partly-snowy-rainy
+		pouring
+		rainy
+		snowy
+		snowy-heavy
+		snowy-rainy
+		sunny
+		sunny-alert
+		sunny-off
+		sunset
+		sunset-down
+		sunset-up
+		tornado
+		windy
+		windy-variant
+		*/
 	}
 }
 </script>

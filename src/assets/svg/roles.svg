@@ -2,9 +2,9 @@
 	<g transform="translate(-247 -662)">
 		<rect width="25" height="25" transform="translate(247 662)" fill="none" />
 		<g transform="translate(248 663)">
-			<path
+			<path class="fill"
 				d="M20,20V10a2.006,2.006,0,0,0-2-2H6a2.006,2.006,0,0,0-2,2V20a2.006,2.006,0,0,0,2,2H18A2.006,2.006,0,0,0,20,20Zm-6-5a2,2,0,1,1-2-2A2.006,2.006,0,0,1,14,15Z" />
-			<path d="M17,12V7A5,5,0,0,0,7,7v5" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"
+			<path class="stroke" d="M17,12V7A5,5,0,0,0,7,7v5" fill="none" stroke-miterlimit="10" stroke-width="2"
 				opacity="0.3" />
 		</g>
 	</g>

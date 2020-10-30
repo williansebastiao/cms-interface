@@ -50,7 +50,7 @@ export default {
 				svgElement.setAttribute('width', '1em')
 				svgElement.setAttribute('height', `${1 / widthToHeight}em`)
 			}
-			svgElement.classList.add('svg__icon')
+			svgElement.classList.add('icon')
 		}
 	}
 }

@@ -36,7 +36,7 @@
 					</b-select>
 				</b-field>
 				<b-field>
-					<b-input placeholder="Search..." type="search" icon="magnify"></b-input>
+					<b-input placeholder="Search..." type="search" icon="magnify" v-model="user.name" @input="findByName"></b-input>
 				</b-field>
 			</div>
 			<div v-if="users.length > 0" class="column is-flex is-justify-content-flex-end">
@@ -120,7 +120,10 @@ export default {
 					color: 'has-text-danger'
 				}
 			],
-			permission: []
+			permission: [],
+			user: {
+				name: ''
+			}
 		}
 	},
 	mounted() {
@@ -162,6 +165,27 @@ export default {
 					this.data = data
 					this.total = data.length
 					this.loading = false
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.loading = false
+			}
+		},
+		async findByName() {
+			try {
+				const empty = /^\s*$/
+				if (!empty.test(this.user.name)) {
+					const response = await Api.post('user/findByName', {
+						name: this.user.name
+					})
+					const { status } = response
+					if (status === 200) {
+						const { data } = response
+						this.data = data
+					}
+				} else {
+					await this.getAllUsers()
 				}
 			} catch (e) {
 				console.log(e)

@@ -9,16 +9,16 @@
 			</header>
 			<div class="modal-card-body">
 				<div class="modal-card mb-3">
-					<InputWithValidation class="mb-4" rules="required|min:3" type="text" label="Name" size="is-medium" v-model="name" />
+					<InputWithValidation class="mb-4" rules="required|min:3" type="text" label="Name" size="is-medium" v-model="user.name" />
 
-					<InputWithValidation class="mb-4" rules="required|email" type="email" label="Email" size="is-medium" v-model="email" />
+					<InputWithValidation class="mb-4" rules="required|email" type="email" label="Email" size="is-medium" v-model="user.email" />
 
-					<SelectWithValidation class="mb-4" rules="required" label="Role" size="is-medium" v-model="role">
-						<option v-for="r in roles" :value="r.id" :key="r.id">{{ r.name }}</option>
+					<SelectWithValidation class="mb-4" rules="required" label="Role" size="is-medium" v-model="user.permission_id">
+						<option v-for="r in permission" :value="r._id" :key="r._id">{{ r.name }}</option>
 					</SelectWithValidation>
 
 					<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="password" />
-					<password-meter class="mb-5" :password="password" />
+					<password-meter class="mb-5" :password="user.password" />
 				</div>
 			</div>
 			<footer class="modal-card-foot">
@@ -34,6 +34,9 @@ import InputWithValidation from '@/components/inputs/InputWithValidation'
 import SelectWithValidation from '@/components/inputs/SelectWithValidation'
 import { ValidationObserver } from 'vee-validate'
 import PasswordMeter from 'vue-simple-password-meter'
+import Api from '@/services/api'
+import eventHub from '@/services/eventHub'
+import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
 	components: {
@@ -45,34 +48,67 @@ export default {
 	data() {
 		return {
 			loading: false,
-			name: '',
-			email: '',
-			password: '',
+			user: {
+				name: '',
+				email: '',
+				password: '',
+				permission_id: ''
+			},
 			role: 1,
-			roles: [
-				{
-					id: 1,
-					name: 'User'
-				},
-				{
-					id: 2,
-					name: 'Moderator'
-				},
-				{
-					id: 3,
-					name: 'Administrator'
-				}
-			]
+			permission: []
 		}
 	},
 	methods: {
-		saveUser() {
+		async getAllRoles() {
+			try {
+				const response = await Api.get('permission/findAll')
+				const { status } = response
+				if (status === 200) {
+					const { data } = response
+					this.permission = data
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		async saveUser() {
+			try {
+				this.loading = true
+				const response = await Api.post('user/store', this.user)
+				const { status } = response
+				if (status === 201) {
+					const { message } = response.data
+					this.$emit('close')
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom'
+					})
+					eventHub.$emit('reload-users')
+				}
+			} catch (e) {
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
+				}
+			} finally {
+				this.loading = false
+			}
+
 			this.loading = true
 			setTimeout(() => {
 				this.loading = false
 				console.log('Form submitted yay!')
 			}, 1000)
 		}
+	},
+	mounted() {
+		this.getAllRoles()
 	}
 }
 </script>

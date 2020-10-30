@@ -26,9 +26,7 @@
 				</b-field>
 				<b-field label="Role" v-model="role" :label-position="label">
 					<b-select placeholder="All Roles">
-						<option value="1">User</option>
-						<option value="2">Moderator</option>
-						<option value="3">Administrator</option>
+						<option v-for="r in permission" :value="r._id" :key="r._id">{{ r.name }}</option>
 					</b-select>
 				</b-field>
 				<b-field label="Status" v-model="status" :label-position="label">
@@ -42,7 +40,7 @@
 				</b-field>
 			</div>
 			<div v-if="users.length > 0" class="column is-flex is-justify-content-flex-end">
-				<b-pagination :total="total" :page="page" :per-page="pagination" :simple="true" :rounded="true" order="is-right" icon-prev="chevron-left" icon-next="chevron-right"></b-pagination>
+				<b-pagination :current.sync="current" :total="total" :page="page" :per-page="pagination" :simple="true" :rounded="true" order="is-right" icon-prev="chevron-left" icon-next="chevron-right"></b-pagination>
 			</div>
 		</section>
 		<Error v-if="errored" :icon="true" :back="true" />
@@ -74,7 +72,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
@@ -83,6 +80,8 @@ import Trigger from '@/components/Trigger'
 import Error from '@/components/Error'
 import Modal from '@/components/modals/User'
 import Weather from '@/components/Weather'
+import Api from '@/services/api'
+import eventHub from '@/services/eventHub'
 
 export default {
 	components: {
@@ -97,7 +96,7 @@ export default {
 	data() {
 		return {
 			// Pagination
-			total: 0,
+			current: 1,
 			page: 1,
 			pagination: 15,
 			data: [],
@@ -105,7 +104,7 @@ export default {
 			errored: false,
 			// Filter
 			order: 3,
-			role: 1,
+			role: '',
 			status: 1,
 			label: 'on-border',
 			// Export
@@ -120,36 +119,56 @@ export default {
 					icon: 'trash',
 					color: 'has-text-danger'
 				}
-			]
+			],
+			permission: []
 		}
 	},
 	mounted() {
-		let api = 'https://5f3b4721fff8550016ae51c9.mockapi.io/api/users'
-
-		axios
-			.get(api)
-			.then(response => {
-				setTimeout(() => {
-					this.data = response.data
-					this.total = response.data.length
-					this.loading = false
-				}, 1000)
-			})
-			.catch(error => {
-				console.log('error', error)
-				this.errored = true
-			})
-		// .finally(() => (console.log(this.loading)))
+		this.getAllRoles()
+		this.getAllUsers()
+		eventHub.$off()
+		eventHub.$on('reload-users', () => {
+			this.getAllUsers()
+		})
 	},
 	computed: {
+		total() {
+			return this.data.length
+		},
 		users() {
-			let start = this.page * this.pagination,
-				end = start + this.pagination
-
-			return this.data.slice(start, end)
+			let current = this.current - 1
+			return this.data.slice(current * this.pagination, (current + 1) * this.pagination)
 		}
 	},
 	methods: {
+		async getAllRoles() {
+			try {
+				const response = await Api.get('permission/findAll')
+				const { status } = response
+				if (status === 200) {
+					const { data } = response
+					this.permission = data
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		async getAllUsers() {
+			try {
+				const response = await Api.get('user/findAll')
+				const { status } = response
+				if (status === 200) {
+					const { data } = response
+					this.data = data
+					this.total = data.length
+					this.loading = false
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.loading = false
+			}
+		},
 		exportUsers() {
 			this.exporting = true
 			setTimeout(() => {
@@ -163,8 +182,7 @@ export default {
 				})
 			}, 2000)
 		},
-		createUser(user) {
-			console.log(user)
+		createUser() {
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
@@ -173,8 +191,7 @@ export default {
 				trapFocus: true
 			})
 		},
-		deleteUser(user) {
-			console.log(user)
+		deleteUser() {
 			this.$buefy.dialog.alert({
 				size: 'is-delete',
 				type: 'is-outlined is-primary',

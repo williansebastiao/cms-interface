@@ -9,6 +9,13 @@ export default [
 		component: () => import('@/pages/Dashboard')
 	},
 	{
+		path: '/roles',
+		name: 'Roles',
+		icon: 'roles',
+		// beforeEnter: auth,
+		component: () => import('@/pages/Roles')
+	},
+	{
 		path: '/users',
 		name: 'Users',
 		icon: 'users',
@@ -21,13 +28,6 @@ export default [
 		// 		props: true
 		// 	}
 		// ]
-	},
-	{
-		path: '/roles',
-		name: 'Roles',
-		icon: 'roles',
-		// beforeEnter: auth,
-		component: () => import('@/pages/Roles')
 	},
 	// {
 	// 	path: '/chat',
@@ -43,11 +43,11 @@ export default [
 	// 	//beforeEnter: guest,
 	// 	component: () => import('@/pages/Terms')
 	// },
-	{
-		path: '/settings',
-		name: 'Settings',
-		icon: 'settings',
-		//beforeEnter: guest,
-		component: () => import('@/pages/Contact')
-	}
+	// {
+	// 	path: '/settings',
+	// 	name: 'Settings',
+	// 	icon: 'settings',
+	// 	//beforeEnter: guest,
+	// 	component: () => import('@/pages/Contact')
+	// }
 ]

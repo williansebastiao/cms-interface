@@ -1,13 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <g id="forms">
-    <rect width="24" height="24" fill="none"/>
-    <path d="M8,3v.5A1.5,1.5,0,0,0,9.5,5h5A1.5,1.5,0,0,0,16,3.5V3h2a2,2,0,0,1,2,2V21a2,2,0,0,1-2,2H6a2,2,0,0,1-2-2V5A2,2,0,0,1,6,3Z" fill-rule="evenodd" opacity="0.3"/>
-    <path d="M11,2a1,1,0,0,1,2,0h1.5a.5.5,0,0,1,.5.5v1a.5.5,0,0,1-.5.5h-5A.5.5,0,0,1,9,3.5v-1A.5.5,0,0,1,9.5,2Z" fill-rule="evenodd"/>
-    <rect width="7" height="2" rx="1" transform="translate(10 9)" opacity="0.3"/>
-    <rect width="2" height="2" rx="1" transform="translate(7 9)" opacity="0.3"/>
-    <rect width="2" height="2" rx="1" transform="translate(7 13)" opacity="0.3"/>
-    <rect width="7" height="2" rx="1" transform="translate(10 13)" opacity="0.3"/>
-    <rect width="2" height="2" rx="1" transform="translate(7 17)" opacity="0.3"/>
-    <rect width="7" height="2" rx="1" transform="translate(10 17)" opacity="0.3"/>
-  </g>
+	<g>
+		<rect width="24" height="24" fill="none" />
+		<path
+			d="M8,3v.5A1.5,1.5,0,0,0,9.5,5h5A1.5,1.5,0,0,0,16,3.5V3h2a2,2,0,0,1,2,2V21a2,2,0,0,1-2,2H6a2,2,0,0,1-2-2V5A2,2,0,0,1,6,3Z"
+			fill-rule="evenodd" opacity="0.3" />
+		<path d="M11,2a1,1,0,0,1,2,0h1.5a.5.5,0,0,1,.5.5v1a.5.5,0,0,1-.5.5h-5A.5.5,0,0,1,9,3.5v-1A.5.5,0,0,1,9.5,2Z"
+			fill-rule="evenodd" />
+		<rect width="7" height="2" rx="1" transform="translate(10 9)" opacity="0.3" />
+		<rect width="2" height="2" rx="1" transform="translate(7 9)" opacity="0.3" />
+		<rect width="2" height="2" rx="1" transform="translate(7 13)" opacity="0.3" />
+		<rect width="7" height="2" rx="1" transform="translate(10 13)" opacity="0.3" />
+		<rect width="2" height="2" rx="1" transform="translate(7 17)" opacity="0.3" />
+		<rect width="7" height="2" rx="1" transform="translate(10 17)" opacity="0.3" />
+	</g>
 </svg>

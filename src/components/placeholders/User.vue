@@ -5,8 +5,8 @@
 		</div>
 		<div class="block__content">
 			<span class="block__name">
-				<b-skeleton height="15"></b-skeleton>
-				<b-skeleton height="10"></b-skeleton>
+				<b-skeleton width="40%" height="15"></b-skeleton>
+				<b-skeleton width="80%" height="10"></b-skeleton>
 			</span>
 		</div>
 	</article>

@@ -8,10 +8,5 @@ export default [
 		path: '/politica-de-privacidade',
 		name: 'Privacy',
 		component: () => import('@/pages/Privacy')
-	},
-	{
-		path: '/contato',
-		name: 'Contact',
-		component: () => import('@/pages/Contact')
 	}
 ]

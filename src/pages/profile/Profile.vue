@@ -4,48 +4,73 @@
 			<Title />
 			<Weather :bordered="false" />
 		</div>
-		<section class="profile columns">
-			<div class="column is-one-third">
-				<article class="profile__column profile__column--menu">
-					<div class="columns mb-0">
-						<div class="column is-one-third profile__image">
-							<img :src="user.avatar" :alt="user.name">
+		<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+			<section class="profile columns">
+				<div class="column profile__sidebar">
+					<article class="profile__column ">
+						<div class="columns mb-0">
+							<div class="column is-one-third profile__image">
+								<img :src="user.avatar" :alt="user.name" />
+							</div>
+							<div class="column">
+								<h3 class="profile__name is-semibold is-size-5">{{ user.firstname }} {{ user.lastname }}</h3>
+								<p class="profile__role">{{ user.role }}</p>
+							</div>
 						</div>
-						<div class="column">
-							<h3 class="profile__name is-semibold is-size-5">{{ user.firstname }} {{ user.lastname }}</h3>
-							<p class="profile__role">{{ user.role }}</p>
+						<ul class="profile__list">
+							<li v-if="user.phone">
+								<span class="profile__list__key">Phone:</span>
+								<a href="#" class="profile__list__value">{{ user.phone }}</a>
+							</li>
+							<li v-if="user.email">
+								<span class="profile__list__key">Email:</span>
+								<a href="#" class="profile__list__value">{{ user.email }}</a>
+							</li>
+							<li v-if="user.address.city">
+								<span class="profile__list__key">Location:</span>
+								<span class="profile__list__value">{{ user.address.city }}/{{ user.address.state }}</span>
+							</li>
+						</ul>
+						<ul class="profile__navigation">
+							<li v-for="(m, i) in menu" :key="i">
+								<router-link tag="a" :to="m.path">
+									<svg-icon :icon="m.icon"></svg-icon>
+									<span>{{ m.name }}</span>
+								</router-link>
+							</li>
+						</ul>
+					</article>
+				</div>
+				<form class="column" @submit.prevent="handleSubmit(updateProfile)">
+					<article class="profile__column panel">
+						<div class="panel__header">
+							<span class="is-flex is-flex-direction-column is-justify-content-center">
+								<h3 class="profile__name pt-0 is-semibold is-size-6">Personal Information</h3>
+								<p class="is-size-7">Update your personal informaiton</p>
+							</span>
+							<b-button native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
 						</div>
-					</div>
-					<ul class="profile__list">
-						<li>
-							<span class="profile__list__key">Phone:</span>
-							<a href="#" class="profile__list__value">{{ user.phone }}</a>
-						</li>
-						<li>
-							<span class="profile__list__key">Email:</span>
-							<a href="#" class="profile__list__value">{{ user.email }}</a>
-						</li>
-						<li>
-							<span class="profile__list__key">Location:</span>
-							<span class="profile__list__value">{{ user.address.city }}/{{ user.address.state }}</span>
-						</li>
-					</ul>
-					<ul class="profile__navigation">
-						<li v-for="(m, i) in menu" :key="i">
-							<router-link tag="a" :to="m.path">
-								<svg-icon :icon="m.icon"></svg-icon>
-								<span>{{ m.name }}</span>
-							</router-link>
-						</li>
-					</ul>
-				</article>
-			</div>
-			<div class="column">
-				<article class="profile__column">
-					<p>huahuahua</p>
-				</article>
-			</div>
-		</section>
+						<div class="panel__body">
+							<h3 class="profile__section has-text-primary is-semibold is-size-5">User Data</h3>
+
+							<InputWithValidation class="profile__field" tab="1" rules="required" type="text" label="First Name" size="is-medium" v-model="user.firstname" />
+
+							<InputWithValidation class="profile__field" tab="2" rules="required" type="text" label="Last Name" size="is-medium" v-model="user.lastname" />
+						</div>
+						<hr />
+						<div class="panel__body">
+							<h3 class="profile__section has-text-primary is-semibold is-size-5">Contact Info</h3>
+
+							<InputWithValidation class="profile__field" tab="3" rules="required" type="text" label="Phone" size="is-medium" v-model="user.phone" />
+
+							<InputWithValidation class="profile__field" tab="4" rules="required|email" type="email" label="Email" size="is-medium" v-model="user.email" />
+
+							<InputWithValidation class="profile__field" tab="5" rules="required" type="text" label="Site" size="is-medium" v-model="user.site" />
+						</div>
+					</article>
+				</form>
+			</section>
+		</ValidationObserver>
 	</Layout>
 </template>
 
@@ -55,6 +80,8 @@ import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Weather from '@/components/Weather'
+import InputWithValidation from '@/components/inputs/InputWithValidation'
+import { ValidationObserver } from 'vee-validate'
 
 export default {
 	name: 'Profile',
@@ -62,10 +89,13 @@ export default {
 		Layout,
 		Title,
 		Weather,
+		InputWithValidation,
+		ValidationObserver,
 		'svg-icon': Icon
 	},
 	data() {
 		return {
+			loading: false,
 			bordered: true,
 			menu: [
 				{
@@ -91,6 +121,7 @@ export default {
 				role: 'Administrator',
 				email: 'wallace.erick@orbital.company',
 				phone: '11999834963',
+				site: 'orbital.company',
 				address: {
 					code: '07700115',
 					street: 'Av. Presidente Kenendy',
@@ -105,6 +136,12 @@ export default {
 	computed: {
 		navigation() {
 			return Menu[0].children
+		}
+	},
+	methods: {
+		updateProfile() {
+			this.loading = true
+			console.log('Sending...')
 		}
 	}
 }

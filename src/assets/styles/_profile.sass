@@ -8,11 +8,12 @@
 	&__column
 		background: $white
 		border-radius: $radius * 2
+		padding: $block-spacing
 		min-height: calc(100vh - 130px)
 		box-shadow: $shadow
-		padding: $block-spacing
-		&--menu
-			max-width: 95%
+
+	&__sidebar
+		max-width: 400px
 
 	&__name
 		color: $primary
@@ -51,6 +52,7 @@
 				justify-content: flex-start
 				align-items: center
 				font-size: 85%
+				font-weight: $weight-medium
 				color: $body-color
 				border-radius: $radius
 				padding: $block-spacing / 2 $block-spacing / 1.5
@@ -68,6 +70,33 @@
 				&:hover,
 				&.is-active
 					color: $primary
-					background: rgba($body-color, 0.15)
+					background: $white-ter
 					.svg
 						opacity: 1
+
+	&__section
+		padding: 0 0 $block-spacing / 1.5 26%
+
+	&__field
+		display: flex
+		.field
+			display: flex
+			max-width: 85%
+			position: relative
+			margin-bottom: $block-spacing / 1.1
+		.label
+			width: 30%
+			margin: 0
+			display: flex
+			align-items: center
+			font-weight: 500
+			letter-spacing: -0.05em
+			// font-size: 85%
+		.control
+			width: 70%
+			input,
+			textarea
+				background: $white-ter
+				border-color: transparent
+				&:focus
+					background: $grey-lightest

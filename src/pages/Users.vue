@@ -16,8 +16,8 @@
 		</section>
 		<section v-if="!errored" class="columns filter">
 			<div class="column filter__wrapper">
-				<b-field label="Order" v-model="order" :label-position="label">
-					<b-select placeholder="Name">
+				<b-field label="Order" v-model="filter.order" :label-position="label">
+					<b-select placeholder="Name" @input="filterByOrder">
 						<option selected value="1">Name</option>
 						<option value="2">E-mail</option>
 						<option value="3">Role</option>
@@ -29,8 +29,8 @@
 						<option v-for="r in permission" :value="r._id" :key="r._id">{{ r.name }}</option>
 					</b-select>
 				</b-field>
-				<b-field label="Status" v-model="status" :label-position="label">
-					<b-select placeholder="Active">
+				<b-field label="Status" v-model="filter.status" :label-position="label">
+					<b-select placeholder="Active" @input="filterByStatus">
 						<option selected value="1">Active</option>
 						<option value="2">Inactive</option>
 					</b-select>
@@ -63,7 +63,7 @@
 							<h3 class="block__name">{{ u.name }}</h3>
 							<p class="block__email">{{ u.email }}</p>
 						</div>
-						<Trigger :id="u.id" :items="actions" />
+						<Trigger :id="u._id" />
 					</article>
 				</div>
 			</div>
@@ -76,7 +76,7 @@ import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/User'
-import Trigger from '@/components/Trigger'
+import Trigger from '@/components/triggers/Users'
 import Error from '@/components/Error'
 import Modal from '@/components/modals/User'
 import Weather from '@/components/Weather'
@@ -103,7 +103,11 @@ export default {
 			loading: true,
 			errored: false,
 			// Filter
-			order: 3,
+			filter: {
+				order: '',
+				status: ''
+			},
+			order: '',
 			role: '',
 			status: 1,
 			label: 'on-border',
@@ -130,6 +134,50 @@ export default {
 		this.getAllRoles()
 		this.getAllUsers()
 		eventHub.$off()
+		eventHub.$on('open-modal-users', obj => {
+			this.$buefy.modal.open({
+				parent: this,
+				component: Modal,
+				scroll: 'clip',
+				customClass: 'is-role is-lg',
+				trapFocus: true,
+				props: {
+					id: obj.id,
+					name: 'Edit'
+				}
+			})
+		})
+		eventHub.$on('delete-users', obj => {
+			this.$buefy.dialog.alert({
+				size: 'is-delete',
+				type: 'is-outlined is-primary',
+				title: 'Attention',
+				message: '<span>Do you really want <br>to <strong>delete</strong> this role?</span> <small>All users with this role will will lose access.</small>',
+				canCancel: true,
+				focusOn: 'cancel',
+				cancelText: 'No',
+				confirmText: 'Yes',
+				onConfirm: async () => {
+					try {
+						const response = await Api.delete(`user/destroy/${obj.id}`)
+						const { status } = response
+						if (status === 200) {
+							const { message } = response.data
+							this.$buefy.toast.open({
+								type: 'is-success',
+								message: message,
+								position: 'is-bottom',
+								closable: true,
+								duration: 5000
+							})
+							await this.getAllUsers()
+						}
+					} catch (e) {
+						console.log(e)
+					}
+				}
+			})
+		})
 		eventHub.$on('reload-users', () => {
 			this.getAllUsers()
 		})
@@ -193,6 +241,40 @@ export default {
 				this.loading = false
 			}
 		},
+		async filterByOrder(e) {
+			try {
+				this.filter.order = e
+				const response = await Api.post('user/filterByOrder', {
+					name: this.filter.order
+				})
+				const { status } = response
+				if (status === 200) {
+					const { data } = response
+					this.data = data
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.loading = false
+			}
+		},
+		async filterByStatus(e) {
+			try {
+				this.filter.status = e
+				const response = await Api.post('user/filterByStatus', {
+					name: this.filter.status
+				})
+				const { status } = response
+				if (status === 200) {
+					const { data } = response
+					this.data = data
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.loading = false
+			}
+		},
 		exportUsers() {
 			this.exporting = true
 			setTimeout(() => {
@@ -212,7 +294,10 @@ export default {
 				component: Modal,
 				scroll: 'keep',
 				customClass: 'is-user is-sm',
-				trapFocus: true
+				trapFocus: true,
+				props: {
+					name: 'New'
+				}
 			})
 		},
 		deleteUser() {

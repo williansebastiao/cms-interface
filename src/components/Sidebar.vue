@@ -12,7 +12,7 @@
 		</nav>
 		<nav class="navigation navigation--secondary">
 			<b-tooltip label="Profile" type="is-primary" position="is-right">
-				<router-link class="navigation__link mb-0" tag="a" :to="{ name: 'Profile' }">
+				<router-link class="navigation__link" tag="a" :to="{ name: 'Profile' }">
 					<svg-icon icon="profile"></svg-icon>
 				</router-link>
 			</b-tooltip>

@@ -14,8 +14,15 @@
 		&--menu
 			max-width: 95%
 
+	&__name
+		color: $primary
+		padding: $block-spacing / 2 0 0 0
+		line-height: 1.1
+		letter-spacing: -0.05em
+
 	&__image
 		img
+			width: 100%
 			border-radius: $radius
 
 	&__list
@@ -24,3 +31,43 @@
 			display: flex
 			justify-content: space-between
 			align-items: center
+			padding: 5px 0
+		&__key,
+		&__value
+			font-size: 85%
+		&__key
+			font-weight: $weight-semibold
+			color: $primary
+		&__value
+			color: $body-color
+			font-weight: $weight-normal
+
+	&__navigation
+		padding-top: $block-spacing / 2
+		li
+			margin: 5px 0
+			a
+				display: flex
+				justify-content: flex-start
+				align-items: center
+				font-size: 85%
+				color: $body-color
+				border-radius: $radius
+				padding: $block-spacing / 2 $block-spacing / 1.5
+				transition: $transition-base
+				.svg
+					position: relative
+					top: -1px
+					display: flex
+					width: 20px
+					height: 20px
+					margin-right: $block-spacing / 2.5
+					opacity: 0.3
+					&.bell
+						top: 0
+				&:hover,
+				&.is-active
+					color: $primary
+					background: rgba($body-color, 0.15)
+					.svg
+						opacity: 1

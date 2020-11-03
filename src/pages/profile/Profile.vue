@@ -4,16 +4,16 @@
 			<Title />
 			<Weather :bordered="false" />
 		</div>
-		<section class="profile column">
+		<section class="profile columns">
 			<div class="column is-one-third">
 				<article class="profile__column profile__column--menu">
-					<div class="columns">
+					<div class="columns mb-0">
 						<div class="column is-one-third profile__image">
 							<img :src="user.avatar" :alt="user.name">
 						</div>
-						<div class="column profile__infos">
-							<h3>{{ user.firstname }} {{ user.lastname }}</h3>
-							<p>{{ user.role }}</p>
+						<div class="column">
+							<h3 class="profile__name is-semibold is-size-5">{{ user.firstname }} {{ user.lastname }}</h3>
+							<p class="profile__role">{{ user.role }}</p>
 						</div>
 					</div>
 					<ul class="profile__list">
@@ -22,12 +22,12 @@
 							<a href="#" class="profile__list__value">{{ user.phone }}</a>
 						</li>
 						<li>
-							<span class="profile__list__label">Email:</span>
+							<span class="profile__list__key">Email:</span>
 							<a href="#" class="profile__list__value">{{ user.email }}</a>
 						</li>
 						<li>
-							<span class="profile__list__label">Location:</span>
-							<span class="profile__list__value">{{ user.email }}</span>
+							<span class="profile__list__key">Location:</span>
+							<span class="profile__list__value">{{ user.address.city }}/{{ user.address.state }}</span>
 						</li>
 					</ul>
 					<ul class="profile__navigation">

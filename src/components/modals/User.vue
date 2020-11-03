@@ -3,7 +3,7 @@
 		<form @submit.prevent="handleSubmit(saveUser)">
 			<header class="modal-card-head">
 				<h4 class="modal-card-title">
-					New
+					{{ name }}
 					<strong>User</strong>
 				</h4>
 			</header>
@@ -45,15 +45,20 @@ export default {
 		ValidationObserver,
 		PasswordMeter
 	},
+	props: {
+		id: {
+			type: String,
+			required: false
+		},
+		name: {
+			type: String,
+			required: true
+		}
+	},
 	data() {
 		return {
 			loading: false,
-			user: {
-				name: '',
-				email: '',
-				password: '',
-				permission_id: ''
-			},
+			user: [],
 			role: 1,
 			permission: []
 		}
@@ -71,7 +76,53 @@ export default {
 				console.log(e)
 			}
 		},
-		async saveUser() {
+		async update() {
+			try {
+				this.loading = true
+				const response = await Api.put(`user/update/${this.id}`, this.user)
+				const { status } = response
+				if (status === 200) {
+					const { message } = response.data
+					this.$emit('close')
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom'
+					})
+					eventHub.$emit('reload-users')
+				}
+			} catch (e) {
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
+				}
+			} finally {
+				this.loading = false
+			}
+		},
+		async findById() {
+			if (this.name === 'Edit') {
+				this.isOpening = true
+				try {
+					const response = await Api.get(`user/findById/${this.id}`)
+					const { status } = response
+					if (status === 200) {
+						const { data } = response
+						this.user = data
+						this.isOpening = false
+					}
+					console.log(response)
+				} catch (e) {
+					console.log(e)
+				}
+			}
+		},
+		async store() {
 			try {
 				this.loading = true
 				const response = await Api.post('user/store', this.user)
@@ -105,9 +156,14 @@ export default {
 				this.loading = false
 				console.log('Form submitted yay!')
 			}, 1000)
+		},
+		async saveUser() {
+			this.name === 'New' ? await this.store() : await this.update()
 		}
 	},
 	mounted() {
+		console.log(name)
+		this.findById()
 		this.getAllRoles()
 	}
 }

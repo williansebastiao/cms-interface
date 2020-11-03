@@ -2,6 +2,7 @@
 	<Layout>
 		<div class="columns">
 			<Title dashboard-step="1" />
+			<Weather />
 		</div>
 		<b-table dashboard-step="2" :bordered="bordered" :data="users" :columns="columns"></b-table>
 		<v-tour name="dashboard" :steps="steps"></v-tour>
@@ -11,12 +12,14 @@
 <script>
 import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
+import Weather from '@/components/Weather'
 
 export default {
 	name: 'Dashboard',
 	components: {
 		Layout,
-		Title
+		Title,
+		Weather
 	},
 	data() {
 		return {

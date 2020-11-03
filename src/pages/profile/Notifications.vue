@@ -64,17 +64,17 @@ export default {
 				{
 					icon: 'profile',
 					name: 'Personal Information',
-					route: 'profile'
+					route: '/profile'
 				},
 				{
 					icon: 'bell',
 					name: 'Notification SettingsS',
-					route: 'notification'
+					route: '/notification'
 				},
 				{
 					icon: 'roles',
 					name: 'Password Security',
-					route: 'password'
+					route: '/password'
 				}
 			],
 			user: {

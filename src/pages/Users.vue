@@ -25,7 +25,7 @@
 					</b-select>
 				</b-field>
 				<b-field label="Role" v-model="role" :label-position="label">
-					<b-select placeholder="All Roles">
+					<b-select placeholder="All Roles" @input="filterByRole">
 						<option v-for="r in permission" :value="r._id" :key="r._id">{{ r.name }}</option>
 					</b-select>
 				</b-field>
@@ -105,7 +105,8 @@ export default {
 			// Filter
 			filter: {
 				order: '',
-				status: ''
+				status: '',
+				role: ''
 			},
 			order: '',
 			role: '',
@@ -263,6 +264,23 @@ export default {
 				this.filter.status = e
 				const response = await Api.post('user/filterByStatus', {
 					name: this.filter.status
+				})
+				const { status } = response
+				if (status === 200) {
+					const { data } = response
+					this.data = data
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.loading = false
+			}
+		},
+		async filterByRole(e) {
+			try {
+				this.filter.role = e
+				const response = await Api.post('user/filterByRole', {
+					name: this.filter.role
 				})
 				const { status } = response
 				if (status === 200) {

@@ -17,7 +17,7 @@
 						<option v-for="r in permission" :value="r._id" :key="r._id">{{ r.name }}</option>
 					</SelectWithValidation>
 
-					<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="password" />
+					<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="user.password" />
 					<password-meter class="mb-5" :password="user.password" />
 				</div>
 			</div>
@@ -58,7 +58,7 @@ export default {
 	data() {
 		return {
 			loading: false,
-			user: [],
+			user: {},
 			role: 1,
 			permission: []
 		}

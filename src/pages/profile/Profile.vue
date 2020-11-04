@@ -48,7 +48,7 @@
 								<h3 class="profile__name pt-0 is-semibold is-size-6">Personal Information</h3>
 								<p class="is-size-7">Update your personal informaiton</p>
 							</span>
-							<b-button native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
+							<b-button tabindex="6" native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
 						</div>
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">User Data</h3>
@@ -61,11 +61,11 @@
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">Contact Info</h3>
 
-							<InputWithValidation class="profile__field" tab="3" rules="required" type="text" label="Phone" size="is-medium" v-model="user.phone" />
+							<InputWithValidation class="profile__field" tab="3" type="text" label="Phone" size="is-medium" v-model="user.phone" />
 
 							<InputWithValidation class="profile__field" tab="4" rules="required|email" type="email" label="Email" size="is-medium" v-model="user.email" />
 
-							<InputWithValidation class="profile__field" tab="5" rules="required" type="text" label="Site" size="is-medium" v-model="user.site" />
+							<InputWithValidation class="profile__field" tab="5" type="text" label="Site" size="is-medium" v-model="user.site" />
 						</div>
 					</article>
 				</form>
@@ -97,6 +97,11 @@ export default {
 		return {
 			loading: false,
 			bordered: true,
+			onAccept(e) {
+				const maskRef = e.detail
+				this.value = maskRef.value
+				console.log('accept', maskRef.value)
+			},
 			menu: [
 				{
 					icon: 'profile',
@@ -120,8 +125,8 @@ export default {
 				lastname: 'Erick',
 				role: 'Administrator',
 				email: 'wallace.erick@orbital.company',
-				phone: '11999834963',
-				site: 'orbital.company',
+				phone: null,
+				site: null,
 				address: {
 					code: '07700115',
 					street: 'Av. Presidente Kenendy',

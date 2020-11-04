@@ -12,16 +12,23 @@
 						</p>
 					</div>
 
-					<InputWithValidation tab="1" rules="required|min:3" class="mb-5" type="text" label="Name" size="is-medium" v-model="auth.name" />
+					<div class="columns mb-5">
+						<div class="column pl-0">
+							<InputWithValidation tab="1" rules="required|min:3" type="text" label="First Name" size="is-medium" v-model="auth.firstname" />
+						</div>
+						<div class="column pr-0">
+							<InputWithValidation tab="2" rules="required|min:3" type="text" label="Last Name" size="is-medium" v-model="auth.lastname" />
+						</div>
+					</div>
 
-					<InputWithValidation tab="2" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
+					<InputWithValidation tab="3" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
 
-					<InputWithValidation tab="3" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password" />
+					<InputWithValidation tab="4" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password" />
 
 					<password-meter class="mb-5" :password="auth.password" @score="Score" />
 
 					<span class="is-block text-center">
-						<b-button tabindex="4" native-type="submit" class="button is-button is-primary" :loading="loading">Register</b-button>
+						<b-button tabindex="5" native-type="submit" class="button is-button is-primary" :loading="loading">Register</b-button>
 					</span>
 				</form>
 			</ValidationObserver>
@@ -50,7 +57,8 @@ export default {
 		return {
 			loading: false,
 			auth: {
-				name: '',
+				firstname: '',
+				lastname: '',
 				email: '',
 				password: ''
 			}

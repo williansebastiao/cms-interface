@@ -8,8 +8,16 @@
 				</h4>
 			</header>
 			<div class="modal-card-body">
+				<b-loading :is-full-page="false" v-model="isOpening"></b-loading>
 				<div class="modal-card mb-3">
-					<InputWithValidation class="mb-4" rules="required|min:3" type="text" label="Name" size="is-medium" v-model="user.name" />
+					<div class="columns mb-4">
+						<div class="column">
+							<InputWithValidation rules="required|min:3" type="text" label="First Name" size="is-medium" v-model="user.firstname" />
+						</div>
+						<div class="column">
+							<InputWithValidation rules="required|min:3" type="text" label="Last Name" size="is-medium" v-model="user.lastname" />
+						</div>
+					</div>
 
 					<InputWithValidation class="mb-4" rules="required|email" type="email" label="Email" size="is-medium" v-model="user.email" />
 
@@ -57,6 +65,7 @@ export default {
 	},
 	data() {
 		return {
+			isOpening: false,
 			loading: false,
 			user: {},
 			role: 1,

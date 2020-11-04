@@ -39,35 +39,34 @@
 					<b-input placeholder="Search..." type="search" icon="magnify" v-model="user.name" @input="findByName"></b-input>
 				</b-field>
 			</div>
-			<div v-if="users.length > 0" class="column is-flex is-justify-content-flex-end">
+			<div v-if="users.length >= 1" class="column is-flex is-justify-content-flex-end">
 				<b-pagination :current.sync="current" :total="total" :page="page" :per-page="pagination" :simple="true" :rounded="true" order="is-right" icon-prev="chevron-left" icon-next="chevron-right"></b-pagination>
 			</div>
 		</section>
 		<Error v-if="errored" :icon="true" :back="true" />
-		<section v-else>
-			<div v-if="loading" class="columns is-multiline">
-				<div v-for="n in pagination" :key="n" class="column is-12-mobile is-6-tablet is-4-desktop">
-					<Placeholder />
-				</div>
+		<Results v-if="users.length == 0 && !loading" />
+		<div v-if="loading" class="columns is-multiline">
+			<div v-for="n in pagination" :key="n" class="column is-12-mobile is-6-tablet is-4-desktop">
+				<Placeholder />
 			</div>
-			<div class="columns is-multiline">
-				<div v-for="u in users" :key="u.id" class="column is-12-mobile is-6-tablet is-4-desktop">
-					<article class="block">
-						<!-- <b-tooltip label="Administrator" type="is-primary" position="is-right"> -->
-						<div class="block__avatar image is-48x48">
-							<span class="block__role">Administrator</span>
-							<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
-						</div>
-						<!-- </b-tooltip> -->
-						<div class="block__content">
-							<h3 class="block__name">{{ u.name }}</h3>
-							<p class="block__email">{{ u.email }}</p>
-						</div>
-						<Trigger :id="u._id" />
-					</article>
-				</div>
+		</div>
+		<transition-group name="filtering" class="filtering columns is-multiline" tag="div">
+			<div v-for="u in users" :key="u._id" class="column is-12-mobile is-6-tablet is-4-desktop">
+				<article class="block">
+					<div class="block__avatar image is-48x48">
+						<b-tooltip :label="u.permission.name" type="is-primary" position="is-right">
+							<span class="block__role" :style="{ background: u.permission.color }"></span>
+						</b-tooltip>
+						<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
+					</div>
+					<div class="block__content">
+						<h3 class="block__name">{{ u.name }}</h3>
+						<p class="block__email">{{ u.email }}</p>
+					</div>
+					<Trigger :id="u._id" />
+				</article>
 			</div>
-		</section>
+		</transition-group>
 	</Layout>
 </template>
 
@@ -78,6 +77,7 @@ import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/User'
 import Trigger from '@/components/triggers/Users'
 import Error from '@/components/Error'
+import Results from '@/components/Results'
 import Modal from '@/components/modals/User'
 import Weather from '@/components/Weather'
 import Api from '@/services/api'
@@ -90,6 +90,7 @@ export default {
 		Placeholder,
 		Trigger,
 		Error,
+		Results,
 		Weather,
 		'svg-icon': Icon
 	},
@@ -98,6 +99,7 @@ export default {
 			// Pagination
 			current: 1,
 			page: 1,
+			total: 0,
 			pagination: 15,
 			data: [],
 			loading: true,
@@ -140,7 +142,7 @@ export default {
 				parent: this,
 				component: Modal,
 				scroll: 'clip',
-				customClass: 'is-role is-lg',
+				customClass: 'is-user is-sm',
 				trapFocus: true,
 				props: {
 					id: obj.id,
@@ -153,7 +155,7 @@ export default {
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
 				title: 'Attention',
-				message: '<span>Do you really want <br>to <strong>delete</strong> this role?</span> <small>All users with this role will will lose access.</small>',
+				message: '<span>Do you really want <br>to <strong>delete</strong> this user?</span> <small>All users with this role will lose access.</small>',
 				canCancel: true,
 				focusOn: 'cancel',
 				cancelText: 'No',
@@ -184,9 +186,6 @@ export default {
 		})
 	},
 	computed: {
-		total() {
-			return this.data.length
-		},
 		users() {
 			let current = this.current - 1
 			return this.data.slice(current * this.pagination, (current + 1) * this.pagination)

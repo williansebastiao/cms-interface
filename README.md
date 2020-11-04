@@ -42,6 +42,7 @@ yarn run lint // Testar e corrigir os arquivos
 -   [Axios](https://github.com/axios/axios)
 -   [Buefy](https://buefy.org/documentation)
 -   [MD Icons](https://materialdesignicons.com/)
+-   [iMask](https://github.com/uNmAnNeR/imaskjs/tree/master/packages/vue-imask)
 -   [Password Meter](https://miladd3.github.io/vue-simple-password-meter/)
 -   [Vue Tour](https://github.com/pulsardev/vue-tour)
 -   [Vee Validade](https://logaretm.github.io/vee-validate/)

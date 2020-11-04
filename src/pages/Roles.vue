@@ -29,24 +29,22 @@
 		</section>
 		<Error v-if="errored" :back="true" />
 		<Results v-if="permission == 0 && !loading" />
-		<section v-else>
-			<div v-if="loading" class="columns is-multiline">
-				<div v-for="r in placeholder" :key="r" class="column is-12-mobile is-6-tablet is-4-desktop">
-					<Placeholder />
-				</div>
+		<div v-if="loading" class="columns is-multiline">
+			<div v-for="r in placeholder" :key="r" class="column is-12-mobile is-6-tablet is-4-desktop">
+				<Placeholder />
 			</div>
-			<transition-group name="filtering" class="filtering columns is-multiline" tag="div">
-				<div v-for="r in permission" :key="r._id" class="list-item column is-12-mobile is-6-tablet is-4-desktop">
-					<article class="block" :style="{ 'border-left-color': r.color }">
-						<div class="block__content">
-							<h3 class="block__name">{{ r.name }}</h3>
-							<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
-						</div>
-						<Trigger :id="r._id" />
-					</article>
-				</div>
-			</transition-group>
-		</section>
+		</div>
+		<transition-group name="filtering" class="filtering columns is-multiline" tag="div">
+			<div v-for="r in permission" :key="r._id" class="list-item column is-12-mobile is-6-tablet is-4-desktop">
+				<article class="block" :style="{ 'border-left-color': r.color }">
+					<div class="block__content">
+						<h3 class="block__name">{{ r.name }}</h3>
+						<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
+					</div>
+					<Trigger :id="r._id" />
+				</article>
+			</div>
+		</transition-group>
 	</Layout>
 </template>
 

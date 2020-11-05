@@ -54,7 +54,7 @@
 			<div v-for="u in users" :key="u._id" class="column is-12-mobile is-6-tablet is-4-desktop">
 				<article class="block">
 					<div class="block__avatar image is-48x48">
-						<b-tooltip v-if="user.permission" :label="u.permission.name" type="is-primary" position="is-right">
+						<b-tooltip v-if="u.permission" :label="u.permission.name" type="is-primary" position="is-right">
 							<span class="block__role" :style="{ background: u.permission.color }"></span>
 						</b-tooltip>
 						<b-image ratio="1by1" :src="u.avatar" :alt="u.full_name" :rounded="true"></b-image>

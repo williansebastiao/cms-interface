@@ -14,10 +14,10 @@
 
 					<div class="columns mb-5">
 						<div class="column pl-0">
-							<InputWithValidation tab="1" rules="required|min:3" type="text" label="First Name" size="is-medium" v-model="auth.firstname" />
+							<InputWithValidation tab="1" rules="required|min:3" type="text" label="First Name" size="is-medium" v-model="auth.first_name" />
 						</div>
 						<div class="column pr-0">
-							<InputWithValidation tab="2" rules="required|min:3" type="text" label="Last Name" size="is-medium" v-model="auth.lastname" />
+							<InputWithValidation tab="2" rules="required|min:3" type="text" label="Last Name" size="is-medium" v-model="auth.last_name" />
 						</div>
 					</div>
 
@@ -57,8 +57,8 @@ export default {
 		return {
 			loading: false,
 			auth: {
-				firstname: '',
-				lastname: '',
+				first_name: '',
+				last_name: '',
 				email: '',
 				password: ''
 			}

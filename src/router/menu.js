@@ -28,7 +28,7 @@ export default [
 		// 		props: true
 		// 	}
 		// ]
-	},
+	}
 	// {
 	// 	path: '/chat',
 	// 	name: 'Chat',

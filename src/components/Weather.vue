@@ -1,6 +1,5 @@
 <template>
-	<div :class="{ 'weather': show, 'no-border': !bordered }" v-if="show">
-		<!-- <img :src="image" :alt="city"> -->
+	<div :class="{ weather: show, 'no-border': !bordered }" v-if="show">
 		<Placeholder v-if="loading" />
 		<div class="weather__temperature" v-else>
 			<p class="title is-4">{{ temperature }}</p>

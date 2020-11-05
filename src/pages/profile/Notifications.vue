@@ -7,9 +7,7 @@
 		<section class="profile columns">
 			<div class="column is-one-third">
 				<article class="profile__column profile__column--menu">
-					<div class="profile__infos">
-
-					</div>
+					<div class="profile__infos"></div>
 					<ul class="profile__list">
 						<li>
 							<span class="profile__list__key">Phone:</span>

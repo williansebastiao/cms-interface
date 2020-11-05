@@ -36,7 +36,7 @@
 					</b-select>
 				</b-field>
 				<b-field>
-					<b-input placeholder="Search..." type="search" icon="magnify" v-model="user.name" @input="findByName"></b-input>
+					<b-input placeholder="Search..." type="search" icon="magnify" v-model="user.first_name" @input="findByName"></b-input>
 				</b-field>
 			</div>
 			<div v-if="users.length >= 1" class="column is-flex is-justify-content-flex-end">
@@ -54,13 +54,13 @@
 			<div v-for="u in users" :key="u._id" class="column is-12-mobile is-6-tablet is-4-desktop">
 				<article class="block">
 					<div class="block__avatar image is-48x48">
-						<b-tooltip :label="u.permission.name" type="is-primary" position="is-right">
+						<b-tooltip v-if="u.permission" :label="u.permission.name" type="is-primary" position="is-right">
 							<span class="block__role" :style="{ background: u.permission.color }"></span>
 						</b-tooltip>
-						<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
+						<b-image ratio="1by1" :src="u.avatar" :alt="u.full_name" :rounded="true"></b-image>
 					</div>
 					<div class="block__content">
-						<h3 class="block__name">{{ u.name }}</h3>
+						<h3 class="block__name">{{ u.full_name }}</h3>
 						<p class="block__email">{{ u.email }}</p>
 					</div>
 					<Trigger :id="u._id" />
@@ -129,7 +129,7 @@ export default {
 			],
 			permission: [],
 			user: {
-				name: ''
+				first_name: ''
 			}
 		}
 	},
@@ -223,9 +223,9 @@ export default {
 		async findByName() {
 			try {
 				const empty = /^\s*$/
-				if (!empty.test(this.user.name)) {
+				if (!empty.test(this.user.first_name)) {
 					const response = await Api.post('user/findByName', {
-						name: this.user.name
+						name: this.user.first_name
 					})
 					const { status } = response
 					if (status === 200) {

@@ -55,7 +55,7 @@ export default {
 		async signIn() {
 			try {
 				this.loading = true
-				const response = await Api.post('client/authenticate', this.auth)
+				const response = await Api.post('user/authenticate', this.auth)
 				const { status } = response
 				if (status === 200) {
 					const { token } = response.data

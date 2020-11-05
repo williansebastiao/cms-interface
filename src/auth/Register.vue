@@ -68,7 +68,7 @@ export default {
 		async createUser() {
 			try {
 				this.loading = true
-				const response = await Api.post('client/register', this.auth)
+				const response = await Api.post('user/register', this.auth)
 				const { status } = response
 				if (status === 201) {
 					const { token } = response.data

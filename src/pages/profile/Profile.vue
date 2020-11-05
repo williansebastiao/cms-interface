@@ -10,11 +10,11 @@
 					<article class="profile__column ">
 						<div class="columns mb-0">
 							<div class="column is-one-third profile__image">
-								<img :src="user.avatar" :alt="user.name" />
+								<img :src="user.avatar" :alt="user.full_name" />
 							</div>
 							<div class="column">
-								<h3 class="profile__name is-semibold is-size-5">{{ user.firstname }} {{ user.lastname }}</h3>
-								<p class="profile__role">{{ user.role }}</p>
+								<h3 class="profile__name is-semibold is-size-5">{{ user.full_name }}</h3>
+								<p class="profile__role">{{ user.permission.name }}</p>
 							</div>
 						</div>
 						<ul class="profile__list">
@@ -26,7 +26,7 @@
 								<span class="profile__list__key">Email:</span>
 								<a href="#" class="profile__list__value">{{ user.email }}</a>
 							</li>
-							<li v-if="user.address.city">
+							<li v-if="user.address">
 								<span class="profile__list__key">Location:</span>
 								<span class="profile__list__value">{{ user.address.city }}/{{ user.address.state }}</span>
 							</li>
@@ -53,19 +53,19 @@
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">User Data</h3>
 
-							<InputWithValidation class="profile__field" tab="1" rules="required" type="text" label="First Name" size="is-medium" v-model="user.firstname" />
+							<InputWithValidation class="profile__field" tab="1" rules="required" type="text" label="First Name" size="is-medium" v-model="user.first_name" />
 
-							<InputWithValidation class="profile__field" tab="2" rules="required" type="text" label="Last Name" size="is-medium" v-model="user.lastname" />
+							<InputWithValidation class="profile__field" tab="2" rules="required" type="text" label="Last Name" size="is-medium" v-model="user.last_name" />
 						</div>
 						<hr />
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">Contact Info</h3>
 
-							<InputWithValidation class="profile__field" tab="3" type="text" label="Phone" size="is-medium" v-model="user.phone" />
+							<InputWithValidation class="profile__field" tab="3" type="text" label="Phone" size="is-medium" v-if="user.phone" v-model="user.phone" />
 
 							<InputWithValidation class="profile__field" tab="4" rules="required|email" type="email" label="Email" size="is-medium" v-model="user.email" />
 
-							<InputWithValidation class="profile__field" tab="5" type="text" label="Site" size="is-medium" v-model="user.site" />
+							<InputWithValidation class="profile__field" tab="5" type="text" label="Site" size="is-medium" v-if="user.site" v-model="user.site" />
 						</div>
 					</article>
 				</form>
@@ -82,6 +82,7 @@ import Icon from '@/components/Icon'
 import Weather from '@/components/Weather'
 import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
+import Api from '@/services/api'
 
 export default {
 	name: 'Profile',
@@ -119,7 +120,8 @@ export default {
 					path: '/profile/password'
 				}
 			],
-			user: {
+			user: {}
+			/*user: {
 				avatar: 'https://preview.keenthemes.com/metronic/theme/html/demo3/dist/assets/media/users/300_21.jpg',
 				firstname: 'Wallace',
 				lastname: 'Erick',
@@ -135,7 +137,7 @@ export default {
 					city: 'Caieiras',
 					state: 'SP'
 				}
-			}
+			}*/
 		}
 	},
 	computed: {
@@ -144,10 +146,24 @@ export default {
 		}
 	},
 	methods: {
+		async me() {
+			try {
+				const response = await Api.get('user/me')
+				const { status } = response
+				if (status === 200) {
+					this.user = response.data
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
 		updateProfile() {
 			this.loading = true
 			console.log('Sending...')
 		}
+	},
+	mounted() {
+		this.me()
 	}
 }
 </script>

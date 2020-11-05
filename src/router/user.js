@@ -9,7 +9,7 @@ export default [
 				path: 'notifications',
 				name: 'Notification Settings',
 				icon: 'bell',
-				component: () => import('@/pages/profile/Notifications'),
+				component: () => import('@/pages/profile/Notifications')
 			}
 		]
 	}

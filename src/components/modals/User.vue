@@ -12,10 +12,10 @@
 				<div class="modal-card mb-3">
 					<div class="columns mb-4">
 						<div class="column">
-							<InputWithValidation rules="required|min:3" type="text" label="First Name" size="is-medium" v-model="user.firstname" />
+							<InputWithValidation rules="required|min:3" type="text" label="First Name" size="is-medium" v-model="user.first_name" />
 						</div>
 						<div class="column">
-							<InputWithValidation rules="required|min:3" type="text" label="Last Name" size="is-medium" v-model="user.lastname" />
+							<InputWithValidation rules="required|min:3" type="text" label="Last Name" size="is-medium" v-model="user.last_name" />
 						</div>
 					</div>
 

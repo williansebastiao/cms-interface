@@ -60,7 +60,7 @@
 						<b-image ratio="1by1" :src="u.avatar" :alt="u.name" :rounded="true"></b-image>
 					</div>
 					<div class="block__content">
-						<h3 class="block__name">{{ u.name }}</h3>
+						<h3 class="block__name">{{ u.full_name }}</h3>
 						<p class="block__email">{{ u.email }}</p>
 					</div>
 					<Trigger :id="u._id" />

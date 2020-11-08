@@ -142,9 +142,41 @@ export default {
 				this.loading = false
 			}
 		},
-		exportRoles() {
+		async exportRoles() {
 			this.exporting = true
-			setTimeout(() => {
+			try {
+				const response = await Api.post('permission/export')
+				const { status } = response
+				if(status === 422) {
+					this.$buefy.toast.open({
+						type: 'is-warning',
+						message: 'The file was not generated successfully',
+						position: 'is-bottom',
+						closable: false,
+						duration: 4000
+					})
+				} else {
+					const { message } = response.data
+					this.$buefy.toast.open({
+						type: 'is-success',
+						message: 'The file was generated successfully',
+						position: 'is-bottom',
+						closable: false,
+						duration: 4000
+					})
+					setTimeout(() => {
+						this.exporting = false
+						const node = document.createElement('a')
+						node.href = message
+						node.click()
+					}, 2000)
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.exporting = false
+			}
+			/*setTimeout(() => {
 				this.exporting = false
 				this.$buefy.toast.open({
 					type: 'is-success',
@@ -153,7 +185,7 @@ export default {
 					closable: false,
 					duration: 4000
 				})
-			}, 2000)
+			}, 2000)*/
 		},
 		createRole() {
 			this.$buefy.modal.open({

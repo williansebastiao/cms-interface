@@ -17,7 +17,7 @@ import Layout from '@/layouts/Default'
 import Error from '@/components/Error'
 
 export default {
-	name: '404',
+	name: 'NotFound',
 	components: {
 		Layout,
 		Error

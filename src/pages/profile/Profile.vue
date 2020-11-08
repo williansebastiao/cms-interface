@@ -32,7 +32,7 @@
 							</li>
 						</ul>
 						<ul class="profile__navigation">
-							<li v-for="(m, i) in menu" :key="i">
+							<li v-for="(m, i) in navigation" :key="i">
 								<router-link tag="a" :to="m.path">
 									<svg-icon :icon="m.icon"></svg-icon>
 									<span>{{ m.name }}</span>
@@ -103,23 +103,6 @@ export default {
 				this.value = maskRef.value
 				console.log('accept', maskRef.value)
 			},
-			menu: [
-				{
-					icon: 'profile',
-					name: 'Personal Information',
-					path: '/profile'
-				},
-				{
-					icon: 'bell',
-					name: 'Notification Settings',
-					path: '/profile/notifications'
-				},
-				{
-					icon: 'roles',
-					name: 'Password Security',
-					path: '/profile/password'
-				}
-			],
 			user: {}
 			/*user: {
 				avatar: 'https://preview.keenthemes.com/metronic/theme/html/demo3/dist/assets/media/users/300_21.jpg',

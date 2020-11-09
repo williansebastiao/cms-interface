@@ -49,7 +49,7 @@ export default {
 		async resetPassword() {
 			try {
 				this.loading = true
-				const response = await Api.post('client/email', this.auth)
+				const response = await Api.post('user/email', this.auth)
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data

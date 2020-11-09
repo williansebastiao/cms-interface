@@ -54,7 +54,7 @@
 			<div v-for="u in users" :key="u._id" class="column is-12-mobile is-6-tablet is-4-desktop">
 				<article class="block">
 					<div class="block__avatar image is-48x48">
-						<b-tooltip v-if="up.permission" :label="u.permission.name" type="is-primary" position="is-right">
+						<b-tooltip v-if="u.permission" :label="u.permission.name" type="is-primary" position="is-right">
 							<span class="block__role" :style="{ background: u.permission.color }"></span>
 						</b-tooltip>
 						<b-image ratio="1by1" :src="u.avatar" :alt="u.full_name" :rounded="true"></b-image>
@@ -292,18 +292,40 @@ export default {
 				this.loading = false
 			}
 		},
-		exportUsers() {
+		async exportUsers() {
 			this.exporting = true
-			setTimeout(() => {
+			try {
+				const response = await Api.post('user/export')
+				const { status } = response
+				if (status === 422) {
+					this.$buefy.toast.open({
+						type: 'is-warning',
+						message: 'The file was not generated successfully',
+						position: 'is-bottom',
+						closable: false,
+						duration: 4000
+					})
+				} else {
+					const { message } = response.data
+					this.$buefy.toast.open({
+						type: 'is-success',
+						message: 'The file was generated successfully',
+						position: 'is-bottom',
+						closable: false,
+						duration: 4000
+					})
+					setTimeout(() => {
+						this.exporting = false
+						const node = document.createElement('a')
+						node.href = message
+						node.click()
+					}, 2000)
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
 				this.exporting = false
-				this.$buefy.toast.open({
-					type: 'is-success',
-					message: 'The file was generated successfully',
-					position: 'is-bottom',
-					closable: false,
-					duration: 4000
-				})
-			}, 2000)
+			}
 		},
 		createUser() {
 			this.$buefy.modal.open({

@@ -147,7 +147,7 @@ export default {
 			try {
 				const response = await Api.post('permission/export')
 				const { status } = response
-				if(status === 422) {
+				if (status === 422) {
 					this.$buefy.toast.open({
 						type: 'is-warning',
 						message: 'The file was not generated successfully',
@@ -176,16 +176,6 @@ export default {
 			} finally {
 				this.exporting = false
 			}
-			/*setTimeout(() => {
-				this.exporting = false
-				this.$buefy.toast.open({
-					type: 'is-success',
-					message: 'The file was generated successfully',
-					position: 'is-bottom',
-					closable: false,
-					duration: 4000
-				})
-			}, 2000)*/
 		},
 		createRole() {
 			this.$buefy.modal.open({

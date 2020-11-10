@@ -20,7 +20,6 @@
 					<b-select placeholder="Name" @input="filterByOrder">
 						<option selected value="1">Name</option>
 						<option value="2">E-mail</option>
-						<option value="3">Role</option>
 						<option value="4">Status</option>
 					</b-select>
 				</b-field>

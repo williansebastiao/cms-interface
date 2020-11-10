@@ -3,13 +3,13 @@ export default [
 		path: '/profile',
 		name: 'Profile',
 		icon: 'profile',
-		component: () => import('@/pages/profile/Profile'),
+		component: () => import('@/pages/profile/Personal'),
 		children: [
 			{
-				path: '/profile',
+				path: '/profile/personal-information',
 				name: 'Personal Information',
 				icon: 'profile',
-				component: () => import('@/pages/profile/Profile')
+				component: () => import('@/pages/profile/Personal')
 			},
 			{
 				path: '/profile/notifications',
@@ -21,7 +21,7 @@ export default [
 				path: '/profile/password',
 				name: 'Password Security',
 				icon: 'roles',
-				component: () => import('@/pages/profile/Profile')
+				component: () => import('@/pages/profile/Password')
 			}
 		]
 	}

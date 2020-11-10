@@ -1,0 +1,137 @@
+<template>
+	<Layout>
+		<div class="columns">
+			<Title />
+			<Weather :bordered="false" />
+		</div>
+		<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+			<section class="profile columns">
+				<div class="column profile__sidebar">
+					<article class="profile__column ">
+						<div class="columns mb-0">
+							<div class="column is-one-third profile__image">
+								<img :src="user.avatar" :alt="user.full_name" />
+							</div>
+							<div class="column">
+								<h3 class="profile__name is-semibold is-size-5">{{ user.full_name }}</h3>
+								<p class="profile__role">{{ user.permission.name }}</p>
+							</div>
+						</div>
+						<ul class="profile__list">
+							<li v-if="user.phone">
+								<span class="profile__list__key">Phone:</span>
+								<a href="#" class="profile__list__value">{{ user.phone }}</a>
+							</li>
+							<li v-if="user.email">
+								<span class="profile__list__key">Email:</span>
+								<a href="#" class="profile__list__value">{{ user.email }}</a>
+							</li>
+							<li v-if="user.address">
+								<span class="profile__list__key">Location:</span>
+								<span class="profile__list__value">{{ user.address.city }}/{{ user.address.state }}</span>
+							</li>
+						</ul>
+						<ul class="profile__navigation">
+							<li v-for="(m, i) in navigation" :key="i">
+								<router-link tag="a" :to="m.path">
+									<svg-icon :icon="m.icon"></svg-icon>
+									<span>{{ m.name }}</span>
+								</router-link>
+							</li>
+						</ul>
+					</article>
+				</div>
+				<form class="column" @submit.prevent="handleSubmit(updateProfile)">
+					<article class="profile__column panel">
+						<div class="panel__header">
+							<span class="is-flex is-flex-direction-column is-justify-content-center">
+								<h3 class="profile__name pt-0 is-semibold is-size-6">Personal Information</h3>
+								<p class="is-size-7">Update your informations</p>
+							</span>
+							<b-button tabindex="6" native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
+						</div>
+						<div class="panel__body">
+							<h3 class="profile__section has-text-primary is-semibold is-size-5">User Data</h3>
+
+							<InputWithValidation class="profile__field" tab="1" rules="required" type="text" label="Site" size="is-medium" v-model="user.site" />
+
+							<InputWithValidation class="profile__field" tab="2" rules="required|min:8" type="text" label="Phone" size="is-medium" v-model="user.phone" />
+
+							<InputWithValidation class="profile__field" tab="3" rules="required|min:8" type="text" label="Zipcode" size="is-medium" v-model="user.zipcode" />
+
+							<InputWithValidation class="profile__field" tab="4" rules="required|min:8" type="text" label="Address" size="is-medium" v-model="user.address" />
+
+							<InputWithValidation class="profile__field" tab="5" rules="required|min:8" type="text" label="Number" size="is-medium" v-model="user.number" />
+
+							<InputWithValidation class="profile__field" tab="6" rules="required|min:8" type="text" label="Neighborhood" size="is-medium" v-model="user.neighborhood" />
+
+							<InputWithValidation class="profile__field" tab="7" rules="required|min:8" type="text" label="State" size="is-medium" v-model="user.state" />
+
+							<InputWithValidation class="profile__field" tab="8" rules="required|min:8" type="text" label="City" size="is-medium" v-model="user.city" />
+						</div>
+					</article>
+				</form>
+			</section>
+		</ValidationObserver>
+	</Layout>
+</template>
+
+<script>
+import Menu from '@/router/user'
+import Layout from '@/layouts/Default'
+import Title from '@/components/Title'
+import Icon from '@/components/Icon'
+import Weather from '@/components/Weather'
+import InputWithValidation from '@/components/inputs/InputWithValidation'
+import { ValidationObserver } from 'vee-validate'
+import Api from '@/services/api'
+
+export default {
+	name: 'Personal',
+	components: {
+		Layout,
+		Title,
+		Weather,
+		InputWithValidation,
+		ValidationObserver,
+		'svg-icon': Icon
+	},
+	data() {
+		return {
+			loading: false,
+			bordered: true,
+			onAccept(e) {
+				const maskRef = e.detail
+				this.value = maskRef.value
+				console.log('accept', maskRef.value)
+			},
+			user: {}
+		}
+	},
+	computed: {
+		navigation() {
+			return Menu[0].children
+		}
+	},
+	methods: {
+		async me() {
+			try {
+				const response = await Api.get('user/me')
+				const { status } = response
+				if (status === 200) {
+					this.user = response.data
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		updateProfile() {
+			this.loading = true
+			console.log('Sending...')
+		}
+	},
+	mounted() {
+		this.me()
+	}
+}
+</script>

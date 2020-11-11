@@ -14,7 +14,7 @@
 							</div>
 							<div class="column">
 								<h3 class="profile__name is-semibold is-size-5">{{ user.full_name }}</h3>
-								<p class="profile__role">{{ user.permission.name }}</p>
+								<p class="profile__role" v-if="user.permission">{{ user.permission.name }}</p>
 							</div>
 						</div>
 						<ul class="profile__list">
@@ -55,19 +55,19 @@
 
 							<InputWithValidation class="profile__field" tab="1" rules="required" type="text" label="Site" size="is-medium" v-model="user.site" />
 
-							<InputWithValidation class="profile__field" tab="2" rules="required|min:8" type="text" label="Phone" size="is-medium" v-model="user.phone" />
+							<InputWithValidation class="profile__field" tab="2" rules="required|min:15" type="text" label="Phone" size="is-medium" v-mask="'(##) #####-####'" v-model="user.phone" />
 
-							<InputWithValidation class="profile__field" tab="3" rules="required|min:8" type="text" label="Zipcode" size="is-medium" v-model="user.zipcode" />
+							<InputWithValidation class="profile__field" tab="3" type="text" label="Zipcode" size="is-medium" v-mask="'#####-###'" v-model="user.zipcode" @blur="findAddress" />
 
-							<InputWithValidation class="profile__field" tab="4" rules="required|min:8" type="text" label="Address" size="is-medium" v-model="user.address" />
+							<InputWithValidation class="profile__field" tab="4" rules="required|min:2" type="text" label="Address" size="is-medium" v-model="user.address" />
 
-							<InputWithValidation class="profile__field" tab="5" rules="required|min:8" type="text" label="Number" size="is-medium" v-model="user.number" />
+							<InputWithValidation class="profile__field" tab="5" rules="required|min:1" type="text" label="Number" size="is-medium" v-model="user.number" />
 
-							<InputWithValidation class="profile__field" tab="6" rules="required|min:8" type="text" label="Neighborhood" size="is-medium" v-model="user.neighborhood" />
+							<InputWithValidation class="profile__field" tab="6" rules="required|min:4" type="text" label="Neighborhood" size="is-medium" v-model="user.neighborhood" />
 
-							<InputWithValidation class="profile__field" tab="7" rules="required|min:8" type="text" label="State" size="is-medium" v-model="user.state" />
+							<InputWithValidation class="profile__field" tab="7" rules="required|min:2" type="text" label="State" size="is-medium" v-model="user.state" />
 
-							<InputWithValidation class="profile__field" tab="8" rules="required|min:8" type="text" label="City" size="is-medium" v-model="user.city" />
+							<InputWithValidation class="profile__field" tab="8" rules="required|min:4" type="text" label="City" size="is-medium" v-model="user.city" />
 						</div>
 					</article>
 				</form>
@@ -120,6 +120,30 @@ export default {
 				const { status } = response
 				if (status === 200) {
 					this.user = response.data
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		async findAddress() {
+			try {
+				const zipcode = /^\d{5}$|^\d{5}-\d{3}$/
+				if (!zipcode.test(this.user.zipcode)) {
+					console.log('Digite corretamente o cep')
+				} else {
+					const cep = this.user.zipcode.replace(/\D/g, '')
+					fetch(`https://viacep.com.br/ws/${cep}/json`)
+						.then(response => response.json())
+						.then(body => {
+							if (body.erro) {
+								console.log('Cep não encontrado ou inválido!')
+							} else {
+								console.log(body)
+							}
+						})
+						.catch(error => {
+							console.log(error)
+						})
 				}
 			} catch (e) {
 				console.log(e)

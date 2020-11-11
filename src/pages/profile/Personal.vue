@@ -57,11 +57,11 @@
 
 							<InputWithValidation class="profile__field" tab="2" rules="required|min:15" type="text" label="Phone" size="is-medium" v-mask="'(##) #####-####'" v-model="user.phone" />
 
-							<InputWithValidation class="profile__field" tab="3" type="text" label="Zipcode" size="is-medium" v-mask="'#####-###'" v-model="user.zipcode" @blur="findAddress" />
+							<InputWithValidation class="profile__field" tab="3" type="text" label="Zipcode" size="is-medium" v-mask="'#####-###'" v-model="user.zipcode" :blur="findAddress" />
 
 							<InputWithValidation class="profile__field" tab="4" rules="required|min:2" type="text" label="Address" size="is-medium" v-model="user.address" />
 
-							<InputWithValidation class="profile__field" tab="5" rules="required|min:1" type="text" label="Number" size="is-medium" v-model="user.number" />
+							<InputWithValidation class="profile__field" tab="5" rules="required|min:1" type="text" label="Number" size="is-medium" ref="number" v-model="user.number" />
 
 							<InputWithValidation class="profile__field" tab="6" rules="required|min:4" type="text" label="Neighborhood" size="is-medium" v-model="user.neighborhood" />
 
@@ -139,6 +139,14 @@ export default {
 								console.log('Cep não encontrado ou inválido!')
 							} else {
 								console.log(body)
+								this.user.address = body.logradouro
+								this.user.neighborhood = body.bairro
+								this.user.state = body.uf
+								this.user.city = body.localidade
+								this.$refs.number.$el.querySelector('input').focus()
+								console.log('1', this.$refs.number)
+								console.log('2', this.$refs.number.$el)
+								console.log('3', this.$refs.number.$el.querySelector('input').focus())
 							}
 						})
 						.catch(error => {

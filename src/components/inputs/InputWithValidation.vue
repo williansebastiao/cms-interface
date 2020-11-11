@@ -2,7 +2,7 @@
 	<ValidationProvider class="is-block is-relative" :vid="vid" :name="$attrs.name || $attrs.label" :rules="rules" v-slot="{ errors, valid }">
 		<slot></slot>
 		<b-field v-bind="$attrs" :type="{ 'is-danger': errors[0], 'is-success': valid }" :message="errors">
-			<b-input v-model="innerValue" :tabindex="tab" v-bind="$attrs"></b-input>
+			<b-input v-on:blur="blur" v-model="innerValue" :tabindex="tab" v-bind="$attrs"></b-input>
 		</b-field>
 	</ValidationProvider>
 </template>
@@ -25,6 +25,9 @@ export default {
 		rules: {
 			type: [Object, String],
 			default: ''
+		},
+		blur: {
+			type: Function
 		},
 		// must be included in props
 		value: {

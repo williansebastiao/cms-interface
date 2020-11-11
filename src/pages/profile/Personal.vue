@@ -138,15 +138,12 @@ export default {
 							if (body.erro) {
 								console.log('Cep não encontrado ou inválido!')
 							} else {
-								console.log(body)
 								this.user.address = body.logradouro
 								this.user.neighborhood = body.bairro
 								this.user.state = body.uf
 								this.user.city = body.localidade
+								// Force focus um number
 								this.$refs.number.$el.querySelector('input').focus()
-								console.log('1', this.$refs.number)
-								console.log('2', this.$refs.number.$el)
-								console.log('3', this.$refs.number.$el.querySelector('input').focus())
 							}
 						})
 						.catch(error => {

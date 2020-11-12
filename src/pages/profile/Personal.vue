@@ -57,17 +57,17 @@
 
 							<InputWithValidation class="profile__field" tab="2" rules="required|min:15" type="text" label="Phone" size="is-medium" v-mask="'(##) #####-####'" v-model="user.phone" />
 
-							<InputWithValidation class="profile__field" tab="3" type="text" label="Zipcode" size="is-medium" v-mask="'#####-###'" v-model="user.zipcode" :blur="findAddress" />
+							<InputWithValidation class="profile__field" tab="3" type="text" label="Zipcode" size="is-medium" v-mask="'#####-###'" v-model="user.address.zipcode" :blur="findAddress" />
 
-							<InputWithValidation class="profile__field" tab="4" rules="required|min:2" type="text" label="Address" size="is-medium" v-model="user.address" />
+							<InputWithValidation class="profile__field" tab="4" rules="required|min:2" type="text" label="Address" size="is-medium" v-model="user.address.street" />
 
-							<InputWithValidation class="profile__field" tab="5" rules="required|min:1" type="text" label="Number" size="is-medium" ref="number" v-model="user.number" />
+							<InputWithValidation class="profile__field" tab="5" rules="required|min:1" type="text" label="Number" size="is-medium" ref="number" v-model="user.address.number" />
 
-							<InputWithValidation class="profile__field" tab="6" rules="required|min:4" type="text" label="Neighborhood" size="is-medium" v-model="user.neighborhood" />
+							<InputWithValidation class="profile__field" tab="6" rules="required|min:4" type="text" label="Neighborhood" size="is-medium" v-model="user.address.neighborhood" />
 
-							<InputWithValidation class="profile__field" tab="7" rules="required|min:2" type="text" label="State" size="is-medium" v-model="user.state" />
+							<InputWithValidation class="profile__field" tab="7" rules="required|min:2" type="text" label="State" size="is-medium" v-model="user.address.state" />
 
-							<InputWithValidation class="profile__field" tab="8" rules="required|min:4" type="text" label="City" size="is-medium" v-model="user.city" />
+							<InputWithValidation class="profile__field" tab="8" rules="required|min:4" type="text" label="City" size="is-medium" v-model="user.address.city" />
 						</div>
 					</article>
 				</form>
@@ -85,6 +85,7 @@ import Weather from '@/components/Weather'
 import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
 import Api from '@/services/api'
+import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
 	name: 'Personal',
@@ -128,10 +129,14 @@ export default {
 		async findAddress() {
 			try {
 				const zipcode = /^\d{5}$|^\d{5}-\d{3}$/
-				if (!zipcode.test(this.user.zipcode)) {
-					console.log('Digite corretamente o cep')
+				if (!zipcode.test(this.user.address.zipcode)) {
+					Toast.open({
+						message: 'Digite corretamente o cep',
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
 				} else {
-					const cep = this.user.zipcode.replace(/\D/g, '')
+					const cep = this.user.address.zipcode.replace(/\D/g, '')
 					fetch(`https://viacep.com.br/ws/${cep}/json`)
 						.then(response => response.json())
 						.then(body => {
@@ -154,9 +159,32 @@ export default {
 				console.log(e)
 			}
 		},
-		updateProfile() {
-			this.loading = true
-			console.log('Sending...')
+		async updateProfile() {
+			try {
+				this.loading = true
+				const response = await Api.put(`user/personal/${this.id}`, this.user)
+				const { status } = response
+				if (status === 200) {
+					const { message } = response.data
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom'
+					})
+				}
+			} catch (e) {
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
+				}
+			} finally {
+				this.loading = false
+			}
 		}
 	},
 	mounted() {

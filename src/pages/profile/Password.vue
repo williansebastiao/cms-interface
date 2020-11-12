@@ -120,9 +120,12 @@ export default {
 				console.log(e)
 			}
 		},
-		updateProfile() {
-			this.loading = true
-			console.log('Sending...')
+		async updateProfile() {
+			try {
+				console.log('try')
+			} catch (e) {
+				console.log(e)
+			}
 		}
 	},
 	mounted() {

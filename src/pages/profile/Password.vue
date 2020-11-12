@@ -46,9 +46,9 @@
 						<div class="panel__header">
 							<span class="is-flex is-flex-direction-column is-justify-content-center">
 								<h3 class="profile__name pt-0 is-semibold is-size-6">Password Security</h3>
-								<p class="is-size-7">Update your ppassword</p>
+								<p class="is-size-7">Update your password</p>
 							</span>
-							<b-button tabindex="6" native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
+							<b-button @click="updateProfile" tabindex="6" native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
 						</div>
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">User Data</h3>
@@ -79,6 +79,7 @@ import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
 import PasswordMeter from 'vue-simple-password-meter'
 import Api from '@/services/api'
+import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
 	name: 'Password',
@@ -122,9 +123,29 @@ export default {
 		},
 		async updateProfile() {
 			try {
-				console.log('try')
+				this.loading = true
+				const response = await Api.put(`user/password/${this.user._id}`, this.user)
+				const { status } = response
+				if (status === 200) {
+					const { message } = response.data
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom'
+					})
+				}
 			} catch (e) {
-				console.log(e)
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
+				}
+			} finally {
+				this.loading = false
 			}
 		}
 	},

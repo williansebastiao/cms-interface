@@ -34,7 +34,11 @@
 			</div>
 			<div class="column">
 				<article class="profile__column">
-					<p>huahuahua</p>
+					<ul>
+						<li v-for="message in messages" v-html="message.text" :key="message._id"></li>
+					</ul>
+					<textarea v-model="message" style="width: 100%;height: 100px"></textarea>
+					<button type="button" @click="send">Enviar</button>
 				</article>
 			</div>
 		</section>
@@ -46,6 +50,8 @@ import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Icon from '@/components/Icon'
 import Weather from '@/components/Weather'
+import Pusher from 'pusher-js'
+import Api from '@/services/api'
 
 export default {
 	name: 'Profile',
@@ -90,8 +96,39 @@ export default {
 					city: 'Caieiras',
 					state: 'SP'
 				}
+			},
+			messages: [],
+			message: ''
+		}
+	},
+	methods: {
+		subscribe() {
+			Pusher.logToConsole = false
+			const pusher = new Pusher('53cbf8c7c95b4a051597', {
+				cluster: 'mt1'
+			})
+			const channel = pusher.subscribe('stup')
+			channel.bind('notification', (obj) => {
+				this.messages.push(obj)
+			})
+		},
+		async send() {
+			try {
+				const response = await Api.post('notification/send', {
+					message: this.message
+				})
+				const { status } = response
+				if (status === 200) {
+					console.log('mensagem enviada')
+				}
+			} catch (e) {
+				console.log(e)
 			}
 		}
+	},
+	created() {
+		this.subscribe()
+		//this.messages = [{text: 'will', _id: '1234456'}]
 	}
 }
 </script>

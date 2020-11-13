@@ -108,7 +108,7 @@ export default {
 				cluster: 'mt1'
 			})
 			const channel = pusher.subscribe('stup')
-			channel.bind('notification', (obj) => {
+			channel.bind('notification', obj => {
 				this.messages.push(obj)
 			})
 		},

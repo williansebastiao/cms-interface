@@ -4,10 +4,10 @@
 			<svg-icon icon="bell"></svg-icon>
 			<span class="notifications__button__icon">8</span>
 		</button>
-		<div class="notifications__list" :class="{ 'active': isActive }" v-on:mouseleave="toggleNotification">
+		<div class="notifications__list" :class="{ active: opened }" v-on:mouseleave="toggleNotification">
 			<ul class="scroll">
 				<li v-for="(n, i) in notifications" :key="i">
-					<a :href="n.url" :class="{ 'read': n.read }">
+					<a :href="n.url" :class="{ read: n.read }">
 						<i :class="n.icon"></i>
 						<span>
 							<h3 class="notifications__list__title">{{ n.title }}</h3>
@@ -30,7 +30,7 @@ export default {
 	},
 	data() {
 		return {
-			isActive: false,
+			opened: false,
 			notifications: [
 				{
 					read: false,
@@ -93,7 +93,7 @@ export default {
 	},
 	methods: {
 		toggleNotification() {
-			this.isActive = !this.isActive
+			this.opened = !this.opened
 		}
 	}
 }

@@ -27,8 +27,8 @@
 					<hr class="my-3" />
 					<div class="columns">
 						<div class="column is-mobile-4"></div>
-						<div v-for="(type, i) in crud" :key="i" class="column is-12-mobile is-2-tablet text-center">
-							<span class="is-size-7 text-uppercase is-semibold">{{ type }}</span>
+						<div v-for="(role, i) in crud" :key="i" class="column is-12-mobile is-2-tablet text-center">
+							<span class="is-size-7 text-uppercase is-semibold action" @click="selectAll(role.label)">{{ role.name }}</span>
 						</div>
 					</div>
 					<span class="item" v-for="(r, i) in permission.route" :key="i">
@@ -82,7 +82,24 @@ export default {
 			isOpening: false,
 			loading: false,
 			swatches: ['#feca57', '#ff9f43', '#ee5253', '#f368e0', '#b53471', '#7202f8', '#10ac84', '#01a3a4', '#0abde3', '#2e86de', '#341f97', '#dbdbdb', '#8395a7', '#576574', '#222f3e'],
-			crud: ['Read', 'Create', 'Edit', 'Delete'],
+			crud: [
+				{
+					label: 'read',
+					name: 'Read'
+				},
+				{
+					label: 'create',
+					name: 'Create'
+				},
+				{
+					label: 'edit',
+					name: 'Edit'
+				},
+				{
+					label: 'delete',
+					name: 'Delete'
+				}
+			],
 			permission: {
 				name: '',
 				description: '',
@@ -121,6 +138,14 @@ export default {
 		}
 	},
 	methods: {
+		async selectAll(role) {
+			let c = role.toLowerCase(),
+				r = this.permission.route
+
+			for (let i in r){
+				r[i].role[c] = !r[i].role[c]
+			}
+		},
 		async saveRole() {
 			this.name === 'New' ? await this.store() : await this.update()
 		},

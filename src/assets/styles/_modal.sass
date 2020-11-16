@@ -83,6 +83,13 @@
 	&.is-role
 		.role
 			text-transform: uppercase
+		.action
+			user-select: none
+			transition: $transition-base
+			cursor: pointer
+			&.selected,
+			&:hover
+				color: $primary
 		.item
 			margin: 0
 			&:last-child

@@ -8,13 +8,15 @@
 	display: flex
 	justify-content: flex-end
 	align-items: center
-	padding: 0 $block-spacing / 2 0 $block-spacing
+	padding: 0 $block-spacing
 	margin: $block-spacing / 2.5 $block-spacing / 2
-	border-left: 1px solid rgba($black, 0.1)
+	border-left: 1px solid $grey-lighter
+	border-right: 1px solid $grey-lighter
 	user-select: none
-	width: 125px
+	width: 140px
 	white-space: nowrap
 	min-height: 51px
+	opacity: 0.65
 	&.no-border
 		border-left-color: transparent
 	img
@@ -25,5 +27,10 @@
 		justify-content: flex-start
 		width: 100%
 		text-transform: uppercase
+		color: $primary
 		.title
 			margin-bottom: 1.3rem
+			color: inherit
+		.title,
+		.subtitle
+			color: inherit

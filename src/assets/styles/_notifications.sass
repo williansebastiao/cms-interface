@@ -1,0 +1,95 @@
+// |------------------------------------------------------
+// |------------------------------------------------------
+// | Notifications
+// |------------------------------------------------------
+// |------------------------------------------------------
+
+.notifications
+	// min-height: 65px
+	// border-left: 1px solid rgba($black, 0.1)
+
+	&__button
+		background: transparent
+		border: none
+		cursor: pointer
+		position: relative
+		padding: 5px 15px 10px
+		margin-top: 17px
+		.svg
+			width: 30px
+			opacity: 0.6
+			&:hover
+				opacity: 1
+		&__icon
+			width: 20px
+			height: 20px
+			font-size: 8px
+			position: absolute
+			top: 0
+			right: 5px
+			background: $danger
+			color: $white
+			display: flex
+			justify-content: center
+			align-items: center
+			border-radius: 100%
+
+	&__list
+		position: fixed
+		width: 400px
+		height: 100%
+		background: white
+		top: 0
+		right: -100%
+		z-index: 100
+		transition: all 0.9s ease-out
+		padding: $block-spacing
+		box-shadow: 0 0 10px $grey-lightest
+		&.active
+			right: 0
+		&__title
+			font-size: 0.9em
+			font-weight: $weight-bold
+			color: inherit
+			line-height: 1.2
+			margin: 10px 0 -2px 0
+		&__description
+			font-size: 0.85em
+			font-weight: $weight-light
+			color: $grey-lighter
+		&__title,
+		&__description
+			white-space: nowrap
+			overflow: hidden
+			text-overflow: ellipsis
+			max-width: 245px
+		ul
+			height: 100%
+			overflow: auto
+			&::-webkit-scrollbar
+				width: 4px
+			&::-webkit-scrollbar-thumb
+				border-radius: 5px
+			a
+				display: flex
+				padding: 5px
+				border-radius: 5px
+				margin: 0 $block-spacing $block-spacing / 1.5 0
+				transition: $transition-base
+				color: $grey
+				&.read
+					opacity: 0.45
+				&:hover
+					background: $white-bis
+					color: $primary
+				.svg,
+				.mdi
+					display: flex
+					justify-content: center
+					align-items: center
+					border-radius: 5px
+					font-size: 1.35em
+					background: $white-ter
+					width: 50px
+					height: 50px
+					margin: 0 $block-spacing / 2 0 0

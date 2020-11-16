@@ -3,8 +3,17 @@
 		<div class="columns">
 			<Title dashboard-step="1" />
 			<Weather :bordered="false" />
+			<Notifications />
 		</div>
-		<span dashboard-step="2">Under construction...</span>
+		<div class="columns">
+			<div class="column">
+				<span dashboard-step="2">Under construction...</span>
+			</div>
+			<div class="column">
+				<p>kkkkk</p>
+			</div>
+		</div>
+
 		<v-tour name="dashboard" :steps="steps"></v-tour>
 	</Layout>
 </template>
@@ -13,13 +22,15 @@
 import Layout from '@/layouts/Default'
 import Title from '@/components/Title'
 import Weather from '@/components/Weather'
+import Notifications from '@/components/Notifications'
 
 export default {
 	name: 'Dashboard',
 	components: {
 		Layout,
 		Title,
-		Weather
+		Weather,
+		Notifications
 	},
 	data() {
 		return {
@@ -32,7 +43,7 @@ export default {
 					},
 					content: `You started our tour!`,
 					params: {
-						placement: 'left'
+						placement: 'bottom'
 					}
 				},
 				{

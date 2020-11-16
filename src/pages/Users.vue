@@ -13,6 +13,7 @@
 				</b-button>
 			</div>
 			<Weather />
+			<Notifications />
 		</section>
 		<section v-if="!errored" class="columns filter">
 			<div class="column filter__wrapper">
@@ -79,6 +80,7 @@ import Error from '@/components/Error'
 import Results from '@/components/Results'
 import Modal from '@/components/modals/User'
 import Weather from '@/components/Weather'
+import Notifications from '@/components/Notifications'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
 
@@ -91,6 +93,7 @@ export default {
 		Error,
 		Results,
 		Weather,
+		Notifications,
 		'svg-icon': Icon
 	},
 	data() {

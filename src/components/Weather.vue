@@ -33,47 +33,61 @@ export default {
 		}
 	},
 	mounted() {
-		if (window.navigator.geolocation) {
-			// Get user city based on his geolocation
-			const getUserCity = position => {
-				const { latitude, longitude } = position.coords
-				axios
-					.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=1151dcbe57f947b0917cea8841719fef`)
-					.then(response => {
-						let city = response.data.results[0].components.city
-						this.city = city
-						getTemperature(city)
-					})
-					.catch(error => {
-						console.log('error', error)
-					})
-			}
+		let sc = '@stup:city',
+			st = '@stup:temperature'
 
-			// Get the temperature based on user city
-			const getTemperature = city => {
-				axios
-					.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1e6f8463d6167f6260033ee062b48507`)
-					.then(response => {
-						let data = response.data
-						this.temperature = (data.main.temp - 273.15).toFixed(0) + 'º'
-						this.image = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png'
-						this.loading = false
-					})
-					.catch(error => {
-						console.log('error', error)
-					})
-			}
-
-			// Hide component if user disallow your gelocation
-			const notAllowed = error => {
-				if (error.code == error.PERMISSION_DENIED) {
-					this.show = false
-					console.log('error', error)
+		// If these values was storage on session
+		if (sessionStorage.getItem(sc) && sessionStorage.getItem(st)) {
+			this.city = sessionStorage.getItem(sc)
+			this.temperature = sessionStorage.getItem(st)
+			this.loading = false
+		} else {
+			if (window.navigator.geolocation) {
+				console.log(`axios`)
+				// Get user city based on his geolocation
+				const getUserCity = position => {
+					const { latitude, longitude } = position.coords
+					axios
+						.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=1151dcbe57f947b0917cea8841719fef`)
+						.then(response => {
+							let city = response.data.results[0].components.city
+							this.city = city
+							sessionStorage.setItem(sc, city)
+							getTemperature(city)
+						})
+						.catch(error => {
+							console.log('error', error)
+						})
 				}
-			}
 
-			// Get user geolocation
-			window.navigator.geolocation.getCurrentPosition(getUserCity, notAllowed)
+				// Get the temperature based on user city
+				const getTemperature = city => {
+					axios
+						.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1e6f8463d6167f6260033ee062b48507`)
+						.then(response => {
+							let data = response.data,
+								temperature = (data.main.temp - 273.15).toFixed(0) + 'º'
+							this.image = 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png'
+							this.temperature = temperature
+							this.loading = false
+							sessionStorage.setItem(st, temperature)
+						})
+						.catch(error => {
+							console.log('error', error)
+						})
+				}
+
+				// Hide component if user disallow your gelocation
+				const notAllowed = error => {
+					if (error.code == error.PERMISSION_DENIED) {
+						this.show = false
+						console.log('error', error)
+					}
+				}
+
+				// Get user geolocation
+				window.navigator.geolocation.getCurrentPosition(getUserCity, notAllowed)
+			}
 		}
 		/*
 		cloudy

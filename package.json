@@ -1,12 +1,13 @@
 {
 	"name": "stup",
-	"description": "Start and Up",
 	"version": "0.1.0",
 	"private": true,
+	"description": "Start and Up",
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint",
+		"i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
 		"test:unit": "vue-cli-service test:unit"
 	},
 	"dependencies": {
@@ -22,12 +23,11 @@
 		"v-mask": "^2.2.3",
 		"vee-validate": "^3.3.9",
 		"vue": "^2.6.11",
-		"vue-imask": "^6.0.5",
+		"vue-i18n": "^8.17.3",
 		"vue-router": "^3.2.0",
 		"vue-simple-password-meter": "^0.0.22",
 		"vue-swatches": "^2.1.0",
-		"vue-tour": "^1.5.0",
-		"weather.js": "^0.1.0"
+		"vue-tour": "^1.5.0"
 	},
 	"devDependencies": {
 		"@vue/cli-plugin-babel": "^4.4.0",
@@ -45,6 +45,7 @@
 		"sass-loader": "^8.0.2",
 		"stylelint": "^13.6.1",
 		"stylelint-config-standard": "^20.0.0",
+		"vue-cli-plugin-i18n": "^1.0.1",
 		"vue-template-compiler": "^2.6.11"
 	}
 }

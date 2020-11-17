@@ -41,9 +41,15 @@ yarn run lint // Testar e corrigir os arquivos
 
 -   [Axios](https://github.com/axios/axios)
 -   [Buefy](https://buefy.org/documentation)
+-   [Day.js](https://day.js.org/docs/en/installation/installation)
 -   [MD Icons](https://materialdesignicons.com/)
--   [iMask](https://github.com/uNmAnNeR/imaskjs/tree/master/packages/vue-imask)
+-   [Open Cage](https://opencagedata.com/)
+-   [Open Weather](https://openweathermap.org/)
 -   [Password Meter](https://miladd3.github.io/vue-simple-password-meter/)
+-   [Pusher](https://pusher.com/docs)
+-   [Vue i18n](https://phrase.com/blog/posts/ultimate-guide-to-vue-localization-with-vue-i18n/)
+-   [Vue Mask](https://www.npmjs.com/package/v-mask)
+-   [Vue Swatches](https://www.npmjs.com/package/vue-swatches)
 -   [Vue Tour](https://github.com/pulsardev/vue-tour)
 -   [Vee Validade](https://logaretm.github.io/vee-validate/)
 

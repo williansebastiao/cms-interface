@@ -83,6 +83,7 @@ import Weather from '@/components/Weather'
 import Notifications from '@/components/Notifications'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
+import Middleware from '@/middleware/roles'
 
 export default {
 	components: {
@@ -134,6 +135,9 @@ export default {
 				first_name: ''
 			}
 		}
+	},
+	created() {
+		Middleware()
 	},
 	mounted() {
 		this.getAllRoles()

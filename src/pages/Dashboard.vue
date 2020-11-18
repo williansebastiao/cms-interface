@@ -1,10 +1,6 @@
 <template>
 	<Layout>
-		<div class="columns">
-			<Title />
-			<Weather :bordered="false" dashboard-step="1" />
-			<Notifications dashboard-step="2" />
-		</div>
+		<Header :bordered="false" />
 		<div class="columns">
 			<div class="column">
 				<h3 class="is-size-3 is-bold has-text-primary mt-5">{{ $t('hi') }}</h3>
@@ -19,18 +15,14 @@
 
 <script>
 import Layout from '@/layouts/Default'
-import Title from '@/components/Title'
-import Weather from '@/components/Weather'
-import Notifications from '@/components/Notifications'
+import Header from '@/components/Header'
 import Languages from '@/components/Languages'
 
 export default {
 	name: 'Dashboard',
 	components: {
 		Layout,
-		Title,
-		Weather,
-		Notifications,
+		Header,
 		Languages
 	},
 	data() {

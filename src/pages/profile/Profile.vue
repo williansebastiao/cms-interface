@@ -1,9 +1,6 @@
 <template>
 	<Layout>
-		<div class="columns">
-			<Title />
-			<Weather :bordered="false" />
-		</div>
+		<Header :bordered="false" />
 		<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
 			<section class="profile columns">
 				<div class="column profile__sidebar">
@@ -77,9 +74,8 @@
 <script>
 import Menu from '@/router/user'
 import Layout from '@/layouts/Default'
-import Title from '@/components/Title'
+import Header from '@/components/Header'
 import Icon from '@/components/Icon'
-import Weather from '@/components/Weather'
 import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
 import Api from '@/services/api'
@@ -88,8 +84,7 @@ export default {
 	name: 'Profile',
 	components: {
 		Layout,
-		Title,
-		Weather,
+		Header,
 		InputWithValidation,
 		ValidationObserver,
 		'svg-icon': Icon

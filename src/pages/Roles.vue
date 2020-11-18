@@ -1,20 +1,15 @@
 <template>
 	<Layout>
-		<section class="columns is-mobile">
-			<Title />
-			<div class="column page__actions">
-				<b-button v-if="!errored" type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="exportRoles($event)">
-					<span>Export</span>
-					<svg-icon class="icon is-small" icon="export"></svg-icon>
-				</b-button>
-				<b-button type="is-primary create" rounded @click="createRole($event)">
-					<svg-icon icon="add-user" class="icon is-small"></svg-icon>
-					<span>Create</span>
-				</b-button>
-			</div>
-			<Weather />
-			<Notifications />
-		</section>
+		<Header>
+			<b-button v-if="!errored" type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="exportRoles($event)">
+				<span>Export</span>
+				<svg-icon class="icon is-small" icon="export"></svg-icon>
+			</b-button>
+			<b-button type="is-primary create" rounded @click="createRole($event)">
+				<svg-icon icon="add-user" class="icon is-small"></svg-icon>
+				<span>Create</span>
+			</b-button>
+		</Header>
 		<section v-if="!errored" class="columns filter">
 			<div class="column filter__wrapper" v-if="!errored">
 				<b-field label="Order by" v-model="order" :label-position="label">
@@ -51,28 +46,24 @@
 
 <script>
 import Layout from '@/layouts/Default'
-import Title from '@/components/Title'
+import Header from '@/components/Header'
 import Icon from '@/components/Icon'
 import Placeholder from '@/components/placeholders/Role'
 import Trigger from '@/components/triggers/Roles'
 import Error from '@/components/Error'
 import Results from '@/components/Results'
 import Modal from '@/components/modals/Role'
-import Weather from '@/components/Weather'
-import Notifications from '@/components/Notifications'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
 
 export default {
 	components: {
 		Layout,
-		Title,
+		Header,
 		Placeholder,
 		Trigger,
 		Error,
 		Results,
-		Weather,
-		Notifications,
 		'svg-icon': Icon
 	},
 	data() {

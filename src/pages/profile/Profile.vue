@@ -58,11 +58,11 @@
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">Contact Info</h3>
 
-							<InputWithValidation class="profile__field" tab="3" type="text" label="Phone" size="is-medium" v-if="user.phone" v-model="user.phone" />
+							<InputWithValidation class="profile__field" tab="3" type="text" rules="required|regex:/^[2-9]\d{2}[2-9]\d{2}\d{4}$/ }" label="Phone" size="is-medium" v-model="user.phone" />
 
 							<InputWithValidation class="profile__field" tab="4" rules="required|email" type="email" label="Email" size="is-medium" v-model="user.email" />
 
-							<InputWithValidation class="profile__field" tab="5" type="text" label="Site" size="is-medium" v-if="user.site" v-model="user.site" />
+							<InputWithValidation class="profile__field" tab="5" type="text" label="Site" size="is-medium" v-model="user.site" />
 						</div>
 					</article>
 				</form>

@@ -99,23 +99,6 @@ export default {
 				console.log('accept', maskRef.value)
 			},
 			user: {}
-			/*user: {
-				avatar: 'https://preview.keenthemes.com/metronic/theme/html/demo3/dist/assets/media/users/300_21.jpg',
-				firstname: 'Wallace',
-				lastname: 'Erick',
-				role: 'Administrator',
-				email: 'wallace.erick@orbital.company',
-				phone: null,
-				site: null,
-				address: {
-					code: '07700115',
-					street: 'Av. Presidente Kenendy',
-					district: null,
-					number: '616',
-					city: 'Caieiras',
-					state: 'SP'
-				}
-			}*/
 		}
 	},
 	computed: {

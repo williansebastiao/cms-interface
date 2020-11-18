@@ -26,7 +26,7 @@
 								<span class="profile__list__key">Email:</span>
 								<a href="#" class="profile__list__value">{{ user.email }}</a>
 							</li>
-							<li v-if="user.address">
+							<li v-if="user.address.zipcode">
 								<span class="profile__list__key">Location:</span>
 								<span class="profile__list__value">{{ user.address.city }}/{{ user.address.state }}</span>
 							</li>
@@ -123,25 +123,29 @@ export default {
 				if (status === 200) {
 					const {data} = response
 					this.user = data
+					if(!data.site) {
+						this.user = ({...this.user, site: ''})
+					}
 					if(!data.address) {
 						this.user = ({...this.user, address: {zipcode: '', address: '', number: '', neighborhood: '', state: '', city: ''}})
 					}
+					console.log(this.user)
 				}
 			} catch (e) {
 				console.log(e)
 			}
 		},
-		async findAddress() {
+		async findAddress(e) {
 			try {
 				const zipcode = /^\d{5}$|^\d{5}-\d{3}$/
-				if (!zipcode.test(this.user.address.zipcode)) {
+				if (!zipcode.test(e.target.value)) {
 					Toast.open({
 						message: 'Digite corretamente o cep',
 						type: 'is-danger',
 						position: 'is-bottom'
 					})
 				} else {
-					const cep = this.user.address.zipcode.replace(/\D/g, '')
+					const cep = e.target.value.replace(/\D/g, '')
 					fetch(`https://viacep.com.br/ws/${cep}/json`)
 						.then(response => response.json())
 						.then(body => {
@@ -152,7 +156,10 @@ export default {
 									position: 'is-bottom'
 								})
 							} else {
-								this.user = ({...this.user, address: {zipcode: body.cep, address: body.logradouro, number: '', neighborhood: body.bairro, state: body.uf, city: body.localidade}})
+								this.user.address.street = body.logradouro
+								this.user.address.neighborhood = body.bairro
+								this.user.address.state = body.uf
+								this.user.address.city = body.localidade
 								// Force focus um number
 								this.$refs.number.$el.querySelector('input').focus()
 							}
@@ -168,7 +175,7 @@ export default {
 		async updateProfile() {
 			try {
 				this.loading = true
-				const response = await Api.put(`user/personal/${this.id}`, this.user)
+				const response = await Api.put(`user/personal/${this.user._id}`, this.user)
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data

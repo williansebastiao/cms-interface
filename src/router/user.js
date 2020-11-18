@@ -3,7 +3,7 @@ export default [
 		path: '/profile',
 		name: 'Profile',
 		icon: 'profile',
-		component: () => import('@/pages/profile/Personal'),
+		component: () => import('@/pages/profile/Profile'),
 		children: [
 			{
 				path: '/profile/personal-information',

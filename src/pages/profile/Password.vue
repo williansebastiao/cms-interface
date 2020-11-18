@@ -14,7 +14,7 @@
 							</div>
 							<div class="column">
 								<h3 class="profile__name is-semibold is-size-5">{{ user.full_name }}</h3>
-								<p class="profile__role">{{ user.permission.name }}</p>
+								<p class="profile__role" v-if="user.permission">{{ user.permission.name }}</p>
 							</div>
 						</div>
 						<ul class="profile__list">

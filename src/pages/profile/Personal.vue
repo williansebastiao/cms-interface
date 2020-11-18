@@ -68,6 +68,7 @@
 							<InputWithValidation class="profile__field" tab="7" rules="required|min:2" type="text" label="State" size="is-medium" v-model="user.address.state" />
 
 							<InputWithValidation class="profile__field" tab="8" rules="required|min:4" type="text" label="City" size="is-medium" v-model="user.address.city" />
+
 						</div>
 					</article>
 				</form>
@@ -120,7 +121,11 @@ export default {
 				const response = await Api.get('user/me')
 				const { status } = response
 				if (status === 200) {
-					this.user = response.data
+					const {data} = response
+					this.user = data
+					if(!data.address) {
+						this.user = ({...this.user, address: {zipcode: '', address: '', number: '', neighborhood: '', state: '', city: ''}})
+					}
 				}
 			} catch (e) {
 				console.log(e)
@@ -141,12 +146,13 @@ export default {
 						.then(response => response.json())
 						.then(body => {
 							if (body.erro) {
-								console.log('Cep não encontrado ou inválido!')
+								Toast.open({
+									message: 'Cep não encontrado ou inválido!',
+									type: 'is-danger',
+									position: 'is-bottom'
+								})
 							} else {
-								this.user.address = body.logradouro
-								this.user.neighborhood = body.bairro
-								this.user.state = body.uf
-								this.user.city = body.localidade
+								this.user = ({...this.user, address: {zipcode: body.cep, address: body.logradouro, number: '', neighborhood: body.bairro, state: body.uf, city: body.localidade}})
 								// Force focus um number
 								this.$refs.number.$el.querySelector('input').focus()
 							}

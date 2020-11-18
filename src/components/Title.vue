@@ -14,7 +14,12 @@ export default {
 	},
 	computed: {
 		name() {
-			return this.$route.name
+			let r = this.$route
+			// If route has father, preserve his name
+			if (r.matched) {
+				return r.matched[0].name
+			}
+			return r.name
 		}
 	}
 }

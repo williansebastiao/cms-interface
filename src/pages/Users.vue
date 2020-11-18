@@ -76,6 +76,7 @@ import Results from '@/components/Results'
 import Modal from '@/components/modals/User'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
+import Middleware from '@/middleware/roles'
 
 export default {
 	components: {
@@ -125,6 +126,9 @@ export default {
 				first_name: ''
 			}
 		}
+	},
+	created() {
+		Middleware()
 	},
 	mounted() {
 		this.getAllRoles()

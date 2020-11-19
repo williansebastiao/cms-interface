@@ -165,7 +165,7 @@ export default {
 		async updateProfile() {
 			try {
 				this.loading = true
-				const response = await Api.put(`user/personal/${this.user._id}`, this.user)
+				const response = await Api.put(`user/personal`, this.user)
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data

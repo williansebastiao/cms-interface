@@ -58,11 +58,11 @@
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">Contact Info</h3>
 
-							<InputWithValidation class="profile__field" tab="3" type="text" label="Phone" size="is-medium" v-if="user.phone" v-model="user.phone" />
-
 							<InputWithValidation class="profile__field" tab="4" rules="required|email" type="email" label="Email" size="is-medium" v-model="user.email" />
 
-							<InputWithValidation class="profile__field" tab="5" type="text" label="Site" size="is-medium" v-if="user.site" v-model="user.site" />
+							<InputWithValidation class="profile__field" tab="3" rules="required" type="text" label="Phone" size="is-medium" v-mask="'(##) #####-####'" v-model="user.phone" />
+
+							<InputWithValidation class="profile__field" tab="5" type="text" label="Site" size="is-medium" v-model="user.site" />
 						</div>
 					</article>
 				</form>
@@ -79,6 +79,7 @@ import Icon from '@/components/Icon'
 import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
 import Api from '@/services/api'
+import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
 	name: 'Profile',
@@ -118,9 +119,32 @@ export default {
 				console.log(e)
 			}
 		},
-		updateProfile() {
-			this.loading = true
-			console.log('Sending...')
+		async updateProfile() {
+			try {
+				this.loading = true
+				const response = await Api.put(`user/personal`, this.user)
+				const { status } = response
+				if (status === 200) {
+					const { message } = response.data
+					Toast.open({
+						message,
+						type: 'is-success',
+						position: 'is-bottom'
+					})
+				}
+			} catch (e) {
+				const { status } = e
+				if (status === 422) {
+					const { message } = e.data
+					Toast.open({
+						message,
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
+				}
+			} finally {
+				this.loading = false
+			}
 		}
 	},
 	mounted() {

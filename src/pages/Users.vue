@@ -58,7 +58,7 @@
 						<h3 class="block__name">{{ u.full_name }}</h3>
 						<p class="block__email">{{ u.email }}</p>
 					</div>
-					<Trigger :id="u._id" />
+					<Trigger v-if="u.role.name === 'user'" :id="u._id" />
 				</article>
 			</div>
 		</transition-group>

@@ -6,8 +6,8 @@
 					<article class="profile__column panel">
 						<div class="panel__header">
 							<span class="is-flex is-flex-direction-column is-justify-content-center">
-								<h3 class="profile__name pt-0 is-semibold is-size-6">Address Informations</h3>
-								<p class="is-size-7">Update your address informations</p>
+								<h3 class="profile__name pt-0 is-semibold is-size-6">Address Information</h3>
+								<p class="is-size-7">Update your address information</p>
 							</span>
 							<b-button tabindex="6" native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
 						</div>
@@ -24,7 +24,6 @@
 							<InputWithValidation class="profile__field" tab="7" rules="required|min:2" type="text" label="State" size="is-medium" v-model="props.user.address.state" />
 
 							<InputWithValidation class="profile__field" tab="8" rules="required|min:4" type="text" label="City" size="is-medium" v-model="props.user.address.city" />
-							<pre>{{ props.user.address }}</pre>
 						</div>
 					</article>
 				</form>

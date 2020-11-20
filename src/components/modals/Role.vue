@@ -38,6 +38,7 @@
 							</div>
 							<div class="column is-12-mobile is-2-tablet text-center" v-for="(value, key, i) in r.role" :key="i">
 								<b-checkbox type="is-primary" v-model="r.role[key]" :name="r.name.toLowerCase() + '_' + key" class="ml-4" :value="value"></b-checkbox>
+								<input type="hidden" :value="r.slug" />
 							</div>
 						</div>
 						<hr class="mt-0 mb-4" />
@@ -113,7 +114,8 @@ export default {
 							create: false,
 							edit: false,
 							delete: false
-						}
+						},
+						slug: 'dashboard'
 					},
 					{
 						name: 'Users',
@@ -122,7 +124,8 @@ export default {
 							create: false,
 							edit: false,
 							delete: false
-						}
+						},
+						slug: 'users'
 					},
 					{
 						name: 'Roles',
@@ -131,7 +134,8 @@ export default {
 							create: false,
 							edit: false,
 							delete: false
-						}
+						},
+						slug: 'roles'
 					}
 				]
 			}
@@ -142,7 +146,7 @@ export default {
 			let c = role.toLowerCase(),
 				r = this.permission.route
 
-			for (let i in r){
+			for (let i in r) {
 				r[i].role[c] = !r[i].role[c]
 			}
 		},

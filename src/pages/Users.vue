@@ -128,7 +128,7 @@ export default {
 		}
 	},
 	created() {
-		Middleware()
+		Middleware('edit')
 	},
 	mounted() {
 		this.getAllRoles()

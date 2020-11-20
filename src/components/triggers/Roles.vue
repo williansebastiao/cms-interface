@@ -63,23 +63,27 @@ export default {
 			}
 		},
 		showDelete(name) {
-			const permission = this.permission
-			const role = this.role
+			try {
+				const permission = this.permission
+				const role = this.role
 
-			switch (role) {
-				case 'root':
-					return true
-				case 'user':
-				default:
-					if (permission === 'administrator' || permission === 'user') {
-						if (name === 'Edit') {
-							return true
-						} else {
-							return false
-						}
-					} else if (permission !== 'administrator' || permission !== 'user') {
+				switch (role) {
+					case 'root':
 						return true
-					}
+					case 'user':
+					default:
+						if (permission === 'administrator' || permission === 'user') {
+							if (name === 'Edit') {
+								return true
+							} else {
+								return false
+							}
+						} else if (permission !== 'administrator' || permission !== 'user') {
+							return true
+						}
+				}
+			} catch (e) {
+				console.log(e)
 			}
 		}
 	}

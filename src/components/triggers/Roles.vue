@@ -2,8 +2,10 @@
 	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left">
 		<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
 		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" :data-id="id" @click="handleClick(l, id)">
-			<svg-icon :icon="l.icon"></svg-icon>
-			<span>{{ l.name }}</span>
+			<div v-if="showDelete(l.name)">
+				<svg-icon :icon="l.icon"></svg-icon>
+				<span>{{ l.name }}</span>
+			</div>
 		</b-dropdown-item>
 	</b-dropdown>
 </template>
@@ -18,6 +20,14 @@ export default {
 	},
 	props: {
 		id: {
+			type: String,
+			required: true
+		},
+		permission: {
+			type: String,
+			required: true
+		},
+		role: {
 			type: String,
 			required: true
 		},
@@ -50,6 +60,26 @@ export default {
 				eventHub.$emit('delete-role', {
 					id
 				})
+			}
+		},
+		showDelete(name) {
+			const permission = this.permission
+			const role = this.role
+
+			switch (role) {
+				case 'root':
+					return true
+				case 'user':
+				default:
+					if (permission === 'administrator' || permission === 'user') {
+						if (name === 'Edit') {
+							return true
+						} else {
+							return false
+						}
+					} else if (permission !== 'administrator' || permission !== 'user') {
+						return true
+					}
 			}
 		}
 	}

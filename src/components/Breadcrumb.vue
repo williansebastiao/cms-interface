@@ -1,8 +1,11 @@
 <template>
-	<nav class="breadcrumb is-small has -arrow  has-dot-separator" aria-label="breadcrumbs">
+	<nav class="breadcrumb is-small has-dot-separator" aria-label="breadcrumbs">
 		<ul>
 			<li>
 				<router-link tag="a" :to="{ name: 'Dashboard' }">Dashboard</router-link>
+			</li>
+			<li v-if="parent">
+				<a :href="parent.path">{{ parent.name }}</a>
 			</li>
 			<li class="is-active is-regular">
 				<a href="#" aria-current="page">{{ current }}</a>
@@ -20,8 +23,16 @@ export default {
 		}
 	},
 	computed: {
+		parent() {
+			let r = this.$route
+			if (r.matched.length > 1) {
+				return r.matched[0]
+			}
+			return false
+		},
 		current() {
-			return this.$route.name
+			let r = this.$route
+			return r.name
 		}
 	}
 }

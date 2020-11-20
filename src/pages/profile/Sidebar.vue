@@ -7,7 +7,7 @@
 				</div>
 				<div class="column">
 					<h3 class="profile__name is-semibold is-size-5">{{ user.full_name }}</h3>
-					<p class="profile__role" v-if="user.permission">{{ user.permission.name }}</p>
+					<p v-if="user.permission" class="profile__role">{{ user.permission.name }}</p>
 				</div>
 			</div>
 			<ul class="profile__list">
@@ -25,8 +25,8 @@
 				</li>
 			</ul>
 			<ul class="profile__navigation">
-				<li v-for="(m, i) in navigation" :key="i">
-					<router-link tag="a" :to="m.path">
+				<li v-for="(m, i) in navigation.children" :key="i">
+					<router-link tag="a" :to="navigation.path + m.path">
 						<svg-icon :icon="m.icon"></svg-icon>
 						<span>{{ m.name }}</span>
 					</router-link>
@@ -48,12 +48,13 @@ export default {
 	props: {
 		user: {
 			type: Object,
+			required: true,
 			default: () => {}
 		}
 	},
 	computed: {
 		navigation() {
-			return Menu[0].children
+			return Menu[0]
 		}
 	}
 }

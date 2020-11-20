@@ -2,8 +2,10 @@
 	<Layout>
 		<Header :bordered="false" />
 		<section class="profile columns">
-			<Sidebar :user="user"/>
-			<slot :user="user"></slot>
+			<Sidebar :user="user" />
+			<div class="column">
+				<slot class="profile__column panel" v-bind:user="user">{{ user.first_name }}</slot>
+			</div>
 		</section>
 	</Layout>
 </template>
@@ -33,7 +35,21 @@ export default {
 				const { status } = response
 				if (status === 200) {
 					this.user = response.data
+					if (!response.data.address) {
+						this.user = {
+							...this.user,
+							address: {
+								zipcode: '',
+								address: '',
+								number: '',
+								neighborhood: '',
+								state: '',
+								city: ''
+							}
+						}
+					}
 				}
+				console.log(`user first`, this.user)
 			} catch (e) {
 				console.log(e)
 			}

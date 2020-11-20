@@ -37,7 +37,7 @@
 						<h3 class="block__name">{{ r.name }}</h3>
 						<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
 					</div>
-					<Trigger :id="r._id" />
+					<Trigger :id="r._id" :permission="r.slug" :role="user.role.name" />
 				</article>
 			</div>
 		</transition-group>
@@ -77,12 +77,24 @@ export default {
 			// Export
 			exporting: false,
 			permission: [],
+			user: {},
 			role: {
 				name: ''
 			}
 		}
 	},
 	methods: {
+		async me() {
+			try {
+				const response = await Api.get('user/me')
+				const { status } = response
+				if (status === 200) {
+					this.user = response.data
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
 		async getAllRoles() {
 			try {
 				const response = await Api.get('permission/findAll')
@@ -205,6 +217,7 @@ export default {
 		}
 	},
 	mounted() {
+		this.me()
 		this.getAllRoles()
 		eventHub.$off()
 		eventHub.$on('reload-roles', () => {

@@ -21,33 +21,11 @@ export default [
 		icon: 'users',
 		// beforeEnter: auth,
 		component: () => import('@/pages/Users')
-		// children: [
-		// 	{
-		// 		path: 'create',
-		// 		component: () => import('@/components/modals/User'),
-		// 		props: true
-		// 	}
-		// ]
+	},
+	{
+		path: '/404',
+		name: '404',
+		beforeEnter: auth,
+		component: () => import('@/errors/404')
 	}
-	// {
-	// 	path: '/chat',
-	// 	name: 'Chat',
-	// 	icon: 'chat',
-	// 	//beforeEnter: guest,
-	// 	component: () => import('@/pages/Privacy')
-	// },
-	// {
-	// 	path: '/charts',
-	// 	name: 'Charts',
-	// 	icon: 'charts',
-	// 	//beforeEnter: guest,
-	// 	component: () => import('@/pages/Terms')
-	// },
-	// {
-	// 	path: '/settings',
-	// 	name: 'Settings',
-	// 	icon: 'settings',
-	// 	//beforeEnter: guest,
-	// 	component: () => import('@/pages/Contact')
-	// }
 ]

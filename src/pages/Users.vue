@@ -5,7 +5,7 @@
 				<span>Export</span>
 				<svg-icon class="icon is-small" icon="export"></svg-icon>
 			</b-button>
-			<b-button type="is-primary create" rounded @click="createUser($event)">
+			<b-button type="is-primary create" rounded @click="createUser($event)" v-if="this.roles.create">
 				<svg-icon icon="add-user" class="icon is-small"></svg-icon>
 				<span>Create</span>
 			</b-button>
@@ -58,7 +58,7 @@
 						<h3 class="block__name">{{ u.full_name }}</h3>
 						<p class="block__email">{{ u.email }}</p>
 					</div>
-					<Trigger v-if="u.role.name === 'user'" :id="u._id" />
+					<Trigger v-if="u.role.name === 'user'" :id="u._id" :visible="roles" />
 				</article>
 			</div>
 		</transition-group>
@@ -124,11 +124,15 @@ export default {
 			permission: [],
 			user: {
 				first_name: ''
-			}
+			},
+			roles: {}
 		}
 	},
-	created() {
-		Middleware('edit')
+	async created() {
+		this.roles = await Middleware()
+		if (!this.roles.read) {
+			//await this.$router.push('404')
+		}
 	},
 	mounted() {
 		this.getAllRoles()

@@ -1,5 +1,5 @@
 <template>
-	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left">
+	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left" v-if="btns">
 		<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
 		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" :data-id="id" @click="handleClick(l, id)">
 			<div v-if="showDelete(l.name)">
@@ -31,6 +31,10 @@ export default {
 			type: String,
 			required: true
 		},
+		visible: {
+			type: Object,
+			required: true
+		},
 		items: {
 			type: Array,
 			required: false,
@@ -47,6 +51,11 @@ export default {
 					}
 				]
 			}
+		}
+	},
+	data() {
+		return {
+			btns: true
 		}
 	},
 	methods: {
@@ -79,11 +88,27 @@ export default {
 								return false
 							}
 						} else if (permission !== 'administrator' || permission !== 'user') {
-							return true
+							if (name === 'Edit') {
+								return this.visible.edit
+							} else {
+								return this.visible.delete
+							}
 						}
 				}
 			} catch (e) {
 				console.log(e)
+			}
+		},
+		showButton() {
+			const permission = this.permission
+			const edit = this.visible.edit
+			const del = this.visible.delete
+			if (permission !== 'administrator' || permission !== 'user') {
+				if (edit || del) {
+					this.btns = true
+				} else {
+					this.btns = false
+				}
 			}
 		}
 	}

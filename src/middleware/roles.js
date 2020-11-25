@@ -1,6 +1,6 @@
 import Api from '@/services/api'
 
-async function roles(page) {
+async function roles() {
 	try {
 		const response = await Api.get('user/me')
 		const { permission } = response.data
@@ -9,7 +9,14 @@ async function roles(page) {
 		const url = window.location.href.split('/')[3]
 		const route = routes.find(e => e.slug === url)
 
-		switch (page) {
+		switch (url) {
+			case 'users':
+				return route.role
+			case 'roles':
+				return route.role
+		}
+
+		/*switch (page) {
 			case 'read':
 				console.log(page)
 				console.log(route.role.read)
@@ -26,7 +33,7 @@ async function roles(page) {
 				console.log(page)
 				console.log(route.role.delete)
 				break
-		}
+		}*/
 	} catch (e) {
 		console.log(e)
 	}

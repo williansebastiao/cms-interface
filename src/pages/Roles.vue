@@ -5,7 +5,7 @@
 				<span>Export</span>
 				<svg-icon class="icon is-small" icon="export"></svg-icon>
 			</b-button>
-			<b-button type="is-primary create" rounded @click="createRole($event)">
+			<b-button type="is-primary create" rounded @click="createRole($event)" v-if="this.roles.create">
 				<svg-icon icon="add-user" class="icon is-small"></svg-icon>
 				<span>Create</span>
 			</b-button>
@@ -37,7 +37,7 @@
 						<h3 class="block__name">{{ r.name }}</h3>
 						<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
 					</div>
-					<Trigger :id="r._id" :permission="r.slug" :role="user.role.name" />
+					<Trigger :id="r._id" :permission="r.slug" :role="user.role.name" :visible="roles" />
 				</article>
 			</div>
 		</transition-group>
@@ -55,6 +55,7 @@ import Results from '@/components/Results'
 import Modal from '@/components/modals/Role'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
+import Middleware from '@/middleware/roles'
 
 export default {
 	components: {
@@ -80,7 +81,8 @@ export default {
 			user: {},
 			role: {
 				name: ''
-			}
+			},
+			roles: {}
 		}
 	},
 	methods: {
@@ -267,6 +269,12 @@ export default {
 				}
 			})
 		})
+	},
+	async created() {
+		this.roles = await Middleware()
+		if (!this.roles.read) {
+			//await this.$router.push('404')
+		}
 	}
 }
 </script>

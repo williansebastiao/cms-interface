@@ -6,7 +6,7 @@ export default [
 		component: () => import('@/pages/profile/Personal'),
 		children: [
 			{
-				path: '',
+				path: 'personal',
 				name: 'Personal Information',
 				icon: 'profile',
 				component: () => import('@/pages/profile/Personal')

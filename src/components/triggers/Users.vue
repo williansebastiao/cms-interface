@@ -1,9 +1,11 @@
 <template>
-	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left">
+	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left" v-if="this.visible.edit || this.visible.delete">
 		<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
 		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" :data-id="id" @click="handleClick(l, id)">
-			<svg-icon :icon="l.icon"></svg-icon>
-			<span>{{ l.name }}</span>
+			<div v-if="showButtons(l.name)">
+				<svg-icon :icon="l.icon"></svg-icon>
+				<span>{{ l.name }}</span>
+			</div>
 		</b-dropdown-item>
 	</b-dropdown>
 </template>
@@ -19,6 +21,10 @@ export default {
 	props: {
 		id: {
 			type: String,
+			required: true
+		},
+		visible: {
+			type: Object,
 			required: true
 		},
 		items: {
@@ -51,7 +57,21 @@ export default {
 					id
 				})
 			}
+		},
+		showButtons(name) {
+			try {
+				if (name === 'Edit') {
+					return this.visible.edit
+				} else {
+					return this.visible.delete
+				}
+			} catch (e) {
+				console.log(e)
+			}
 		}
+	},
+	mounted() {
+		console.log(this.visible)
 	}
 }
 </script>

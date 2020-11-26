@@ -5,7 +5,7 @@
 				<span>Export</span>
 				<svg-icon class="icon is-small" icon="export"></svg-icon>
 			</b-button>
-			<b-button type="is-primary create" rounded @click="createRole($event)" v-if="this.roles.create">
+			<b-button type="is-primary create" rounded @click="createRole($event)" v-if="!this.roles.create">
 				<svg-icon icon="add-user" class="icon is-small"></svg-icon>
 				<span>Create</span>
 			</b-button>

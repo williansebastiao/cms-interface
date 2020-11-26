@@ -2,7 +2,7 @@
 	<div class="notifications">
 		<button class="notifications__button" @click="toggleNotification">
 			<svg-icon icon="bell"></svg-icon>
-			<span class="notifications__button__icon" v-if="counter > 0">{{this.counter}}</span>
+			<span class="notifications__button__icon" v-if="counter > 0">{{ this.counter }}</span>
 		</button>
 		<div class="notifications__list" :class="{ active: opened }" v-on:mouseleave="toggleNotification">
 			<ul class="scroll">

@@ -221,9 +221,7 @@ export default {
 						const { data } = response
 						this.permission = data
 						this.isOpening = false
-						console.log(data)
 					}
-					console.log(response)
 				} catch (e) {
 					console.log(e)
 				}

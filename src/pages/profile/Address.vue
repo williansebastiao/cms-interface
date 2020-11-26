@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<template v-slot:default="props">
+		<template>
 			<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
 				<form @submit.prevent="handleSubmit(updateProfile)">
 					<article class="profile__column panel">
@@ -13,17 +13,17 @@
 						</div>
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">Address</h3>
-							<InputWithValidation class="profile__field" tab="3" rules="required" label="Zipcode" size="is-medium" v-mask="'#####-###'" v-model="props.user.address.zipcode" :blur="findAddress" />
+							<InputWithValidation class="profile__field" tab="3" rules="required" label="Zipcode" size="is-medium" v-mask="'#####-###'" v-model="user.address.zipcode" :blur="findAddress" />
 
-							<InputWithValidation class="profile__field" tab="4" rules="required|min:2" type="text" label="Address" size="is-medium" v-model="props.user.address.street" />
+							<InputWithValidation class="profile__field" tab="4" rules="required|min:2" type="text" label="Address" size="is-medium" v-model="user.address.street" />
 
-							<InputWithValidation class="profile__field" tab="5" rules="required|min:1" type="text" label="Number" size="is-medium" ref="number" v-model="props.user.address.number" />
+							<InputWithValidation class="profile__field" tab="5" rules="required|min:1" type="text" label="Number" size="is-medium" ref="number" v-model="user.address.number" />
 
-							<InputWithValidation class="profile__field" tab="6" rules="required|min:4" type="text" label="Neighborhood" size="is-medium" v-model="props.user.address.neighborhood" />
+							<InputWithValidation class="profile__field" tab="6" rules="required|min:4" type="text" label="Neighborhood" size="is-medium" v-model="user.address.neighborhood" />
 
-							<InputWithValidation class="profile__field" tab="7" rules="required|min:2" type="text" label="State" size="is-medium" v-model="props.user.address.state" />
+							<InputWithValidation class="profile__field" tab="7" rules="required|min:2" type="text" label="State" size="is-medium" v-model="user.address.state" />
 
-							<InputWithValidation class="profile__field" tab="8" rules="required|min:4" type="text" label="City" size="is-medium" v-model="props.user.address.city" />
+							<InputWithValidation class="profile__field" tab="8" rules="required|min:4" type="text" label="City" size="is-medium" v-model="user.address.city" />
 						</div>
 					</article>
 				</form>
@@ -38,6 +38,7 @@ import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
 import { ToastProgrammatic as Toast } from 'buefy'
 import Api from '@/services/api'
+import eventHub from '@/services/eventHub'
 
 export default {
 	name: 'Address',
@@ -48,7 +49,8 @@ export default {
 	},
 	data() {
 		return {
-			loading: false
+			loading: false,
+			user: {}
 		}
 	},
 	methods: {
@@ -94,7 +96,7 @@ export default {
 		async updateProfile() {
 			try {
 				this.loading = true
-				const response = await Api.put(`user/personal`, this.user)
+				const response = await Api.put(`user/address`, this.user)
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data
@@ -118,6 +120,11 @@ export default {
 				this.loading = false
 			}
 		}
+	},
+	mounted() {
+		eventHub.$on('profile', obj => {
+			this.user = obj.user
+		})
 	}
 }
 </script>

@@ -15,6 +15,7 @@ import Layout from '@/layouts/Default'
 import Header from '@/components/Header'
 import Sidebar from '@/pages/profile/Sidebar'
 import Api from '@/services/api'
+import eventHub from '@/services/eventHub'
 
 export default {
 	name: 'Profile',
@@ -49,7 +50,9 @@ export default {
 						}
 					}
 				}
-				console.log(`user first`, this.user)
+				eventHub.$emit('profile', {
+					user: this.user
+				})
 			} catch (e) {
 				console.log(e)
 			}

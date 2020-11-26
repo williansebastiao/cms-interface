@@ -125,7 +125,6 @@ export default {
 						this.user = data
 						this.isOpening = false
 					}
-					console.log(response)
 				} catch (e) {
 					console.log(e)
 				}
@@ -163,7 +162,6 @@ export default {
 			this.loading = true
 			setTimeout(() => {
 				this.loading = false
-				console.log('Form submitted yay!')
 			}, 1000)
 		},
 		async saveUser() {
@@ -171,7 +169,6 @@ export default {
 		}
 	},
 	mounted() {
-		console.log(name)
 		this.findById()
 		this.getAllRoles()
 	}

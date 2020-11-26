@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<template v-slot:default="props">
+		<template>
 			<ValidationObserver ref="observer" v-slot="{ handleSubmit }">
 				<form @submit.prevent="handleSubmit(updateProfile)">
 					<article class="profile__column panel">
@@ -14,14 +14,14 @@
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">User Data</h3>
 
-							<InputWithValidation class="profile__field" tab="1" rules="required|min:8" type="password" label="Old Password" vid="password" size="is-medium" password-reveal v-model="props.user.old_password" />
-							<password-meter class="mb-5" :password="props.user.old_password" />
+							<InputWithValidation class="profile__field" tab="1" rules="required|min:8" type="password" label="Old Password" vid="password" size="is-medium" password-reveal v-model="user.old_password" />
+							<password-meter class="mb-5" :password="user.old_password" />
 
-							<InputWithValidation class="profile__field" tab="2" rules="required|min:8" type="password" label="New Password" vid="password" size="is-medium" password-reveal v-model="props.user.password" />
-							<password-meter class="mb-5" :password="props.user.password" />
+							<InputWithValidation class="profile__field" tab="2" rules="required|min:8" type="password" label="New Password" vid="password" size="is-medium" password-reveal v-model="user.password" />
+							<password-meter class="mb-5" :password="user.password" />
 
-							<InputWithValidation class="profile__field" tab="3" rules="required|min:8" type="password" label="Confirm your Password" vid="password" size="is-medium" password-reveal v-model="props.user.confirm_password" />
-							<password-meter class="mb-5" :password="props.user.confirm_password" />
+							<InputWithValidation class="profile__field" tab="3" rules="required|min:8" type="password" label="Confirm your Password" vid="password" size="is-medium" password-reveal v-model="user.confirm_password" />
+							<password-meter class="mb-5" :password="user.confirm_password" />
 						</div>
 					</article>
 				</form>
@@ -48,7 +48,8 @@ export default {
 	},
 	data() {
 		return {
-			loading: false
+			loading: false,
+			user: {}
 		}
 	},
 	methods: {
@@ -79,9 +80,6 @@ export default {
 				this.loading = false
 			}
 		}
-	},
-	mounted() {
-		this.me()
 	}
 }
 </script>

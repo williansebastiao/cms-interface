@@ -25,8 +25,8 @@
 				</li>
 			</ul>
 			<ul class="profile__navigation">
-				<li v-for="(m, i) in navigation.children" :key="i">
-					<router-link tag="a" :to="navigation.path + m.path">
+				<li v-for="(m, i) in navigation" :key="i">
+					<router-link tag="a" :to="m.path">
 						<svg-icon :icon="m.icon"></svg-icon>
 						<span>{{ m.name }}</span>
 					</router-link>
@@ -54,7 +54,7 @@ export default {
 	},
 	computed: {
 		navigation() {
-			return Menu[0]
+			return Menu
 		}
 	}
 }

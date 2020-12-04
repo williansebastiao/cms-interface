@@ -25,7 +25,8 @@
 						<option v-for="r in permission" :value="r._id" :key="r._id">{{ r.name }}</option>
 					</SelectWithValidation>
 
-					<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="user.password" />
+					<InputWithValidation rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="user.password" v-if="name === 'New'" />
+					<InputWithValidation type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="user.password" v-if="name === 'Edit'" />
 					<password-meter class="mb-5" :password="user.password" />
 				</div>
 			</div>

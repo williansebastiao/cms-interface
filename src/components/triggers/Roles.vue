@@ -78,7 +78,20 @@ export default {
 
 				switch (role) {
 					case 'root':
-						return true
+						if (permission === 'administrator' || permission === 'user') {
+							if (name === 'Edit') {
+								return true
+							} else {
+								return false
+							}
+						} else if (permission !== 'administrator' || permission !== 'user') {
+							if (name === 'Edit') {
+								return this.visible.edit
+							} else {
+								return this.visible.delete
+							}
+						}
+						break
 					case 'user':
 					default:
 						if (permission === 'administrator' || permission === 'user') {

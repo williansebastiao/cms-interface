@@ -9,6 +9,8 @@ async function roles() {
 		const url = window.location.href.split('/')[3]
 		const route = routes.find(e => e.slug === url)
 
+		console.log(route)
+
 		switch (url) {
 			case 'users':
 				return route.role

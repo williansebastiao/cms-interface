@@ -27,6 +27,10 @@ export default {
 			type: Object,
 			required: true
 		},
+		role: {
+			type: String,
+			required: true
+		},
 		items: {
 			type: Array,
 			required: false,
@@ -60,18 +64,23 @@ export default {
 		},
 		showButtons(name) {
 			try {
-				if (name === 'Edit') {
-					return this.visible.edit
+				if (this.role === 'root') {
+					if (name === 'Edit') {
+						return this.visible.edit
+					} else {
+						return false
+					}
 				} else {
-					return this.visible.delete
+					if (name === 'Edit') {
+						return this.visible.edit
+					} else {
+						return this.visible.delete
+					}
 				}
 			} catch (e) {
 				console.log(e)
 			}
 		}
-	},
-	mounted() {
-		console.log(this.visible)
 	}
 }
 </script>

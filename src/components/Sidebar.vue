@@ -55,6 +55,7 @@ export default {
 				const { status } = response
 				if (status === 200) {
 					localStorage.removeItem('@stup:token')
+					localStorage.removeItem('@stup:counter')
 					await this.$router.push('/')
 				}
 			} catch (e) {

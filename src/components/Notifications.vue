@@ -46,17 +46,21 @@ export default {
 			const channel = pusher.subscribe('notification')
 			channel.bind('notification', obj => {
 				this.notifications.unshift(obj)
+				Api.get('user/me').then(res => {
+					if (res.data.notification) {
+						let counter = res.data.notification['counter']
+						localStorage.setItem('@stup:counter', counter)
+						this.counter = localStorage.getItem('@stup:counter')
+					}
+				})
 				if (localStorage.getItem('@stup:counter')) {
 					this.counter = localStorage.getItem('@stup:counter')
 				}
-				this.counter++
-				localStorage.setItem('@stup:counter', this.counter)
 			})
 		},
 		async toggleNotification() {
 			this.opened = !this.opened
-			this.counter = 0
-			localStorage.setItem('@stup:counter', this.counter)
+			await this.clearNotifications()
 		},
 		async findAll() {
 			try {
@@ -65,9 +69,38 @@ export default {
 			} catch (e) {
 				console.log(e)
 			}
+		},
+		async countNotification() {
+			try {
+				const response = await Api.get('user/me')
+				const { data } = response
+				if (data.notification) {
+					let counter = data.notification['counter']
+					localStorage.setItem('@stup:counter', counter)
+					this.counter = localStorage.getItem('@stup:counter')
+				} else {
+					let counter = 0
+					localStorage.setItem('@stup:counter', counter)
+					this.counter = localStorage.getItem('@stup:counter')
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		async clearNotifications() {
+			try {
+				const response = await Api.put('notification/clearNotifications')
+				console.log(response.data.message)
+				let counter = 0
+				localStorage.setItem('@stup:counter', counter)
+				this.counter = localStorage.getItem('@stup:counter')
+			} catch (e) {
+				console.log(e)
+			}
 		}
 	},
 	mounted() {
+		this.countNotification()
 		this.findAll()
 		if (localStorage.getItem('@stup:counter')) {
 			this.counter = localStorage.getItem('@stup:counter')

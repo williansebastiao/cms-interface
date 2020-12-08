@@ -232,6 +232,8 @@ export default {
 					if (status === 200) {
 						const { data } = response
 						this.data = data
+						this.total = data.length
+						console.log(data)
 					}
 				} else {
 					await this.getAllUsers()
@@ -252,6 +254,7 @@ export default {
 				if (status === 200) {
 					const { data } = response
 					this.data = data
+					this.total = data.length
 				}
 			} catch (e) {
 				console.log(e)
@@ -269,6 +272,7 @@ export default {
 				if (status === 200) {
 					const { data } = response
 					this.data = data
+					this.total = data.length
 				}
 			} catch (e) {
 				console.log(e)
@@ -286,6 +290,7 @@ export default {
 				if (status === 200) {
 					const { data } = response
 					this.data = data
+					this.total = data.length
 				}
 			} catch (e) {
 				console.log(e)

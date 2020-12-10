@@ -58,7 +58,7 @@
 						<h3 class="block__name">{{ u.full_name }}</h3>
 						<p class="block__email">{{ u.email }}</p>
 					</div>
-					<Trigger :id="u._id" :visible="roles" :role="u.role.name" />
+					<Trigger :id="u._id" :visible="roles" :role="u.role.name" :active="u.active" />
 				</article>
 			</div>
 		</transition-group>

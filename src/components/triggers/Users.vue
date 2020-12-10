@@ -31,6 +31,10 @@ export default {
 			type: String,
 			required: true
 		},
+		active: {
+			type: Boolean,
+			required: true
+		},
 		items: {
 			type: Array,
 			required: false,
@@ -44,6 +48,11 @@ export default {
 						name: 'Delete',
 						icon: 'trash',
 						color: 'has-text-danger'
+					},
+					{
+						name: 'Restore',
+						icon: 'trash',
+						color: 'has-text-info'
 					}
 				]
 			}

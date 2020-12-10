@@ -4,7 +4,7 @@
 			<Logo width="70px" />
 		</router-link>
 		<nav class="navigation navigation--primary">
-			<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right">
+			<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right" v-show="r.visible">
 				<router-link class="navigation__link" tag="a" :to="r">
 					<svg-icon :icon="r.icon"></svg-icon>
 				</router-link>

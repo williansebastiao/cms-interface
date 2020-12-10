@@ -12,14 +12,14 @@ export default [
 		path: '/roles',
 		name: 'Roles',
 		icon: 'roles',
-		// beforeEnter: auth,
+		beforeEnter: auth,
 		component: () => import('@/pages/Roles')
 	},
 	{
 		path: '/users',
 		name: 'Users',
 		icon: 'users',
-		// beforeEnter: auth,
+		beforeEnter: auth,
 		component: () => import('@/pages/Users')
 	}
 ]

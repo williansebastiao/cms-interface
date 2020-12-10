@@ -1,7 +1,7 @@
 function auth(to, from, next) {
 	const token = localStorage.getItem('@stup:token')
 	if (!token) {
-		next('login')
+		next('Login')
 	}
 	return next()
 }

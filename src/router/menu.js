@@ -21,11 +21,5 @@ export default [
 		icon: 'users',
 		// beforeEnter: auth,
 		component: () => import('@/pages/Users')
-	},
-	{
-		path: '/404',
-		name: '404',
-		beforeEnter: auth,
-		component: () => import('@/errors/404')
 	}
 ]

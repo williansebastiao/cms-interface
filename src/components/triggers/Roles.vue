@@ -1,5 +1,5 @@
 <template>
-	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left" v-if="btns">
+	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left" v-if="btn">
 		<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
 		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" :data-id="id" @click="handleClick(l, id)">
 			<div v-if="showDelete(l.name)">
@@ -21,19 +21,15 @@ export default {
 	props: {
 		id: {
 			type: String,
-			required: true
+			required: false
 		},
 		permission: {
 			type: String,
-			required: true
-		},
-		role: {
-			type: String,
-			required: true
+			required: false
 		},
 		visible: {
 			type: Object,
-			required: true
+			required: false
 		},
 		items: {
 			type: Array,
@@ -55,7 +51,8 @@ export default {
 	},
 	data() {
 		return {
-			btns: true
+			role: {},
+			btn: true
 		}
 	},
 	methods: {
@@ -118,12 +115,19 @@ export default {
 			const del = this.visible.delete
 			if (permission !== 'administrator' || permission !== 'user') {
 				if (edit || del) {
-					this.btns = true
+					this.btn = true
 				} else {
-					this.btns = false
+					this.btn = false
 				}
 			}
 		}
+	},
+	created() {
+		eventHub.$off()
+		eventHub.$on('me', obj => {
+			const { role } = obj
+			this.role = role.name
+		})
 	}
 }
 </script>

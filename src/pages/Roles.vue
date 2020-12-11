@@ -24,7 +24,7 @@
 			</div>
 		</section>
 		<Error v-if="errored" :back="true" />
-		<Results v-if="permission == 0 && !loading" />
+		<Results v-if="permission.length == 0 && !loading" />
 		<div v-if="loading" class="columns is-multiline">
 			<div v-for="r in placeholder" :key="r" class="column is-12-mobile is-6-tablet is-4-desktop">
 				<Placeholder />
@@ -37,7 +37,7 @@
 						<h3 class="block__name">{{ r.name }}</h3>
 						<p class="block__email">{{ format(r.created_at) }} • {{ timeTo(r.created_at) }}</p>
 					</div>
-					<Trigger :id="r._id" :permission="r.slug" :role="user.role.name" :visible="roles" />
+					<Trigger :id="r._id" :permission="r.slug" :visible="roles" />
 				</article>
 			</div>
 		</transition-group>
@@ -86,17 +86,6 @@ export default {
 		}
 	},
 	methods: {
-		async me() {
-			try {
-				const response = await Api.get('user/me')
-				const { status } = response
-				if (status === 200) {
-					this.user = response.data
-				}
-			} catch (e) {
-				console.log(e)
-			}
-		},
 		async getAllRoles() {
 			try {
 				const response = await Api.get('permission/findAll')
@@ -219,7 +208,6 @@ export default {
 		}
 	},
 	mounted() {
-		this.me()
 		this.getAllRoles()
 		eventHub.$off()
 		eventHub.$on('reload-roles', () => {

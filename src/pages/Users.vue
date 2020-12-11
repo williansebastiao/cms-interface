@@ -182,6 +182,37 @@ export default {
 				}
 			})
 		})
+		eventHub.$on('restore-users', obj => {
+			this.$buefy.dialog.alert({
+				size: 'is-delete',
+				type: 'is-outlined is-primary',
+				title: 'Attention',
+				message: '<span>Do you really want <br>to <strong>restore</strong> this user?</span> <small>All users with this role will lose access.</small>',
+				canCancel: true,
+				focusOn: 'cancel',
+				cancelText: 'No',
+				confirmText: 'Yes',
+				onConfirm: async () => {
+					try {
+						const response = await Api.put(`user/restore/${obj.id}`)
+						const { status } = response
+						if (status === 200) {
+							const { message } = response.data
+							this.$buefy.toast.open({
+								type: 'is-success',
+								message: message,
+								position: 'is-bottom',
+								closable: true,
+								duration: 5000
+							})
+							await this.getAllUsers()
+						}
+					} catch (e) {
+						console.log(e)
+					}
+				}
+			})
+		})
 		eventHub.$on('reload-users', () => {
 			this.getAllUsers()
 		})

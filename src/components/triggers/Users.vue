@@ -65,8 +65,12 @@ export default {
 				eventHub.$emit('open-modal-users', {
 					id
 				})
-			} else {
+			} else if (name === 'Delete') {
 				eventHub.$emit('delete-users', {
+					id
+				})
+			} else {
+				eventHub.$emit('restore-users', {
 					id
 				})
 			}
@@ -82,8 +86,12 @@ export default {
 				} else {
 					if (name === 'Edit') {
 						return this.visible.edit
-					} else {
+					} else if (name === 'Delete') {
 						return this.visible.delete
+					} else {
+						if (!this.active) {
+							return true
+						}
 					}
 				}
 			} catch (e) {

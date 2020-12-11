@@ -5,6 +5,7 @@ function roles(type) {
 		const { permission } = response.data
 		const routes = permission.route
 		const route = routes.find(e => e.slug === type)
+		localStorage.removeItem(`@stup:${type}`)
 		localStorage.setItem(`@stup:${type}`, route.role.read)
 	})
 }

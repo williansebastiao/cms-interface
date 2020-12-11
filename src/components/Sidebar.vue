@@ -56,6 +56,9 @@ export default {
 				if (status === 200) {
 					localStorage.removeItem('@stup:token')
 					localStorage.removeItem('@stup:counter')
+					localStorage.removeItem('@stup:dashboard')
+					localStorage.removeItem('@stup:roles')
+					localStorage.removeItem('@stup:users')
 					await this.$router.push('/')
 				}
 			} catch (e) {

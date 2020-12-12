@@ -1,7 +1,7 @@
 <template>
 	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left" v-if="btn">
 		<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
-		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" :data-id="id" @click="handleClick(l, id)">
+		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" v-show="showDelete(l.name)" @click="handleClick(l, id)">
 			<div v-if="showDelete(l.name)">
 				<svg-icon :icon="l.icon"></svg-icon>
 				<span>{{ l.name }}</span>

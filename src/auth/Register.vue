@@ -44,6 +44,7 @@ import { ValidationObserver } from 'vee-validate'
 import PasswordMeter from 'vue-simple-password-meter'
 import { ToastProgrammatic as Toast } from 'buefy'
 import Api from '@/services/api'
+import Middleware from "@/middleware/sidebar";
 
 export default {
 	components: {
@@ -65,6 +66,20 @@ export default {
 		}
 	},
 	methods: {
+		async me() {
+			try {
+				if (localStorage.getItem('@stup:token')) {
+					const response = await Api.get('user/me')
+					const { status } = response
+					if (status === 200) {
+						const { data } = response
+						this.user = data
+					}
+				}
+			} catch (e) {
+				console.log(e)
+			}
+		},
 		async createUser() {
 			try {
 				this.loading = true
@@ -73,6 +88,11 @@ export default {
 				if (status === 201) {
 					const { token } = response.data
 					localStorage.setItem('@stup:token', token)
+					await this.me()
+					Middleware('dashboard', this.user)
+					Middleware('roles', this.user)
+					Middleware('users', this.user)
+					localStorage.removeItem('@stup:email')
 					await this.$router.push('dashboard')
 				}
 			} catch (e) {

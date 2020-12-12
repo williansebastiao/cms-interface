@@ -1,9 +1,4 @@
 import auth from '@/middleware/auth'
-import Middleware from '@/middleware/sidebar'
-
-Middleware('dashboard')
-Middleware('roles')
-Middleware('users')
 
 export default [
 	{

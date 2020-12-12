@@ -34,6 +34,7 @@ import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
 import Api from '@/services/api'
 import { ToastProgrammatic as Toast } from 'buefy'
+import Middleware from '@/middleware/sidebar'
 
 export default {
 	components: {
@@ -48,7 +49,8 @@ export default {
 			auth: {
 				email: '',
 				password: ''
-			}
+			},
+			user: {}
 		}
 	},
 	methods: {
@@ -60,6 +62,10 @@ export default {
 				if (status === 200) {
 					const { token } = response.data
 					localStorage.setItem('@stup:token', token)
+					await this.me()
+					Middleware('dashboard', this.user)
+					Middleware('roles', this.user)
+					Middleware('users', this.user)
 					localStorage.removeItem('@stup:email')
 					await this.$router.push('dashboard')
 				}
@@ -75,6 +81,20 @@ export default {
 				}
 			} finally {
 				this.loading = false
+			}
+		},
+		async me() {
+			try {
+				if (localStorage.getItem('@stup:token')) {
+					const response = await Api.get('user/me')
+					const { status } = response
+					if (status === 200) {
+						const { data } = response
+						this.user = data
+					}
+				}
+			} catch (e) {
+				console.log(e)
 			}
 		}
 	},

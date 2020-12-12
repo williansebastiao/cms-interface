@@ -64,6 +64,10 @@ export default {
 						type: 'is-success',
 						position: 'is-bottom-right'
 					})
+					localStorage.setItem('@stup:email', this.auth.email)
+					setTimeout(async () => {
+						await this.$router.push('/')
+					}, 500)
 				}
 			} catch (e) {
 				const { status } = e

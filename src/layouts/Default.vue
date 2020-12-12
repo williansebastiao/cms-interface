@@ -29,11 +29,13 @@ export default {
 		},
 		async me() {
 			try {
-				const response = await Api.get('user/me')
-				const { status } = response
-				if (status === 200) {
-					const { data } = response
-					eventHub.$emit('me', data)
+				if (localStorage.getItem('@stup:token')) {
+					const response = await Api.get('user/me')
+					const { status } = response
+					if (status === 200) {
+						const { data } = response
+						eventHub.$emit('me', data)
+					}
 				}
 			} catch (e) {
 				console.log(e)

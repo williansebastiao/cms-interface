@@ -60,6 +60,7 @@ export default {
 				if (status === 200) {
 					const { token } = response.data
 					localStorage.setItem('@stup:token', token)
+					localStorage.removeItem('@stup:email')
 					await this.$router.push('dashboard')
 				}
 			} catch (e) {
@@ -75,6 +76,11 @@ export default {
 			} finally {
 				this.loading = false
 			}
+		}
+	},
+	created() {
+		if (localStorage.getItem('@stup:email')) {
+			this.auth.email = localStorage.getItem('@stup:email')
 		}
 	}
 }

@@ -9,7 +9,7 @@
 								<h3 class="profile__name pt-0 is-semibold is-size-6">Password Security</h3>
 								<p class="is-size-7">Update your password</p>
 							</span>
-							<b-button @click="updateProfile" tabindex="6" native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
+							<b-button tabindex="6" native-type="submit" type="is-primary save" :loading="loading" rounded>Save</b-button>
 						</div>
 						<div class="panel__body">
 							<h3 class="profile__section has-text-primary is-semibold is-size-5">User Data</h3>

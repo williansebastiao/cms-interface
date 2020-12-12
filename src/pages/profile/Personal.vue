@@ -85,8 +85,9 @@ export default {
 		}
 	},
 	mounted() {
-		eventHub.$on('profile', obj => {
-			this.user = obj.user
+		eventHub.$off()
+		eventHub.$on('me', obj => {
+			this.user = obj
 			if (!this.user.site) {
 				this.user.site = 'http://'
 			}

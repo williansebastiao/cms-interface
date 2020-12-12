@@ -50,7 +50,16 @@ export default {
 	data() {
 		return {
 			loading: false,
-			user: {}
+			user: {
+				address: {
+					zipcode: '',
+					street: '',
+					number: '',
+					neighborhood: '',
+					state: '',
+					city: ''
+				}
+			}
 		}
 	},
 	methods: {
@@ -122,8 +131,21 @@ export default {
 		}
 	},
 	mounted() {
-		eventHub.$on('profile', obj => {
-			this.user = obj.user
+		eventHub.$on('me', obj => {
+			if (typeof obj.address === 'undefined') {
+				this.user = {
+					address: {
+						zipcode: '',
+						address: '',
+						number: '',
+						neighborhood: '',
+						state: '',
+						city: ''
+					}
+				}
+			} else {
+				this.user.address = obj.address
+			}
 		})
 	}
 }

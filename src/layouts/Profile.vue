@@ -14,7 +14,6 @@
 import Layout from '@/layouts/Default'
 import Header from '@/components/Header'
 import Sidebar from '@/pages/profile/Sidebar'
-import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
 
 export default {
@@ -29,37 +28,11 @@ export default {
 			user: {}
 		}
 	},
-	methods: {
-		async me() {
-			try {
-				const response = await Api.get('user/me')
-				const { status } = response
-				if (status === 200) {
-					this.user = response.data
-					if (!response.data.address) {
-						this.user = {
-							...this.user,
-							address: {
-								zipcode: '',
-								address: '',
-								number: '',
-								neighborhood: '',
-								state: '',
-								city: ''
-							}
-						}
-					}
-				}
-				eventHub.$emit('profile', {
-					user: this.user
-				})
-			} catch (e) {
-				console.log(e)
-			}
-		}
-	},
 	mounted() {
-		this.me()
+		eventHub.$off()
+		eventHub.$on('me', obj => {
+			this.user = obj
+		})
 	}
 }
 </script>

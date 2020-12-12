@@ -43,7 +43,6 @@ export default {
 			this.loading = false
 		} else {
 			if (window.navigator.geolocation) {
-				console.log(`axios`)
 				// Get user city based on his geolocation
 				const getUserCity = position => {
 					const { latitude, longitude } = position.coords

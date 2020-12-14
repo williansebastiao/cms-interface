@@ -35,7 +35,7 @@
 				</b-field>
 			</div>
 			<div v-if="showPagination" class="column is-flex is-justify-content-flex-end">
-				<b-pagination :current.sync="current" :total="total" :page="page" :per-page="pagination" :simple="true" :rounded="true" order="is-right" icon-prev="chevron-left" icon-next="chevron-right"></b-pagination>
+				<b-pagination @change="changeUrl" :current.sync="current" :total="total" :page="page" :per-page="pagination" :simple="true" :rounded="true" order="is-right" icon-prev="chevron-left" icon-next="chevron-right"></b-pagination>
 			</div>
 		</section>
 		<Error v-if="errored" :icon="true" :back="true" />
@@ -397,6 +397,10 @@ export default {
 						duration: 5000
 					})
 			})
+		},
+		changeUrl(val) {
+			this.current = val
+			console.log('manager.vue onPageChange event', this.current)
 		}
 	}
 }

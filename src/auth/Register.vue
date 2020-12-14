@@ -44,7 +44,7 @@ import { ValidationObserver } from 'vee-validate'
 import PasswordMeter from 'vue-simple-password-meter'
 import { ToastProgrammatic as Toast } from 'buefy'
 import Api from '@/services/api'
-import Middleware from "@/middleware/sidebar";
+import Middleware from '@/middleware/sidebar'
 
 export default {
 	components: {

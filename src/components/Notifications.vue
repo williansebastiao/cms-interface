@@ -34,7 +34,8 @@ export default {
 		return {
 			opened: false,
 			notifications: {},
-			counter: 0
+			counter: 0,
+			user: {}
 		}
 	},
 	methods: {
@@ -89,8 +90,7 @@ export default {
 		},
 		async clearNotifications() {
 			try {
-				const response = await Api.put('notification/clearNotifications')
-				console.log(response.data.message)
+				await Api.put('notification/clearNotifications')
 				let counter = 0
 				localStorage.setItem('@stup:counter', counter)
 				this.counter = localStorage.getItem('@stup:counter')

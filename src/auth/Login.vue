@@ -19,7 +19,7 @@
 					</InputWithValidation>
 
 					<span class="is-block text-center" v-if="reCaptcha">
-						<vue-recaptcha sitekey="6LdygQYaAAAAACnzQS1hx2pH8TvI_-hsdDxYz0l6" :loadRecaptchaScript="true" ref="recaptcha" @verify="onVerify" />
+						<vue-recaptcha sitekey="6LehGAYaAAAAAKjY4eqLo5nCpOIiiDM7swZp3AGn" :loadRecaptchaScript="true" ref="recaptcha" @verify="onVerify" />
 					</span>
 
 					<span class="is-block text-center">

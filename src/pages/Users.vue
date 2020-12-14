@@ -400,6 +400,7 @@ export default {
 		},
 		changeUrl(val) {
 			this.current = val
+			//window.location.href = `/users/#/${this.current}`
 			console.log('manager.vue onPageChange event', this.current)
 		}
 	}

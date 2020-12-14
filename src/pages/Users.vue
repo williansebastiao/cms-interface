@@ -130,6 +130,11 @@ export default {
 		}
 	},
 	async created() {
+		const params = window.location.href.split('/')[5]
+		if (params) {
+			this.page = params
+			this.current = params
+		}
 		this.roles = await Middleware()
 		if (!this.roles.read) {
 			await this.$router.push('404')
@@ -220,8 +225,14 @@ export default {
 	},
 	computed: {
 		users() {
-			let current = this.current - 1
-			return this.data.slice(current * this.pagination, (current + 1) * this.pagination)
+			const params = window.location.href.split('/')[5]
+			if (params) {
+				let current = params - 1
+				return this.data.slice(current * this.pagination, (current + 1) * this.pagination)
+			} else {
+				let current = this.current - 1
+				return this.data.slice(current * this.pagination, (current + 1) * this.pagination)
+			}
 		}
 	},
 	methods: {
@@ -245,8 +256,11 @@ export default {
 					const { data } = response
 					this.data = data
 					this.total = data.length
-					this.total > 15 ? this.showPagination = true : this.showPagination = false
-					this.loading = false
+					if (this.total > 15) {
+						this.showPagination = true
+					} else {
+						this.showPagination = false
+					}
 				}
 			} catch (e) {
 				console.log(e)
@@ -398,10 +412,13 @@ export default {
 					})
 			})
 		},
-		changeUrl(val) {
-			this.current = val
-			//window.location.href = `/users/${this.current}`
-			console.log('manager.vue onPageChange event', this.current)
+		changeUrl(page) {
+			this.current = page
+			if (page === 1) {
+				window.location.pathname = `/users/`
+			} else {
+				window.location.pathname = `/users/page/${this.current}`
+			}
 		}
 	}
 }

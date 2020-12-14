@@ -18,7 +18,7 @@ export default [
 		component: () => import('@/pages/Roles')
 	},
 	{
-		path: '/users/:id?',
+		path: '/users/:page?/:id?',
 		name: 'Users',
 		icon: 'users',
 		visible: JSON.parse(localStorage.getItem('@stup:users')),

@@ -18,6 +18,10 @@
 						<router-link :to="{ name: 'Forgot' }" class="auth__forgot is-primary is-semibold" tabindex="4">Forgot your password?</router-link>
 					</InputWithValidation>
 
+					<span class="is-block text-center" v-if="reCaptcha">
+						<vue-recaptcha sitekey="6LehGAYaAAAAAKjY4eqLo5nCpOIiiDM7swZp3AGn" ref="recaptcha" @verify="onVerify" />
+					</span>
+
 					<span class="is-block text-center">
 						<b-button tabindex="3" native-type="submit" class="button is-button is-primary" :loading="loading">Sign In</b-button>
 					</span>
@@ -34,6 +38,7 @@ import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
 import Api from '@/services/api'
 import { ToastProgrammatic as Toast } from 'buefy'
+import VueRecaptcha from 'vue-recaptcha'
 import Middleware from '@/middleware/sidebar'
 
 export default {
@@ -41,7 +46,8 @@ export default {
 		Layout,
 		Logo,
 		InputWithValidation,
-		ValidationObserver
+		ValidationObserver,
+		VueRecaptcha
 	},
 	data() {
 		return {
@@ -50,13 +56,29 @@ export default {
 				email: '',
 				password: ''
 			},
-			user: {}
+			user: {},
+			counter: 0,
+			reCaptcha: false,
+			reCaptchaSuccess: false
 		}
 	},
 	methods: {
+		onVerify(response) {
+			if (response) {
+				this.reCaptchaSuccess = true
+			}
+		},
 		async signIn() {
 			try {
 				this.loading = true
+				if (!this.reCaptchaSuccess && this.reCaptcha) {
+					Toast.open({
+						message: 'Dados inválidos',
+						type: 'is-danger',
+						position: 'is-bottom'
+					})
+					return
+				}
 				const response = await Api.post('user/authenticate', this.auth)
 				const { status } = response
 				if (status === 200) {
@@ -78,6 +100,11 @@ export default {
 						type: 'is-danger',
 						position: 'is-bottom'
 					})
+					this.counter++
+					if (this.counter > 0) {
+						this.reCaptcha = true
+						this.btnDisabled = true
+					}
 				}
 			} finally {
 				this.loading = false

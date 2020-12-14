@@ -34,7 +34,7 @@
 					<b-input placeholder="Search..." type="search" icon="magnify" v-model="user.first_name" @input="findByName"></b-input>
 				</b-field>
 			</div>
-			<div v-if="users.length >= 1" class="column is-flex is-justify-content-flex-end">
+			<div v-if="showPagination" class="column is-flex is-justify-content-flex-end">
 				<b-pagination :current.sync="current" :total="total" :page="page" :per-page="pagination" :simple="true" :rounded="true" order="is-right" icon-prev="chevron-left" icon-next="chevron-right"></b-pagination>
 			</div>
 		</section>
@@ -125,7 +125,8 @@ export default {
 			user: {
 				first_name: ''
 			},
-			roles: {}
+			roles: {},
+			showPagination: false
 		}
 	},
 	async created() {
@@ -244,6 +245,7 @@ export default {
 					const { data } = response
 					this.data = data
 					this.total = data.length
+					this.total > 15 ? this.showPagination = true : this.showPagination = false
 					this.loading = false
 				}
 			} catch (e) {

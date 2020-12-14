@@ -19,7 +19,7 @@
 					</InputWithValidation>
 
 					<span class="is-block text-center" v-if="reCaptcha">
-						<vue-recaptcha sitekey="6LehGAYaAAAAAKjY4eqLo5nCpOIiiDM7swZp3AGn" ref="recaptcha" @verify="onVerify" />
+						<vue-recaptcha sitekey="6LehGAYaAAAAAKjY4eqLo5nCpOIiiDM7swZp3AGn" :loadRecaptchaScript="true" ref="recaptcha" @verify="onVerify" />
 					</span>
 
 					<span class="is-block text-center">
@@ -65,13 +65,13 @@ export default {
 	methods: {
 		onVerify(response) {
 			if (response) {
-				this.reCaptchaSuccess = true
+				this.reCaptchaSuccess = false
 			}
 		},
 		async signIn() {
 			try {
 				this.loading = true
-				if (!this.reCaptchaSuccess && this.reCaptcha) {
+				if (this.reCaptchaSuccess && this.reCaptcha) {
 					Toast.open({
 						message: 'Dados inválidos',
 						type: 'is-danger',
@@ -103,7 +103,7 @@ export default {
 					this.counter++
 					if (this.counter > 0) {
 						this.reCaptcha = true
-						this.btnDisabled = true
+						this.reCaptchaSuccess = true
 					}
 				}
 			} finally {

@@ -77,6 +77,7 @@ export default {
 						type: 'is-danger',
 						position: 'is-bottom'
 					})
+					this.$refs.recaptcha.reset()
 					return
 				}
 				const response = await Api.post('user/authenticate', this.auth)
@@ -100,10 +101,14 @@ export default {
 						type: 'is-danger',
 						position: 'is-bottom'
 					})
-					this.counter++
-					if (this.counter > 0) {
-						this.reCaptcha = true
-						this.reCaptchaSuccess = true
+					if (this.reCaptcha) {
+						this.$refs.recaptcha.reset()
+					} else {
+						this.counter++
+						if (this.counter > 0) {
+							this.reCaptcha = true
+							this.reCaptchaSuccess = true
+						}
 					}
 				}
 			} finally {

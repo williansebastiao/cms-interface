@@ -59,6 +59,10 @@ export default {
 		async updateProfile() {
 			try {
 				this.loading = true
+				if (this.user.site) {
+					const url = this.user.site.replace('http://', '').replace('https://', '')
+					this.user = { ...this.user, site: `http://${url}` }
+				}
 				const response = await Api.put(`user/personal`, this.user)
 				const { status } = response
 				if (status === 200) {

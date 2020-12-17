@@ -154,7 +154,7 @@ export default {
 					})
 				} else {
 					const { message } = response.data
-					console.log(message)
+					console.log(`url: ${message}`)
 					this.$buefy.toast.open({
 						type: 'is-success',
 						message: 'The file was generated successfully',

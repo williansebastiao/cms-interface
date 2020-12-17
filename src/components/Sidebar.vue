@@ -3,17 +3,12 @@
 		<router-link class="sidebar__top" tag="a" :to="{ name: 'Dashboard' }">
 			<Logo width="70px" />
 		</router-link>
-		<nav class="navigation navigation--primary">
-			<div v-if="!visible">
-				carregando menu
-			</div>
-			<div v-if="visible">
-				<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right" v-show="showSidebarMenu(r.name)">
-					<router-link class="navigation__link" tag="a" :to="r">
-						<svg-icon :icon="r.icon"></svg-icon>
-					</router-link>
-				</b-tooltip>
-			</div>
+		<nav v-if="visible" class="navigation navigation--primary">
+			<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right" v-show="showSidebarMenu(r.name)">
+				<router-link class="navigation__link" tag="a" :to="r">
+					<svg-icon :icon="r.icon"></svg-icon>
+				</router-link>
+			</b-tooltip>
 		</nav>
 		<nav class="navigation navigation--secondary">
 			<b-tooltip label="Profile" type="is-primary" position="is-right">

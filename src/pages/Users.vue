@@ -94,7 +94,7 @@ export default {
 			current: 1,
 			page: 1,
 			total: 0,
-			pagination: 1,
+			pagination: 15,
 			data: [],
 			loading: true,
 			errored: false,

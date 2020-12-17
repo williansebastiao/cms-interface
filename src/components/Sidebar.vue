@@ -35,7 +35,7 @@ import Menu from '@/router/menu'
 import Icon from '@/components/Icon'
 import Logo from '@/components/Logo'
 import Api from '@/services/api'
-import Pusher from "pusher-js";
+import Pusher from 'pusher-js'
 
 export default {
 	name: 'Sidebar',

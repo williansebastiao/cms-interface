@@ -94,6 +94,7 @@ export default {
 				if (status === 200) {
 					const { message } = response.data
 					this.$emit('close')
+					history.pushState({}, '', '/users')
 					Toast.open({
 						message,
 						type: 'is-success',
@@ -139,6 +140,7 @@ export default {
 				if (status === 201) {
 					const { message } = response.data
 					this.$emit('close')
+					history.pushState({}, '', '/users')
 					Toast.open({
 						message,
 						type: 'is-success',

@@ -16,7 +16,7 @@ export default [
 		component: () => import('@/pages/Roles')
 	},
 	{
-		path: '/users',
+		path: '/users/:page?/:id?',
 		name: 'Users',
 		icon: 'users',
 		beforeEnter: auth,

@@ -143,14 +143,20 @@ export default {
 	mounted() {
 		this.getAllRoles()
 		this.getAllUsers()
+		this.getUrlParams()
 		eventHub.$off()
-		eventHub.$on('open-modal-users', obj => {
+		eventHub.$on('edit-modal-users', obj => {
+			history.pushState({}, '', '/users')
+			history.pushState({}, '', `users/edit/${obj.id}`)
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
 				scroll: 'clip',
 				customClass: 'is-user is-sm',
 				trapFocus: true,
+				onCancel: () => {
+					history.pushState({}, '', '/users')
+				},
 				props: {
 					id: obj.id,
 					name: 'Edit'
@@ -380,15 +386,50 @@ export default {
 				this.exporting = false
 			}
 		},
+		getUrlParams() {
+			const url = location.href.split('/')
+			const params = url[4]
+			const type = url.find(el => el === params)
+			switch (type) {
+				case 'create':
+					this.createUser()
+					break
+				case 'edit':
+					this.updateUser(url[5])
+			}
+		},
 		createUser() {
+			history.pushState({}, '', '/users')
+			history.pushState({}, '', `users/create`)
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
 				scroll: 'keep',
 				customClass: 'is-user is-sm',
 				trapFocus: true,
+				onCancel: () => {
+					history.pushState({}, '', '/users')
+				},
 				props: {
 					name: 'New'
+				}
+			})
+		},
+		updateUser(id) {
+			history.pushState({}, '', '/users')
+			history.pushState({}, '', `users/edit/${id}`)
+			this.$buefy.modal.open({
+				parent: this,
+				component: Modal,
+				scroll: 'clip',
+				customClass: 'is-user is-sm',
+				trapFocus: true,
+				onCancel: () => {
+					history.pushState({}, '', '/users')
+				},
+				props: {
+					id: id,
+					name: 'Edit'
 				}
 			})
 		},

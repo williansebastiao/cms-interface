@@ -62,7 +62,7 @@ export default {
 		handleClick(el, id) {
 			const name = el.name
 			if (name === 'Edit') {
-				eventHub.$emit('open-modal-users', {
+				eventHub.$emit('edit-modal-users', {
 					id
 				})
 			} else if (name === 'Delete') {

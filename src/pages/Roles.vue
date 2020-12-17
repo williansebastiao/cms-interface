@@ -154,7 +154,6 @@ export default {
 					})
 				} else {
 					const { message } = response.data
-					console.log(`url: ${message}`)
 					this.$buefy.toast.open({
 						type: 'is-success',
 						message: 'The file was generated successfully',
@@ -166,7 +165,7 @@ export default {
 						this.exporting = false
 						const node = document.createElement('a')
 						node.href = message
-						//node.click()
+						node.click()
 					}, 2000)
 				}
 			} catch (e) {

@@ -54,8 +54,8 @@ import Error from '@/components/Error'
 import Results from '@/components/Results'
 import Modal from '@/components/modals/Role'
 import Api from '@/services/api'
-import eventHub from '@/services/eventHub'
 import Middleware from '@/middleware/roles'
+import eventHub from '@/services/eventHub'
 
 export default {
 	components: {
@@ -209,11 +209,14 @@ export default {
 	},
 	mounted() {
 		this.getAllRoles()
-		eventHub.$off()
-		eventHub.$on('reload-roles', () => {
-			this.getAllRoles()
-		})
-		eventHub.$on('open-modal-role', obj => {
+	},
+	async created() {
+		this.roles = await Middleware()
+		if (!this.roles.read) {
+			await this.$router.push('404')
+		}
+		//eventHub.$off()
+		eventHub.$on('edit-modal-role', obj => {
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
@@ -225,6 +228,9 @@ export default {
 					name: 'Edit'
 				}
 			})
+		})
+		eventHub.$on('reload-roles', () => {
+			this.getAllRoles()
 		})
 		eventHub.$on('delete-role', obj => {
 			this.$buefy.dialog.alert({
@@ -257,12 +263,6 @@ export default {
 				}
 			})
 		})
-	},
-	async created() {
-		this.roles = await Middleware()
-		if (!this.roles.read) {
-			await this.$router.push('404')
-		}
 	}
 }
 </script>

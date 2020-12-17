@@ -4,7 +4,7 @@
 			<Logo width="70px" />
 		</router-link>
 		<nav class="navigation navigation--primary">
-			<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right" v-show="r.visible">
+			<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right">
 				<router-link class="navigation__link" tag="a" :to="r">
 					<svg-icon :icon="r.icon"></svg-icon>
 				</router-link>
@@ -44,14 +44,16 @@ export default {
 			reduce: false,
 			open: true,
 			overlay: false,
-			fullheight: true
+			fullheight: true,
+			user: {},
+			visible: true
 		}
 	},
 	methods: {
 		async logout(event) {
 			try {
 				event.preventDefault()
-				const response = await Api.post('client/logout')
+				const response = await Api.post('user/logout')
 				const { status } = response
 				if (status === 200) {
 					localStorage.removeItem('@stup:token')

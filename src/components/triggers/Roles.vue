@@ -21,15 +21,15 @@ export default {
 	props: {
 		id: {
 			type: String,
-			required: false
+			required: true
 		},
 		permission: {
 			type: String,
-			required: false
+			required: true
 		},
 		visible: {
 			type: Object,
-			required: false
+			required: true
 		},
 		items: {
 			type: Array,
@@ -59,20 +59,15 @@ export default {
 		handleClick(el, id) {
 			const name = el.name
 			if (name === 'Edit') {
-				eventHub.$emit('open-modal-role', {
-					id
-				})
+				eventHub.$emit('edit-modal-role', { id })
 			} else {
-				eventHub.$emit('delete-role', {
-					id
-				})
+				eventHub.$emit('delete-role', { id })
 			}
 		},
 		showDelete(name) {
 			try {
 				const permission = this.permission
 				const role = this.role
-
 				switch (role) {
 					case 'root':
 						if (permission === 'administrator' || permission === 'user') {
@@ -122,7 +117,7 @@ export default {
 			}
 		}
 	},
-	created() {
+	mounted() {
 		eventHub.$off()
 		eventHub.$on('me', obj => {
 			const { role } = obj

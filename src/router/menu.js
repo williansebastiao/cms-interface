@@ -9,7 +9,7 @@ export default [
 		component: () => import('@/pages/Dashboard')
 	},
 	{
-		path: '/roles',
+		path: '/roles/:page?/:id?',
 		name: 'Roles',
 		icon: 'roles',
 		beforeEnter: auth,

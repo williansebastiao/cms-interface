@@ -174,15 +174,50 @@ export default {
 				this.exporting = false
 			}
 		},
+		getUrlParams() {
+			const url = location.href.split('/')
+			const params = url[4]
+			const type = url.find(el => el === params)
+			switch (type) {
+				case 'create':
+					this.createRole()
+					break
+				case 'edit':
+					this.updateRole(url[5])
+			}
+		},
 		createRole() {
+			history.pushState({}, '', '/roles')
+			history.pushState({}, '', 'roles/create')
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
 				scroll: 'clip',
 				customClass: 'is-role is-lg',
 				trapFocus: true,
+				onCancel: () => {
+					history.pushState({}, '', '/roles')
+				},
 				props: {
 					name: 'New'
+				}
+			})
+		},
+		updateRole(id) {
+			history.pushState({}, '', '/roles')
+			history.pushState({}, '', `roles/edit/${id}`)
+			this.$buefy.modal.open({
+				parent: this,
+				component: Modal,
+				scroll: 'clip',
+				customClass: 'is-role is-lg',
+				trapFocus: true,
+				onCancel: () => {
+					history.pushState({}, '', '/roles')
+				},
+				props: {
+					id: id,
+					name: 'Edit'
 				}
 			})
 		},
@@ -209,20 +244,26 @@ export default {
 	},
 	mounted() {
 		this.getAllRoles()
+		this.getUrlParams()
 	},
 	async created() {
 		this.roles = await Middleware()
 		if (!this.roles.read) {
 			await this.$router.push('404')
 		}
-		//eventHub.$off()
+		eventHub.$off()
 		eventHub.$on('edit-modal-role', obj => {
+			history.pushState({}, '', '/roles')
+			history.pushState({}, '', `roles/edit/${obj.id}`)
 			this.$buefy.modal.open({
 				parent: this,
 				component: Modal,
 				scroll: 'clip',
 				customClass: 'is-role is-lg',
 				trapFocus: true,
+				onCancel: () => {
+					history.pushState({}, '', '/roles')
+				},
 				props: {
 					id: obj.id,
 					name: 'Edit'

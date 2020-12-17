@@ -139,7 +139,7 @@ export default {
 		}
 		this.roles = await Middleware()
 		if (!this.roles.read) {
-			await this.$router.push('404')
+			await this.$router.push('/404')
 		}
 	},
 	mounted() {

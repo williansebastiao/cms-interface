@@ -94,7 +94,7 @@ export default {
 			current: 1,
 			page: 1,
 			total: 0,
-			pagination: 15,
+			pagination: 1,
 			data: [],
 			loading: true,
 			errored: false,
@@ -130,10 +130,12 @@ export default {
 		}
 	},
 	async created() {
-		const params = window.location.href.split('/')[5]
-		if (params) {
-			this.page = params
-			this.current = params
+		const url = window.location.href.split('/')
+		const type = url.find(el => el === 'page')
+		if (type === 'page') {
+			console.log(url[5])
+			this.page = url[5]
+			this.current = url[5]
 		}
 		this.roles = await Middleware()
 		if (!this.roles.read) {
@@ -231,9 +233,10 @@ export default {
 	},
 	computed: {
 		users() {
-			const params = window.location.href.split('/')[5]
-			if (params) {
-				let current = params - 1
+			const url = window.location.href.split('/')
+			const type = url.find(el => el === 'page')
+			if (type === 'page') {
+				let current = this.current - 1
 				return this.data.slice(current * this.pagination, (current + 1) * this.pagination)
 			} else {
 				let current = this.current - 1
@@ -262,7 +265,7 @@ export default {
 					const { data } = response
 					this.data = data
 					this.total = data.length
-					if (this.total > 15) {
+					if (this.total > 1) {
 						this.showPagination = true
 					} else {
 						this.showPagination = false
@@ -456,9 +459,10 @@ export default {
 		changeUrl(page) {
 			this.current = page
 			if (page === 1) {
-				window.location.pathname = `/users/`
+				history.pushState({}, '', '/users')
 			} else {
-				window.location.pathname = `/users/page/${this.current}`
+				history.pushState({}, '', '/users')
+				history.pushState({}, '', `users/page/${this.current}`)
 			}
 		}
 	}

@@ -94,7 +94,7 @@ export default {
 			current: 1,
 			page: 1,
 			total: 0,
-			pagination: 1,
+			pagination: 15,
 			data: [],
 			loading: true,
 			errored: false,
@@ -265,7 +265,7 @@ export default {
 					const { data } = response
 					this.data = data
 					this.total = data.length
-					if (this.total > 1) {
+					if (this.total > 15) {
 						this.showPagination = true
 					} else {
 						this.showPagination = false

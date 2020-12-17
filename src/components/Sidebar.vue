@@ -4,11 +4,16 @@
 			<Logo width="70px" />
 		</router-link>
 		<nav class="navigation navigation--primary">
-			<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right">
-				<router-link class="navigation__link" tag="a" :to="r">
-					<svg-icon :icon="r.icon"></svg-icon>
-				</router-link>
-			</b-tooltip>
+			<div v-if="!visible">
+				carregando menu
+			</div>
+			<div v-if="visible">
+				<b-tooltip v-for="(r, i) in primary" :label="r.name" :key="i" type="is-primary" position="is-right" v-show="showSidebarMenu(r.name)">
+					<router-link class="navigation__link" tag="a" :to="r">
+						<svg-icon :icon="r.icon"></svg-icon>
+					</router-link>
+				</b-tooltip>
+			</div>
 		</nav>
 		<nav class="navigation navigation--secondary">
 			<b-tooltip label="Profile" type="is-primary" position="is-right">
@@ -30,6 +35,7 @@ import Menu from '@/router/menu'
 import Icon from '@/components/Icon'
 import Logo from '@/components/Logo'
 import Api from '@/services/api'
+import Pusher from "pusher-js";
 
 export default {
 	name: 'Sidebar',
@@ -45,11 +51,50 @@ export default {
 			open: true,
 			overlay: false,
 			fullheight: true,
-			user: {},
-			visible: true
+			id: '',
+			visible: false
 		}
 	},
 	methods: {
+		async me() {
+			try {
+				if (!localStorage.getItem('@stup:sidebar')) {
+					const response = await Api.get('user/me')
+					const { permission } = response.data
+					const routes = permission.route
+					const dashboard = routes.find(e => e.slug === 'dashboard')
+					const roles = routes.find(e => e.slug === 'roles')
+					const users = routes.find(e => e.slug === 'users')
+					localStorage.setItem('@stup:dashboard', dashboard.role.read)
+					localStorage.setItem('@stup:roles', roles.role.read)
+					localStorage.setItem('@stup:users', users.role.read)
+					localStorage.setItem('@stup:sidebar', 'yes')
+				}
+			} catch (e) {
+				console.log(e)
+			} finally {
+				this.visible = true
+			}
+		},
+		showSidebarMenu(el) {
+			const name = el.toLowerCase()
+			return JSON.parse(localStorage.getItem(`@stup:${name}`))
+		},
+		async subscriber() {
+			const response = await Api.get('user/me')
+			const { _id } = response.data
+			this.id = _id
+			Pusher.logToConsole = false
+			const pusher = new Pusher('53cbf8c7c95b4a051597', {
+				cluster: 'mt1'
+			})
+			const channel = pusher.subscribe('permission')
+			channel.bind(`user_${this.id}`, () => {
+				if (localStorage.getItem('@stup:sidebar')) {
+					localStorage.removeItem('@stup:sidebar')
+				}
+			})
+		},
 		async logout(event) {
 			try {
 				event.preventDefault()
@@ -61,12 +106,17 @@ export default {
 					localStorage.removeItem('@stup:dashboard')
 					localStorage.removeItem('@stup:roles')
 					localStorage.removeItem('@stup:users')
+					localStorage.removeItem('@stup:sidebar')
 					await this.$router.push('/')
 				}
 			} catch (e) {
 				console.log(e)
 			}
 		}
+	},
+	mounted() {
+		this.me()
+		this.subscriber()
 	},
 	computed: {
 		primary() {

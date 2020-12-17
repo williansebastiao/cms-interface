@@ -5,7 +5,6 @@ async function roles() {
 		const response = await Api.get('user/me')
 		const { permission } = response.data
 		const routes = permission.route
-
 		const url = window.location.href.split('/')[3]
 		const route = routes.find(e => e.slug === url)
 

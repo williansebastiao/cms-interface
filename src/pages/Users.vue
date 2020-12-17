@@ -265,7 +265,7 @@ export default {
 					const { data } = response
 					this.data = data
 					this.total = data.length
-					if (this.total > 1) {
+					if (this.total > 15) {
 						this.showPagination = true
 					} else {
 						this.showPagination = false

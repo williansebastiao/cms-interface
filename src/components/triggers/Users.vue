@@ -63,7 +63,8 @@ export default {
 			const name = el.name
 			if (name === 'Edit') {
 				eventHub.$emit('edit-modal-users', {
-					id
+					id,
+					root: this.role
 				})
 			} else if (name === 'Delete') {
 				eventHub.$emit('delete-users', {

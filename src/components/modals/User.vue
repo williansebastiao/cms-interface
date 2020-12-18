@@ -21,7 +21,7 @@
 
 					<InputWithValidation class="mb-4" rules="required|email" type="email" label="Email" size="is-medium" v-model="user.email" />
 
-					<SelectWithValidation class="mb-4" rules="required" label="Role" size="is-medium" v-model="user.permission_id">
+					<SelectWithValidation class="mb-4" rules="required" label="Role" size="is-medium" v-model="user.permission_id" :disabled="root === 'root'">
 						<option v-for="r in permission" :value="r._id" :key="r._id">{{ r.name }}</option>
 					</SelectWithValidation>
 
@@ -62,6 +62,10 @@ export default {
 		name: {
 			type: String,
 			required: true
+		},
+		root: {
+			type: String,
+			required: true
 		}
 	},
 	data() {
@@ -70,7 +74,8 @@ export default {
 			loading: false,
 			user: {},
 			role: 1,
-			permission: []
+			permission: [],
+			visible: false
 		}
 	},
 	methods: {

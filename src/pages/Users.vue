@@ -148,7 +148,6 @@ export default {
 		this.getUrlParams()
 		eventHub.$off()
 		eventHub.$on('edit-modal-users', obj => {
-			console.log(obj)
 			history.pushState({}, '', '/users')
 			history.pushState({}, '', `users/edit/${obj.id}`)
 			this.$buefy.modal.open({

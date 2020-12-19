@@ -29,10 +29,12 @@ export default {
 		}
 	},
 	mounted() {
-		eventHub.$off()
 		eventHub.$on('me', obj => {
 			this.user = obj
 		})
+	},
+	created() {
+		//eventHub.$off()
 	}
 }
 </script>

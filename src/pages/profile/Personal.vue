@@ -92,9 +92,6 @@ export default {
 		eventHub.$off()
 		eventHub.$on('me', obj => {
 			this.user = obj
-			/*if (!this.user.site) {
-				this.user.site = 'http://'
-			}*/
 		})
 	}
 }

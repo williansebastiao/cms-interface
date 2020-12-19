@@ -85,7 +85,6 @@ export default {
 								})
 							} else {
 								let address = this.user.address
-
 								address.street = body.logradouro
 								address.neighborhood = body.bairro
 								address.state = body.uf

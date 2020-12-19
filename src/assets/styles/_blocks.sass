@@ -16,10 +16,13 @@
 	box-shadow: $shadow
 	border-left: 5px solid $grey-lighter
 	transition: $transition-base
+	&.inactive
+		opacity: 0.5
 	&.placeholder
 		pointer-events: none
 	&:hover
 		// margin-top: -3px
+		opacity: 1
 		border-left-color: $primary!important
 
 	&__content
@@ -100,6 +103,8 @@
 				svg
 					width: 16px
 					margin-right: 0
+			.restore
+				top: 0
 
 		.dropdown-item
 			font-weight: $weight-medium

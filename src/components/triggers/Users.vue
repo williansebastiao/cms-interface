@@ -51,7 +51,7 @@ export default {
 					},
 					{
 						name: 'Restore',
-						icon: 'trash',
+						icon: 'restore',
 						color: 'has-text-info'
 					}
 				]

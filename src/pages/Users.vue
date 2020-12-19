@@ -47,7 +47,7 @@
 		</div>
 		<transition-group name="filtering" class="filtering columns is-multiline" tag="div">
 			<div v-for="u in users" :key="u._id" class="column is-12-mobile is-6-tablet is-4-desktop">
-				<article class="block">
+				<article :class="[!u.active ? 'block inactive' : 'block']">
 					<div class="block__avatar image is-48x48">
 						<b-tooltip v-if="u.permission" :label="u.permission.name" type="is-primary" position="is-right">
 							<span class="block__role" :style="{ background: u.permission.color }"></span>
@@ -58,7 +58,7 @@
 						<h3 class="block__name">{{ u.full_name }}</h3>
 						<p class="block__email">{{ u.email }}</p>
 					</div>
-					<Trigger :id="u._id" :visible="roles" :role="u.role.name" :active="u.active" />
+					<Trigger :id="u._id" :visible="roles" :role="u.role.name" :name="u.full_name" :active="u.active" />
 				</article>
 			</div>
 		</transition-group>

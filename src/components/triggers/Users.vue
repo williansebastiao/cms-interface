@@ -35,6 +35,10 @@ export default {
 			type: Boolean,
 			required: true
 		},
+		name: {
+			type: String,
+			required: true
+		},
 		items: {
 			type: Array,
 			required: false,
@@ -85,12 +89,18 @@ export default {
 						return false
 					}
 				} else {
-					if (name === 'Edit') {
-						return this.visible.edit
-					} else if (name === 'Delete') {
-						return this.visible.delete
+					if (this.active) {
+						if (name === 'Edit') {
+							return this.visible.edit
+						} else if (name === 'Delete') {
+							return this.visible.delete
+						}
 					} else {
-						if (!this.active) {
+						if (name === 'Edit') {
+							return false
+						} else if (name === 'Delete') {
+							return false
+						} else {
 							return true
 						}
 					}

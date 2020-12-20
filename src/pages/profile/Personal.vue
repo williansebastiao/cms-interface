@@ -89,7 +89,7 @@ export default {
 		}
 	},
 	mounted() {
-		eventHub.$off()
+		//eventHub.$off()
 		eventHub.$on('me', obj => {
 			this.user = obj
 		})

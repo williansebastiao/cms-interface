@@ -51,7 +51,7 @@
 				<footer class="modal-card-foot">
 					<b-button class="is-rounded is-outlined is-danger" @click="visible = false">Close</b-button>
 					<b-button native-type="button" class="is-rounded is-primary" @click="choosePhoto">Choose a photo</b-button>
-					<b-button native-type="button" class="is-rounded is-primary" @click="update">Save</b-button>
+					<b-button native-type="button" class="is-rounded is-primary" :loading="loading" @click="update">Save</b-button>
 					<input type="file" id="avatar" hidden accept="image/*" @change="onFileChange" />
 				</footer>
 			</form>
@@ -74,6 +74,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: false,
 			visible: false,
 			image: '',
 			file: {
@@ -119,6 +120,7 @@ export default {
 		},
 		async update() {
 			try {
+				this.loading = true
 				const formData = new FormData()
 				const config = {
 					headers: {
@@ -157,6 +159,8 @@ export default {
 						position: 'is-bottom'
 					})
 				}
+			} finally {
+				this.loading = false
 			}
 		}
 	},

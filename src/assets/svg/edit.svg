@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="11.719" height="12.144" viewBox="0 0 11.719 12.144">
-  <g transform="translate(-1529.281 -506.415)" opacity="0.3">
-    <path d="M0,12.144H2.474L9.635,4.655,7.161,2.091,0,9.58Z" transform="translate(1529.281 506.415)" fill-rule="evenodd"/>
-    <path d="M11.523,2.7a.669.669,0,0,0,0-.945L10.026.2a.614.614,0,0,0-.911,0L7.943,1.417,10.417,3.98,11.523,2.7Z" transform="translate(1529.281 506.415)" fill-rule="evenodd" opacity="0.3"/>
-  </g>
+	<g class="icon" transform="translate(-1529.281 -506.415)" opacity="0.3">
+		<path d="M0,12.144H2.474L9.635,4.655,7.161,2.091,0,9.58Z" transform="translate(1529.281 506.415)"
+			fill-rule="evenodd" />
+		<path d="M11.523,2.7a.669.669,0,0,0,0-.945L10.026.2a.614.614,0,0,0-.911,0L7.943,1.417,10.417,3.98,11.523,2.7Z"
+			transform="translate(1529.281 506.415)" fill-rule="evenodd" opacity="0.3" />
+	</g>
 </svg>

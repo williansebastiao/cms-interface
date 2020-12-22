@@ -42,7 +42,8 @@
 <script>
 import Menu from '@/router/user'
 import Icon from '@/components/Icon'
-import Avatar from '@/components/modals/Avatar'
+import Modal from '@/components/modals/Avatar'
+import eventHub from '@/services/eventHub'
 
 export default {
 	name: 'Sidebar',
@@ -60,12 +61,17 @@ export default {
 		openAvatar() {
 			this.$buefy.modal.open({
 				parent: this,
-				component: Avatar,
+				component: Modal,
 				scroll: 'clip',
 				customClass: 'is-avatar',
 				trapFocus: true
 			})
 		}
+	},
+	created() {
+		eventHub.$on('avatar', obj => {
+			this.$props.user.avatar = obj.avatar
+		})
 	},
 	computed: {
 		navigation() {

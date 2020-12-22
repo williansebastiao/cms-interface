@@ -9,7 +9,15 @@
 		<div class="modal-card-body">
 			<div class="modal-card">
 				<div class="avatar">
-					<cropper :src="image" @change="change" />
+					<cropper
+						:src="image"
+						:stencil-props="{
+							aspectRatio: 10 / 12,
+							width: 250,
+							height: 250
+						}"
+						@change="change"
+					/>
 					<input type="file" id="avatar" hidden accept="image/*" @change="onFileChange" />
 					<b-button native-type="button" class="avatar__edit" v-if="!add" @click="choosePhoto">
 						<svg-icon icon="edit"></svg-icon>
@@ -32,6 +40,7 @@ import Icon from '@/components/Icon'
 import { Cropper } from 'vue-advanced-cropper'
 import { ToastProgrammatic as Toast } from 'buefy'
 import Api from '@/services/api'
+import eventHub from '@/services/eventHub'
 
 export default {
 	name: 'Avatar',
@@ -44,7 +53,6 @@ export default {
 			add: true,
 			edit: false,
 			loading: false,
-			visible: false,
 			image: '',
 			file: {
 				avatar: '',
@@ -98,8 +106,8 @@ export default {
 				const { status } = response
 				if (status === 200) {
 					const { message, src } = response.data
-					this.$props.user.avatar = src
-					this.visible = false
+					this.$emit('close')
+					eventHub.$emit('avatar', { avatar: src })
 					this.image = ''
 					Toast.open({
 						message,
@@ -111,8 +119,8 @@ export default {
 				const { status } = e
 				if (status === 422) {
 					const { message } = e.data
-					this.visible = false
 					this.image = ''
+					this.$emit('close')
 					Toast.open({
 						message,
 						type: 'is-danger',

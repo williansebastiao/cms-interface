@@ -133,7 +133,6 @@ export default {
 		const url = window.location.href.split('/')
 		const type = url.find(el => el === 'page')
 		if (type === 'page') {
-			console.log(url[5])
 			this.page = url[5]
 			this.current = url[5]
 		}

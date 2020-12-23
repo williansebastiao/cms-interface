@@ -49,14 +49,18 @@ export default {
 						icon: 'edit'
 					},
 					{
-						name: 'Delete',
-						icon: 'trash',
-						color: 'has-text-danger'
+						name: 'Deactivate',
+						icon: 'restore'
 					},
 					{
 						name: 'Restore',
 						icon: 'restore',
 						color: 'has-text-info'
+					},
+					{
+						name: 'Delete',
+						icon: 'trash',
+						color: 'has-text-danger'
 					}
 				]
 			}

@@ -148,7 +148,6 @@ export default {
 		this.getAllRoles()
 		this.getAllUsers()
 		this.getUrlParams()
-		eventHub.$off()
 		eventHub.$on('edit-modal-users', obj => {
 			history.pushState({}, '', '/users')
 			history.pushState({}, '', `users/edit/${obj.id}`)

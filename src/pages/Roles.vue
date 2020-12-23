@@ -245,13 +245,6 @@ export default {
 	mounted() {
 		this.getAllRoles()
 		this.getUrlParams()
-	},
-	async created() {
-		this.roles = await Middleware()
-		if (!this.roles.read) {
-			await this.$router.push('/404')
-		}
-		eventHub.$off()
 		eventHub.$on('edit-modal-role', obj => {
 			history.pushState({}, '', '/roles')
 			history.pushState({}, '', `roles/edit/${obj.id}`)
@@ -271,6 +264,7 @@ export default {
 			})
 		})
 		eventHub.$on('reload-roles', () => {
+			console.log('reload')
 			this.getAllRoles()
 		})
 		eventHub.$on('delete-role', obj => {
@@ -304,6 +298,12 @@ export default {
 				}
 			})
 		})
+	},
+	async created() {
+		this.roles = await Middleware()
+		if (!this.roles.read) {
+			await this.$router.push('/404')
+		}
 	}
 }
 </script>

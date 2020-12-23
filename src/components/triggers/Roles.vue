@@ -118,7 +118,6 @@ export default {
 		}
 	},
 	mounted() {
-		eventHub.$off()
 		eventHub.$on('me', obj => {
 			const { role } = obj
 			this.role = role.name

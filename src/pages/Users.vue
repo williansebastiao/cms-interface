@@ -60,8 +60,6 @@
 					</div>
 					<Trigger :id="u._id" :visible="roles" :role="u.role.name" :name="u.full_name" :active="u.active" />
 				</article>
-				<label for="forever"><input id="forever" type="radio" name="teste" @click="changeValueDestroy(true)" />Forever</label>
-				<label for="disable"><input id="disable" type="radio" name="teste" checked @click="changeValueDestroy(false)" />Disable</label>
 			</div>
 		</transition-group>
 	</Layout>
@@ -172,7 +170,7 @@ export default {
 				size: 'is-delete',
 				type: 'is-outlined is-primary',
 				title: 'Attention',
-				message: '<span>Do you really want <br>to <strong>delete</strong> this user?</span> <small>All users with this role will lose access.</small><span><label><input name="destroy" type="radio" @onChange="this.changeValueDestroy(true)" /> Forever</label><label><input type="radio" name="destroy" checked @onChange="this.changeValueDestroy(false)" /> Disable</label></span>',
+				message: '<span>Do you really want <br>to <strong>delete</strong> this user?</span> <small>This process cannot be undone.</small>',
 				canCancel: true,
 				focusOn: 'cancel',
 				cancelText: 'No',
@@ -468,8 +466,8 @@ export default {
 			}
 		},
 		changeValueDestroy(value) {
-			console.log(value)
-			this.destroy = value
+			console.log(!value)
+			this.destroy = !value
 		}
 	}
 }

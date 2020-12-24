@@ -49,13 +49,17 @@ export default {
 						icon: 'edit'
 					},
 					{
+						name: 'Restore',
+						icon: 'restore',
+						color: 'has-text-info'
+					},
+					{
 						name: 'Deactivate',
 						icon: 'restore'
 					},
 					{
-						name: 'Restore',
-						icon: 'restore',
-						color: 'has-text-info'
+						name: 'Active',
+						icon: 'restore'
 					},
 					{
 						name: 'Delete',
@@ -78,8 +82,12 @@ export default {
 				eventHub.$emit('delete-users', {
 					id
 				})
-			} else {
+			} else if (name === 'Active') {
 				eventHub.$emit('restore-users', {
+					id
+				})
+			} else if (name === 'Deactivate') {
+				eventHub.$emit('disable-users', {
 					id
 				})
 			}
@@ -98,13 +106,15 @@ export default {
 							return this.visible.edit
 						} else if (name === 'Delete') {
 							return this.visible.delete
+						} else if (name === 'Deactivate') {
+							return true
 						}
 					} else {
 						if (name === 'Edit') {
 							return false
 						} else if (name === 'Delete') {
 							return false
-						} else {
+						} else if (name === 'Active') {
 							return true
 						}
 					}

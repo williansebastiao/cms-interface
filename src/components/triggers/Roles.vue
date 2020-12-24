@@ -1,8 +1,8 @@
 <template>
 	<b-dropdown class="block__dropdown" trigger="click" position="is-bottom-left" v-if="btn">
 		<svg-icon class="dots" slot="trigger" icon="dots"></svg-icon>
-		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" v-show="showDelete(l.name)" @click="handleClick(l, id)">
-			<div v-if="showDelete(l.name)">
+		<b-dropdown-item v-for="(l, i) in items" :key="i" :class="l.color ? l.color : 'has-text-grey-light'" v-show="showDelete(l.id)" @click="handleClick(l, id)">
+			<div v-if="showDelete(l.id)">
 				<svg-icon :icon="l.icon"></svg-icon>
 				<span>{{ l.name }}</span>
 			</div>
@@ -37,10 +37,12 @@ export default {
 			default: () => {
 				return [
 					{
+						id: 1,
 						name: 'Edit',
 						icon: 'edit'
 					},
 					{
+						id: 2,
 						name: 'Delete',
 						icon: 'trash',
 						color: 'has-text-danger'
@@ -57,8 +59,8 @@ export default {
 	},
 	methods: {
 		handleClick(el, id) {
-			const name = el.name
-			if (name === 'Edit') {
+			const name = el.id
+			if (name === 1) {
 				eventHub.$emit('edit-modal-role', { id })
 			} else {
 				eventHub.$emit('delete-role', { id })
@@ -71,13 +73,13 @@ export default {
 				switch (role) {
 					case 'root':
 						if (permission === 'administrator' || permission === 'user') {
-							if (name === 'Edit') {
+							if (name === 1) {
 								return true
 							} else {
 								return false
 							}
 						} else if (permission !== 'administrator' || permission !== 'user') {
-							if (name === 'Edit') {
+							if (name === 1) {
 								return this.visible.edit
 							} else {
 								return this.visible.delete
@@ -87,13 +89,13 @@ export default {
 					case 'user':
 					default:
 						if (permission === 'administrator' || permission === 'user') {
-							if (name === 'Edit') {
+							if (name === 1) {
 								return true
 							} else {
 								return false
 							}
 						} else if (permission !== 'administrator' || permission !== 'user') {
-							if (name === 'Edit') {
+							if (name === 1) {
 								return this.visible.edit
 							} else {
 								return this.visible.delete

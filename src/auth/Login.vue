@@ -12,9 +12,9 @@
 						</p>
 					</div>
 
-					<InputWithValidation tab="1" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
+					<InputWithValidation tab="1" class="mb-5" rules="required|email" type="email" name="email" label="Email" size="is-medium" v-model="auth.email" />
 
-					<InputWithValidation tab="2" class="mb-5" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password">
+					<InputWithValidation tab="2" class="mb-5" rules="required|min:8" type="password" name="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password">
 						<router-link :to="{ name: 'Forgot' }" class="auth__forgot is-primary is-semibold" tabindex="4">Forgot your password?</router-link>
 					</InputWithValidation>
 

@@ -58,12 +58,14 @@ export default {
 					{
 						id: 3,
 						name: 'Deactivate',
-						icon: 'restore'
+						icon: 'restore',
+						color: 'has-text-info'
 					},
 					{
 						id: 4,
 						name: 'Active',
-						icon: 'restore'
+						icon: 'restore',
+						color: 'has-text-info'
 					},
 					{
 						id: 5,

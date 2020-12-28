@@ -65,7 +65,7 @@ export default {
 		},
 		root: {
 			type: String,
-			required: true
+			required: false
 		}
 	},
 	data() {

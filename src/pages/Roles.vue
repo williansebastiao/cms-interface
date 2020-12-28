@@ -57,6 +57,7 @@ import Api from '@/services/api'
 import Middleware from '@/middleware/roles'
 import eventHub from '@/services/eventHub'
 import { exporting } from '@/helpers/toast'
+import { create, update } from '@/helpers/modal'
 
 export default {
 	components: {
@@ -176,39 +177,10 @@ export default {
 			}
 		},
 		createRole() {
-			history.pushState({}, '', '/roles')
-			history.pushState({}, '', 'roles/create')
-			this.$buefy.modal.open({
-				parent: this,
-				component: Modal,
-				scroll: 'clip',
-				customClass: 'is-role is-lg',
-				trapFocus: true,
-				onCancel: () => {
-					history.pushState({}, '', '/roles')
-				},
-				props: {
-					name: 'New'
-				}
-			})
+			create('roles', Modal, 'New')
 		},
 		updateRole(id) {
-			history.pushState({}, '', '/roles')
-			history.pushState({}, '', `roles/edit/${id}`)
-			this.$buefy.modal.open({
-				parent: this,
-				component: Modal,
-				scroll: 'clip',
-				customClass: 'is-role is-lg',
-				trapFocus: true,
-				onCancel: () => {
-					history.pushState({}, '', '/roles')
-				},
-				props: {
-					id: id,
-					name: 'Edit'
-				}
-			})
+			update('roles', id, Modal, 'Edit')
 		},
 		deleteRole() {
 			this.$buefy.dialog.alert({

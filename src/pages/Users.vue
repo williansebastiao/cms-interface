@@ -78,6 +78,7 @@ import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
 import Middleware from '@/middleware/roles'
 import { exporting } from '@/helpers/toast'
+import { create, update } from '@/helpers/modal'
 
 export default {
 	components: {
@@ -399,39 +400,10 @@ export default {
 			}
 		},
 		createUser() {
-			history.pushState({}, '', '/users')
-			history.pushState({}, '', `users/create`)
-			this.$buefy.modal.open({
-				parent: this,
-				component: Modal,
-				scroll: 'keep',
-				customClass: 'is-user is-sm',
-				trapFocus: true,
-				onCancel: () => {
-					history.pushState({}, '', '/users')
-				},
-				props: {
-					name: 'New'
-				}
-			})
+			create('users', Modal, 'New')
 		},
 		updateUser(id) {
-			history.pushState({}, '', '/users')
-			history.pushState({}, '', `users/edit/${id}`)
-			this.$buefy.modal.open({
-				parent: this,
-				component: Modal,
-				scroll: 'clip',
-				customClass: 'is-user is-sm',
-				trapFocus: true,
-				onCancel: () => {
-					history.pushState({}, '', '/users')
-				},
-				props: {
-					id: id,
-					name: 'Edit'
-				}
-			})
+			update('users', id, Modal, 'Edit')
 		},
 		deleteUser() {
 			this.$buefy.dialog.alert({

@@ -9,7 +9,7 @@
 						<p>Enter your email to reset your password.</p>
 					</div>
 
-					<InputWithValidation tab="1" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email">
+					<InputWithValidation tab="1" class="mb-5" rules="required|email" type="email" name="email" label="Email" size="is-medium" v-model="auth.email">
 						<router-link :to="{ name: 'Login' }" class="auth__forgot is-primary is-semibold">Remember your password?</router-link>
 					</InputWithValidation>
 

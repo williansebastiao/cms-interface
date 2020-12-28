@@ -14,16 +14,16 @@
 
 					<div class="columns mb-5">
 						<div class="column pl-0">
-							<InputWithValidation tab="1" rules="required|min:3" type="text" label="First Name" size="is-medium" v-model="auth.first_name" />
+							<InputWithValidation tab="1" rules="required|min:3" type="text" name="firstname" label="First Name" size="is-medium" v-model="auth.first_name" />
 						</div>
 						<div class="column pr-0">
-							<InputWithValidation tab="2" rules="required|min:3" type="text" label="Last Name" size="is-medium" v-model="auth.last_name" />
+							<InputWithValidation tab="2" rules="required|min:3" type="text" name="lastname" label="Last Name" size="is-medium" v-model="auth.last_name" />
 						</div>
 					</div>
 
-					<InputWithValidation tab="3" class="mb-5" rules="required|email" type="email" label="Email" size="is-medium" v-model="auth.email" />
+					<InputWithValidation tab="3" class="mb-5" rules="required|email" type="email" name="email" label="Email" size="is-medium" v-model="auth.email" />
 
-					<InputWithValidation tab="4" rules="required|min:8" type="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password" />
+					<InputWithValidation tab="4" rules="required|min:8" type="password" name="password" label="Password" vid="password" size="is-medium" password-reveal v-model="auth.password" />
 
 					<password-meter class="mb-5" :password="auth.password" @score="Score" />
 

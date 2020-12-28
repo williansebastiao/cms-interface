@@ -56,7 +56,7 @@ import Modal from '@/components/modals/Role'
 import Api from '@/services/api'
 import Middleware from '@/middleware/roles'
 import eventHub from '@/services/eventHub'
-import { exporting } from '@/helpers/toast'
+import { toast } from '@/helpers/toast'
 import { create, update } from '@/helpers/modal'
 
 export default {
@@ -147,10 +147,10 @@ export default {
 				const response = await Api.post('permission/export')
 				const { status } = response
 				if (status === 422) {
-					exporting('is-warning', 'The file was not generated successfully')
+					toast('is-warning', 'The file was not generated successfully')
 				} else {
 					const { message } = response.data
-					exporting('is-success', 'The file was generated successfully')
+					toast('is-success', 'The file was generated successfully')
 					setTimeout(() => {
 						this.exporting = false
 						const node = document.createElement('a')
@@ -193,13 +193,7 @@ export default {
 				cancelText: 'No',
 				confirmText: 'Yes',
 				onConfirm: () =>
-					this.$buefy.toast.open({
-						type: 'is-success',
-						message: 'This role was removed successfully',
-						position: 'is-bottom',
-						closable: true,
-						duration: 5000
-					})
+					toast('is-success', 'This role was removed successfully')
 			})
 		}
 	},
@@ -207,25 +201,9 @@ export default {
 		this.getAllRoles()
 		this.getUrlParams()
 		eventHub.$on('edit-modal-role', obj => {
-			history.pushState({}, '', '/roles')
-			history.pushState({}, '', `roles/edit/${obj.id}`)
-			this.$buefy.modal.open({
-				parent: this,
-				component: Modal,
-				scroll: 'clip',
-				customClass: 'is-role is-lg',
-				trapFocus: true,
-				onCancel: () => {
-					history.pushState({}, '', '/roles')
-				},
-				props: {
-					id: obj.id,
-					name: 'Edit'
-				}
-			})
+			update('roles', obj.id, Modal, 'Edit')
 		})
 		eventHub.$on('reload-roles', () => {
-			console.log('reload')
 			this.getAllRoles()
 		})
 		eventHub.$on('delete-role', obj => {
@@ -244,13 +222,7 @@ export default {
 						const { status } = response
 						if (status === 200) {
 							const { message } = response.data
-							this.$buefy.toast.open({
-								type: 'is-success',
-								message: message,
-								position: 'is-bottom',
-								closable: true,
-								duration: 5000
-							})
+							toast('is-success', message)
 							await this.getAllRoles()
 						}
 					} catch (e) {

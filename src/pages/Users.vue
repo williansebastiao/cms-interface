@@ -77,7 +77,7 @@ import Modal from '@/components/modals/User'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
 import Middleware from '@/middleware/roles'
-import { exporting } from '@/helpers/toast'
+import { toast } from '@/helpers/toast'
 import { create, update } from '@/helpers/modal'
 
 export default {
@@ -150,23 +150,7 @@ export default {
 		this.getUrlParams()
 		eventHub.$off()
 		eventHub.$on('edit-modal-users', obj => {
-			history.pushState({}, '', '/users')
-			history.pushState({}, '', `users/edit/${obj.id}`)
-			this.$buefy.modal.open({
-				parent: this,
-				component: Modal,
-				scroll: 'clip',
-				customClass: 'is-user is-sm',
-				trapFocus: true,
-				onCancel: () => {
-					history.pushState({}, '', '/users')
-				},
-				props: {
-					id: obj.id,
-					name: 'Edit',
-					root: obj.root
-				}
-			})
+			update('users', obj.id, Modal, 'Edit', obj.root)
 		})
 		eventHub.$on('disable-users', async obj => {
 			try {
@@ -174,13 +158,7 @@ export default {
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data
-					this.$buefy.toast.open({
-						type: 'is-success',
-						message: message,
-						position: 'is-bottom',
-						closable: true,
-						duration: 5000
-					})
+					toast('is-success', message)
 					await this.getAllUsers()
 				}
 			} catch (e) {
@@ -203,13 +181,7 @@ export default {
 						const { status } = response
 						if (status === 200) {
 							const { message } = response.data
-							this.$buefy.toast.open({
-								type: 'is-success',
-								message: message,
-								position: 'is-bottom',
-								closable: true,
-								duration: 5000
-							})
+							toast('is-success', message)
 							await this.getAllUsers()
 						}
 					} catch (e) {
@@ -224,13 +196,7 @@ export default {
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data
-					this.$buefy.toast.open({
-						type: 'is-success',
-						message: message,
-						position: 'is-bottom',
-						closable: true,
-						duration: 5000
-					})
+					toast('is-success', message)
 					await this.getAllUsers()
 				}
 			} catch (e) {
@@ -370,10 +336,10 @@ export default {
 				const response = await Api.post('user/export')
 				const { status } = response
 				if (status === 422) {
-					exporting('is-warning', 'The file was not generated successfully')
+					toast('is-warning', 'The file was not generated successfully')
 				} else {
 					const { message } = response.data
-					exporting('is-success', 'The file was generated successfully')
+					toast('is-success', 'The file was generated successfully')
 					setTimeout(() => {
 						this.exporting = false
 						const node = document.createElement('a')
@@ -404,26 +370,6 @@ export default {
 		},
 		updateUser(id) {
 			update('users', id, Modal, 'Edit')
-		},
-		deleteUser() {
-			this.$buefy.dialog.alert({
-				size: 'is-delete',
-				type: 'is-outlined is-primary',
-				title: 'Attention',
-				message: "<span>Do you really want <br>to <strong>delete</strong> this entry?</span> <small>This action can't be reversed.</small>",
-				canCancel: true,
-				focusOn: 'cancel',
-				cancelText: 'No',
-				confirmText: 'Yes',
-				onConfirm: () =>
-					this.$buefy.toast.open({
-						type: 'is-success',
-						message: 'This user was removed successfully',
-						position: 'is-bottom',
-						closable: true,
-						duration: 5000
-					})
-			})
 		},
 		changeUrl(page) {
 			this.current = page

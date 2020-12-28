@@ -1,6 +1,6 @@
 import { ToastProgrammatic as Toast } from 'buefy'
 
-const exporting = (type, message) => {
+const toast = (type, message) => {
 	Toast.open({
 		type: type,
 		message: message,
@@ -10,4 +10,4 @@ const exporting = (type, message) => {
 	})
 }
 
-export { exporting }
+export { toast }

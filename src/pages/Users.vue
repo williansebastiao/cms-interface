@@ -77,6 +77,7 @@ import Modal from '@/components/modals/User'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
 import Middleware from '@/middleware/roles'
+import { exporting } from '@/helpers/toast'
 
 export default {
 	components: {
@@ -238,7 +239,6 @@ export default {
 		eventHub.$on('reload-users', () => {
 			this.getAllUsers()
 		})
-
 	},
 	computed: {
 		users() {
@@ -369,22 +369,10 @@ export default {
 				const response = await Api.post('user/export')
 				const { status } = response
 				if (status === 422) {
-					this.$buefy.toast.open({
-						type: 'is-warning',
-						message: 'The file was not generated successfully',
-						position: 'is-bottom',
-						closable: false,
-						duration: 4000
-					})
+					exporting('is-warning', 'The file was not generated successfully')
 				} else {
 					const { message } = response.data
-					this.$buefy.toast.open({
-						type: 'is-success',
-						message: 'The file was generated successfully',
-						position: 'is-bottom',
-						closable: false,
-						duration: 4000
-					})
+					exporting('is-success', 'The file was generated successfully')
 					setTimeout(() => {
 						this.exporting = false
 						const node = document.createElement('a')

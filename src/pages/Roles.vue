@@ -192,8 +192,9 @@ export default {
 				focusOn: 'cancel',
 				cancelText: 'No',
 				confirmText: 'Yes',
-				onConfirm: () =>
+				onConfirm: () => {
 					toast('is-success', 'This role was removed successfully')
+				}
 			})
 		}
 	},

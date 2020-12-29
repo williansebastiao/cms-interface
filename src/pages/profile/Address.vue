@@ -36,9 +36,9 @@
 import Layout from '@/layouts/Profile'
 import InputWithValidation from '@/components/inputs/InputWithValidation'
 import { ValidationObserver } from 'vee-validate'
-import { ToastProgrammatic as Toast } from 'buefy'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
+import { toast } from '@/helpers/toast'
 
 export default {
 	name: 'Address',
@@ -67,22 +67,14 @@ export default {
 			try {
 				const zipcode = /^\d{5}$|^\d{5}-\d{3}$/
 				if (!zipcode.test(e.target.value)) {
-					Toast.open({
-						message: 'Digite corretamente o cep',
-						type: 'is-danger',
-						position: 'is-bottom'
-					})
+					toast('is-danger', 'Digite corretamente o cep')
 				} else {
 					const cep = e.target.value.replace(/\D/g, '')
 					fetch(`https://viacep.com.br/ws/${cep}/json`)
 						.then(response => response.json())
 						.then(body => {
 							if (body.erro) {
-								Toast.open({
-									message: 'Cep não encontrado ou inválido!',
-									type: 'is-danger',
-									position: 'is-bottom'
-								})
+								toast('is-danger', 'Cep não encontrado ou inválido!')
 							} else {
 								let address = this.user.address
 								address.street = body.logradouro
@@ -108,21 +100,13 @@ export default {
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data
-					Toast.open({
-						message,
-						type: 'is-success',
-						position: 'is-bottom'
-					})
+					toast('is-success', message)
 				}
 			} catch (e) {
 				const { status } = e
 				if (status === 422) {
 					const { message } = e.data
-					Toast.open({
-						message,
-						type: 'is-danger',
-						position: 'is-bottom'
-					})
+					toast('is-danger', message)
 				}
 			} finally {
 				this.loading = false

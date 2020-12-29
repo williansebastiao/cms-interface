@@ -36,7 +36,7 @@ import InputWithValidation from '@/components/inputs/InputWithValidation'
 import PasswordMeter from 'vue-simple-password-meter'
 import Api from '@/services/api'
 import { ValidationObserver } from 'vee-validate'
-import { ToastProgrammatic as Toast } from 'buefy'
+import { toast } from '@/helpers/toast'
 
 export default {
 	name: 'Password',
@@ -60,21 +60,13 @@ export default {
 				const { status } = response
 				if (status === 200) {
 					const { message } = response.data
-					Toast.open({
-						message,
-						type: 'is-success',
-						position: 'is-bottom'
-					})
+					toast('is-success', message)
 				}
 			} catch (e) {
 				const { status } = e
 				if (status === 422) {
 					const { message } = e.data
-					Toast.open({
-						message,
-						type: 'is-danger',
-						position: 'is-bottom'
-					})
+					toast('is-danger', message)
 				}
 			} finally {
 				this.loading = false

@@ -1,6 +1,6 @@
 import { ToastProgrammatic as Toast } from 'buefy'
 
-const toast = (type, message) => {
+function toast(type, message) {
 	Toast.open({
 		type: type,
 		message: message,

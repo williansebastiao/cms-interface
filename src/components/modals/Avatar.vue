@@ -12,7 +12,7 @@
 					<cropper
 						:src="image"
 						:stencil-props="{
-							aspectRatio: 10 / 12,
+							aspectRatio: 1,
 							width: 250,
 							height: 250
 						}"
@@ -38,7 +38,7 @@
 <script>
 import Icon from '@/components/Icon'
 import { Cropper } from 'vue-advanced-cropper'
-import { ToastProgrammatic as Toast } from 'buefy'
+import { toast } from '@/helpers/toast'
 import Api from '@/services/api'
 import eventHub from '@/services/eventHub'
 
@@ -109,11 +109,7 @@ export default {
 					this.$emit('close')
 					eventHub.$emit('avatar', { avatar: src })
 					this.image = ''
-					Toast.open({
-						message,
-						type: 'is-success',
-						position: 'is-bottom'
-					})
+					toast('is-success', message)
 				}
 			} catch (e) {
 				const { status } = e
@@ -121,11 +117,7 @@ export default {
 					const { message } = e.data
 					this.image = ''
 					this.$emit('close')
-					Toast.open({
-						message,
-						type: 'is-danger',
-						position: 'is-bottom'
-					})
+					toast('is-danger', message)
 				}
 			} finally {
 				this.loading = false

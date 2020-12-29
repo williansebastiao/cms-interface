@@ -2,11 +2,13 @@
 	<aside class="column profile__sidebar">
 		<div class="profile__column ">
 			<div class="columns mb-0">
-				<div class="column is-one-third profile__image">
-					<b-button native-type="button" class="avatar__edit" @click="openAvatar">
-						<svg-icon icon="edit"></svg-icon>
-					</b-button>
-					<img :src="user.avatar" :alt="user.full_name" />
+				<div class="column is-one-third">
+					<div class="profile__image">
+						<b-button native-type="button" class="profile__image__edit" @click="openAvatar">
+							<svg-icon icon="edit"></svg-icon>
+						</b-button>
+						<img :src="user.avatar" :alt="user.full_name" />
+					</div>
 				</div>
 				<div class="column">
 					<h3 class="profile__name is-semibold is-size-5">{{ user.full_name }}</h3>

@@ -10,7 +10,9 @@
 yarn install // to install project dependencies
 ```
 
-cp .env.example .env
+```js
+cp .env.example .env // to create your .env file
+```
 
 ```js
 yarn run serve

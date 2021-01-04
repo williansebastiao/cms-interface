@@ -8,7 +8,7 @@ export default [
 	{
 		path: '/profile/address',
 		name: 'Address Information',
-		icon: 'profile',
+		icon: 'address',
 		component: () => import('@/pages/profile/Address')
 	},
 	/*{

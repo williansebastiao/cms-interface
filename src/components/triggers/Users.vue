@@ -65,7 +65,7 @@ export default {
 						id: 4,
 						name: 'Active',
 						icon: 'restore',
-						color: 'has-text-info'
+						color: 'has-text-info active'
 					},
 					{
 						id: 5,

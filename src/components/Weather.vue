@@ -49,7 +49,7 @@ export default {
 					axios
 						.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=1151dcbe57f947b0917cea8841719fef`)
 						.then(response => {
-							let city = response.data.results[0].components.city
+							let city = response.data.results[0].components.city_district
 							this.city = city
 							sessionStorage.setItem(sc, city)
 							getTemperature(city)

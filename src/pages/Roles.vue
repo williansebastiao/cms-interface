@@ -1,11 +1,13 @@
 <template>
 	<Layout>
 		<Header>
-			<b-button v-if="!errored" type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="exportRoles($event)">
+			<b-skeleton v-if="!errored && !this.roles.read" height="30" position="is-centered" animated></b-skeleton>
+			<b-button v-else type="is-secondary export" :loading="exporting" size="is-small" rounded outlined @click="exportRoles($event)">
 				<span>Export</span>
 				<svg-icon class="icon is-small" icon="export"></svg-icon>
 			</b-button>
-			<b-button type="is-primary create" rounded @click="createRole($event)" v-if="this.roles.create">
+			<b-skeleton v-if="!this.roles.create" height="40" position="is-right" animated></b-skeleton>
+			<b-button v-else type="is-primary create" rounded @click="createRole($event)">
 				<svg-icon icon="add-user" class="icon is-small"></svg-icon>
 				<span>Create</span>
 			</b-button>

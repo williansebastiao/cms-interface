@@ -11,12 +11,12 @@ export default [
 		icon: 'address',
 		component: () => import('@/pages/profile/Address')
 	},
-	/*{
-		path: '/profile/notifications',
-		name: 'Notification Settings',
-		icon: 'bell',
-		component: () => import('@/pages/profile/Notifications')
-	},*/
+	// {
+	// 	path: '/profile/notifications',
+	// 	name: 'Notification Settings',
+	// 	icon: 'bell',
+	// 	component: () => import('@/pages/profile/Notifications')
+	// },
 	{
 		path: '/profile/password',
 		name: 'Password Security',
